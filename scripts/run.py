@@ -16,21 +16,22 @@ from flowedit.flux import FlowEditFLUX
 from flowedit.instaflow import FlowEditInstaFlow
 
 def test_one(model_name: str,
-             csv_file: str,
-             yaml_file: str,
+             csv_path: str,
+             yaml_path: str,
              configs: Dict[str, Dict[str, str]],
              image_name: str,
+             image_dir: str,
              tar_prompt_index: int = 0) -> None:
 
     # Lấy URL từ CSV
-    img_url = load_dataset_info(csv_file, image_name)
+    img_url = image_dir + image_name + ".png"
     if not img_url:
-        img_url = f"Không tìm thấy URL cho ảnh '{image_name}' trong file {csv_file}"
+        img_url = f"Không tìm thấy URL cho ảnh '{image_name}'"
     
     # Lấy Prompt từ YAML
-    src_prompt, tgt_prompt, neg_prompt = load_prompt_info(yaml_file, image_name, tar_prompt_index)
+    src_prompt, tgt_prompt, neg_prompt = load_prompt_info(yaml_path, image_name, tar_prompt_index)
     if src_prompt is None:
-        print(f"Error: Không tìm thấy thông tin prompt cho ảnh '{image_name}' trong file {yaml_file}")
+        print(f"Error: Không tìm thấy thông tin prompt cho ảnh '{image_name}' trong file {yaml_path}")
         return
 
     print(f"- URL ảnh: {img_url}")
@@ -62,7 +63,6 @@ def test_one(model_name: str,
     np.random.seed(seed)
     
     # Bước 4: Load ảnh từ URL
-    img_url = f"/kaggle/input/instaedit/Images/Images/{image_name}.png"
     init_image = load_image(img_url)
     
     if init_image is None:
@@ -165,8 +165,8 @@ def test_one(model_name: str,
         result_pil = pipe.image_processor.postprocess(image_out, output_type="pil")[0]
 
     # Bước 8: Display và Save ảnh
-    os.makedirs("outputs", exist_ok=True)
-    save_name = f"outputs/{image_name}_{model_name}.png"
+    os.makedirs("outputs/test_one/", exist_ok=True)
+    save_name = f"outputs/{image_name}_{model_name}_{tar_prompt_index}.png"
     
     result_pil.save(save_name)
     print(f"Saved to {save_name}")
@@ -185,20 +185,21 @@ def test_one(model_name: str,
 
 
 def test_all(model_name: str,
-             csv_file: str,
-             yaml_file: str,
+             csv_path: str,
+             yaml_path: str,
              configs: Dict[str, Dict[str, str]],
+             image_dir: str,
              output_src_dir: str,
              output_tar_dir: str) -> None:
     # Lấy danh sách toàn bộ tên ảnh
-    all_image_names = load_dataset_info(csv_file, take_all=True)
+    all_image_names = load_dataset_info(csv_path, take_all=True)
     if not all_image_names:
         print("Không tìm thấy ảnh nào trong file CSV")
         return
 
     # Lấy toàn bộ map prompt/code
     # Cấu trúc: { "bear": { "1_black_bear": {"source": "...", "target": "..."}, ... }, ... }
-    all_prompts_map = load_prompt_info(yaml_file, image_key=all_image_names, take_all=True)
+    all_prompts_map = load_prompt_info(yaml_path, image_key=all_image_names, take_all=True)
     if not all_prompts_map:
         print("Không load được thông tin prompt")
         return
@@ -226,7 +227,7 @@ def test_all(model_name: str,
     # Duyệt qua từng ảnh gốc trong dictionary prompt
     for image_name, codes_data in tqdm(all_prompts_map.items(), desc="Processing Images"):
         # Load và Tiền xử lý ảnh gốc
-        img_url = f"/kaggle/input/instaedit/Images/Images/{image_name}.png"
+        img_url = image_dir + image_name + ".png"
         init_image = load_image(img_url)
         if init_image is None:
             print(f"Bỏ qua '{image_name}': Load ảnh thất bại")

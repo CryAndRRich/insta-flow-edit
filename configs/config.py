@@ -1,10 +1,12 @@
 from typing import Dict, Any, Tuple, Optional
 
 class Config:
-    CSV_FILE = "/kaggle/input/instaedit/dataset.csv"
-    YAML_FILE = "/kaggle/input/instaedit/flowedit.yaml"
-    OUTPUT_SRC_DIR = "/kaggle/working/outputs/Source"
-    OUTPUT_TAR_DIR = "/kaggle/working/outputs/Target"
+    CSV_PATH = "data/flowedit_dataset.csv"
+    YAML_PATH = "data/flowedit_prompt.yaml"
+    IMAGE_DIR = "data/flowedit_images"
+
+    OUTPUT_SRC_DIR = "data/outputs/source"
+    OUTPUT_TAR_DIR = "data/outputs/target"
 
     MODEL = {
         "SD3": {
@@ -40,20 +42,20 @@ class Config:
     }
 
     @classmethod
-    def get_csv_file(self) -> str:
-        return self.CSV_FILE
+    def get_csv_path(self) -> str:
+        return self.CSV_PATH
 
     @classmethod
-    def set_csv_file(self, path: str) -> None:
-        self.CSV_FILE = path
+    def set_csv_path(self, path: str) -> None:
+        self.CSV_PATH = path
 
     @classmethod
-    def get_yaml_file(self) -> str:
-        return self.YAML_FILE
+    def get_yaml_path(self) -> str:
+        return self.YAML_PATH
 
     @classmethod
-    def set_yaml_file(self, path: str) -> None:
-        self.YAML_FILE = path
+    def set_yaml_path(self, path: str) -> None:
+        self.YAML_PATH = path
     
     @classmethod
     def get_output_dirs(self) -> Tuple[str, str]:

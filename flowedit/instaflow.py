@@ -65,7 +65,7 @@ def FlowEditInstaFlow(pipe: Any,
                       x_src: torch.Tensor,
                       src_prompt: str,
                       tar_prompt: str,
-                      negative_prompt: str,
+                      neg_prompt: str,
                       T_steps: int = 20,
                       n_avg: int = 1,
                       src_guidance_scale: float = 1.5,
@@ -78,8 +78,8 @@ def FlowEditInstaFlow(pipe: Any,
     device = x_src.device
     
     # Encode Prompts (SD1.5 encode trả về tuple 2 giá trị)
-    src_embeds, src_neg_embeds = pipe.encode_prompt(src_prompt, device, 1, True, negative_prompt)
-    tar_embeds, tar_neg_embeds = pipe.encode_prompt(tar_prompt, device, 1, True, negative_prompt)
+    src_embeds, src_neg_embeds = pipe.encode_prompt(src_prompt, device, 1, True, neg_prompt)
+    tar_embeds, tar_neg_embeds = pipe.encode_prompt(tar_prompt, device, 1, True, neg_prompt)
     
     # Ghép batch: [Neg_Src, Pos_Src, Neg_Tar, Pos_Tar]
     combined_prompt_embeds = torch.cat([src_neg_embeds, src_embeds, tar_neg_embeds, tar_embeds], dim=0)
@@ -96,7 +96,7 @@ def FlowEditInstaFlow(pipe: Any,
         # Tính bước nhảy thời gian dt
         t_curr = t
         t_next = timesteps[i + 1] if i + 1 < len(timesteps) else torch.tensor(0.0).to(device)
-        dt = abs(t_next - t_curr)
+        dt = abs(t_next - t_curr) # InstaFlow dùng dt dương
 
         # Giai đoạn 1: Coupled Flow
         if T_steps - i > n_min:
@@ -112,7 +112,14 @@ def FlowEditInstaFlow(pipe: Any,
                 # Ghép batch 4: [Src_Uncond, Src_Cond, Tar_Uncond, Tar_Cond]
                 latent_input = torch.cat([zt_src, zt_src, zt_tar, zt_tar])
                 
-                vt_src, vt_tar = calc_v_instaflow(pipe, latent_input, combined_prompt_embeds, src_guidance_scale, tar_guidance_scale, t_curr)
+                vt_src, vt_tar = calc_v_instaflow(
+                    pipe, 
+                    latent_input, 
+                    combined_prompt_embeds, 
+                    src_guidance_scale, 
+                    tar_guidance_scale, 
+                    t_curr
+                )
                 V_delta_avg += (1 / n_avg) * (vt_tar - vt_src)
 
             # Cập nhật Euler
@@ -126,7 +133,14 @@ def FlowEditInstaFlow(pipe: Any,
                 xt_tar = zt_edit + xt_src - x_src
             
             latent_input = torch.cat([xt_tar, xt_tar, xt_tar, xt_tar])
-            _, vt_tar = calc_v_instaflow(pipe, latent_input, combined_prompt_embeds, src_guidance_scale, tar_guidance_scale, t_curr)
+            _, vt_tar = calc_v_instaflow(
+                pipe, 
+                latent_input, 
+                combined_prompt_embeds, 
+                src_guidance_scale, 
+                tar_guidance_scale, 
+                t_curr
+            )
             
             xt_tar = xt_tar + dt * vt_tar
             if i == len(timesteps) - 1: 

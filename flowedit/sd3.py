@@ -8,9 +8,9 @@ from diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion import retri
 from .utils import scale_noise
 
 def calc_v_sd3(pipe: Any, 
-               src_tar_latent_model_input: torch.Tensor, 
-               src_tar_prompt_embeds: torch.Tensor, 
-               src_tar_pooled_prompt_embeds: torch.Tensor, 
+               latents: torch.Tensor, 
+               prompt_embeds: torch.Tensor, 
+               pooled_prompt_embeds: torch.Tensor, 
                src_guidance_scale: float, 
                tar_guidance_scale: float, 
                t: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
@@ -19,9 +19,9 @@ def calc_v_sd3(pipe: Any,
 
     Parameters:
         pipe: SD3 Pipeline
-        src_tar_latent_model_input: Input latent gộp (batch size = 4)
-        src_tar_prompt_embeds: Text embeddings gộp
-        src_tar_pooled_prompt_embeds: Pooled text embeddings gộp
+        latents: Input latent gộp (batch size = 4)
+        prompt_embeds: Text embeddings gộp
+        pooled_prompt_embeds: Pooled text embeddings gộp
         src_guidance_scale: Hệ số CFG cho ảnh nguồn
         tar_guidance_scale: Hệ số CFG cho ảnh đích
         t: Timestep hiện tại
@@ -30,15 +30,15 @@ def calc_v_sd3(pipe: Any,
         Tuple[torch.Tensor, torch.Tensor]: (Velocity nguồn, Velocity đích)
     """
     # Mở rộng timestep t để khớp với batch size của input (thường là 4)
-    timestep = t.expand(src_tar_latent_model_input.shape[0])
+    timestep = t.expand(latents.shape[0])
 
     with torch.no_grad():
         # Chạy forward pass qua Transformer của SD3
         vel_pred_src_tar = pipe.transformer(
-            hidden_states=src_tar_latent_model_input,
+            hidden_states=latents,
             timestep=timestep,
-            encoder_hidden_states=src_tar_prompt_embeds,
-            pooled_projections=src_tar_pooled_prompt_embeds,
+            encoder_hidden_states=prompt_embeds,
+            pooled_projections=pooled_prompt_embeds,
             joint_attention_kwargs=None,
             return_dict=False,
         )[0]
@@ -60,13 +60,13 @@ def FlowEditSD3(pipe: Any,
                 x_src: torch.Tensor,
                 src_prompt: str,
                 tar_prompt: str,
-                negative_prompt: str,
+                neg_prompt: str,
                 T_steps: int = 50,
                 n_avg: int = 1,
                 src_guidance_scale: float = 3.5,
                 tar_guidance_scale: float = 13.5,
                 n_min: int = 0,
-                n_max: int = 15) -> torch.Tensor:
+                n_max: int = 33) -> torch.Tensor:
     """
     Thuật toán FlowEdit áp dụng cho SD3
     
@@ -76,7 +76,7 @@ def FlowEditSD3(pipe: Any,
         x_src: Latent của ảnh gốc (Source Image)
         src_prompt: Prompt mô tả ảnh gốc
         tar_prompt: Prompt mô tả ảnh đích mong muốn
-        negative_prompt: Prompt mô tả ảnh đích không mong muốn
+        neg_prompt: Prompt mô tả ảnh đích không mong muốn
         T_steps: Tổng số bước lấy mẫu
         n_avg: Số lần lấy trung bình nhiễu tại mỗi bước (để ổn định ODE)
         src_guidance_scale: CFG scale cho source
@@ -103,7 +103,7 @@ def FlowEditSD3(pipe: Any,
         prompt=src_prompt, 
         prompt_2=None, 
         prompt_3=None, 
-        negative_prompt=negative_prompt, 
+        neg_prompt=neg_prompt, 
         do_classifier_free_guidance=True, 
         device=device
     )
@@ -115,7 +115,7 @@ def FlowEditSD3(pipe: Any,
         prompt=tar_prompt, 
         prompt_2=None, 
         prompt_3=None, 
-        negative_prompt=negative_prompt, 
+        neg_prompt=neg_prompt, 
         do_classifier_free_guidance=True, 
         device=device
     )
@@ -123,8 +123,8 @@ def FlowEditSD3(pipe: Any,
     torch.cuda.empty_cache() 
     
     # Ghép các embeddings lại để xử lý batch: [Neg_Src, Pos_Src, Neg_Tar, Pos_Tar]
-    src_tar_prompt_embeds = torch.cat([src_negative_prompt_embeds, src_prompt_embeds, tar_negative_prompt_embeds, tar_prompt_embeds], dim=0)
-    src_tar_pooled_prompt_embeds = torch.cat([src_negative_pooled_prompt_embeds, src_pooled_prompt_embeds, tar_negative_pooled_prompt_embeds, tar_pooled_prompt_embeds], dim=0)
+    prompt_embeds = torch.cat([src_negative_prompt_embeds, src_prompt_embeds, tar_negative_prompt_embeds, tar_prompt_embeds], dim=0)
+    pooled_prompt_embeds = torch.cat([src_negative_pooled_prompt_embeds, src_pooled_prompt_embeds, tar_negative_pooled_prompt_embeds, tar_pooled_prompt_embeds], dim=0)
     
     # Khởi tạo latent cần chỉnh sửa Z_edit (ban đầu là ảnh gốc X_src)
     zt_edit = x_src.clone()
@@ -157,10 +157,18 @@ def FlowEditSD3(pipe: Any,
                 zt_tar = zt_edit + zt_src - x_src
 
                 # Chuẩn bị input cho model: ghép [Src_Uncond, Src_Cond, Tar_Uncond, Tar_Cond]
-                src_tar_latent_model_input = torch.cat([zt_src, zt_src, zt_tar, zt_tar]) 
+                latents = torch.cat([zt_src, zt_src, zt_tar, zt_tar]) 
 
                 # Tính vận tốc cho Source và Target từ model
-                Vt_src, Vt_tar = calc_v_sd3(pipe, src_tar_latent_model_input, src_tar_prompt_embeds, src_tar_pooled_prompt_embeds, src_guidance_scale, tar_guidance_scale, t)
+                Vt_src, Vt_tar = calc_v_sd3(
+                    pipe, 
+                    latents, 
+                    prompt_embeds, 
+                    pooled_prompt_embeds, 
+                    src_guidance_scale, 
+                    tar_guidance_scale, 
+                    t
+                )
 
                 # Tính Delta Velocity: Hướng thay đổi từ Src -> Tar
                 V_delta_avg += (1 / n_avg) * (Vt_tar - Vt_src)
@@ -179,10 +187,18 @@ def FlowEditSD3(pipe: Any,
                 xt_tar = zt_edit + xt_src - x_src
                 
             # Chỉ tập trung vào sinh ảnh Target
-            src_tar_latent_model_input = torch.cat([xt_tar, xt_tar, xt_tar, xt_tar])
+            latents = torch.cat([xt_tar, xt_tar, xt_tar, xt_tar])
 
             # Tính vận tốc Target
-            _, Vt_tar = calc_v_sd3(pipe, src_tar_latent_model_input, src_tar_prompt_embeds, src_tar_pooled_prompt_embeds, src_guidance_scale, tar_guidance_scale, t)
+            _, Vt_tar = calc_v_sd3(
+                pipe, 
+                latents, 
+                prompt_embeds, 
+                pooled_prompt_embeds, 
+                src_guidance_scale, 
+                tar_guidance_scale, 
+                t
+            )
 
             # Cập nhật Euler cho Target
             xt_tar = xt_tar.to(torch.float32)

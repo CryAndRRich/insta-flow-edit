@@ -19,13 +19,13 @@ def calculate_metrics(source_dir, target_dir, yaml_file):
     clip_t_scorer = CLIPScore(model_name_or_path="openai/clip-vit-base-patch16").to(device)
     
     # CLIP-I (Image)
-    clip_i_scorer = CLIPImageMetric(device)
+    clip_i_scorer = CLIP_I(device)
     
     # LPIPS
-    lpips_scorer = LearnedPerceptualImagePatchSimilarity(net_type='alex').to(device)
+    lpips_scorer = LearnedPerceptualImagePatchSimilarity(net_type="alex").to(device)
     
     # DINO
-    dino_scorer = DINOMetric(device)
+    dino_scorer = DINO(device)
     
     # DreamSim
     dreamsim_scorer = None
@@ -47,7 +47,7 @@ def calculate_metrics(source_dir, target_dir, yaml_file):
         print(f"Không tìm thấy thư mục {target_dir}")
         return
         
-    target_files = [f for f in os.listdir(target_dir) if f.endswith(('.png', '.jpg'))]
+    target_files = [f for f in os.listdir(target_dir) if f.endswith((".png", ".jpg"))]
 
     if not target_files:
         print("Không tìm thấy ảnh trong thư mục Target")
@@ -133,7 +133,10 @@ def calculate_metrics(source_dir, target_dir, yaml_file):
 if __name__ == "__main__":
     from configs.config import Config
 
-    scores = calculate_metrics(OUTPUT_SRC_DIR, OUTPUT_TAR_DIR, YAML_FILE)
+    yaml_path = Config.get_yaml_path()
+    output_src_dirs, output_tar_dirs = Config.get_output_dirs()
+
+    scores = calculate_metrics(output_src_dirs, output_tar_dirs, yaml_path)
 
     print("=" * 50)
     print("KẾT QUẢ ĐÁNH GIÁ")

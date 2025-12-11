@@ -83,7 +83,13 @@ def FlowEditFLUX(pipe: Any,
         latents=x_src
     )
     # Pack latents thủ công
-    x_src_packed = pipe._pack_latents(x_src, x_src.shape[0], num_channels_latents, x_src.shape[2], x_src.shape[3])
+    x_src_packed = pipe._pack_latents(
+        x_src, 
+        x_src.shape[0], 
+        num_channels_latents, 
+        x_src.shape[2], 
+        x_src.shape[3]
+    )
     latent_tar_image_ids = latent_src_image_ids # Dùng chung ID ảnh
 
     # Thiết lập scheduler (FLUX dùng Sigmas thay vì timesteps truyền thống)
@@ -95,7 +101,14 @@ def FlowEditFLUX(pipe: Any,
         scheduler.config.base_shift, 
         scheduler.config.max_shift
     )
-    timesteps, T_steps = retrieve_timesteps(scheduler, T_steps, device, timesteps=None, sigmas=sigmas, mu=mu)
+    timesteps, T_steps = retrieve_timesteps(
+        scheduler, 
+        T_steps, 
+        device, 
+        timesteps=None, 
+        sigmas=sigmas, 
+        mu=mu
+    )
     pipe._num_timesteps = len(timesteps)
 
     # Encode prompts
@@ -129,8 +142,26 @@ def FlowEditFLUX(pipe: Any,
                 zt_tar = zt_edit + zt_src - x_src_packed
                 
                 # Tính vận tốc cho Source và Target riêng biệt (FLUX không gộp batch như SD3)
-                Vt_src = calc_v_flux(pipe, zt_src, src_prompt_embeds, src_pooled_prompt_embeds, src_guidance, src_text_ids, latent_src_image_ids, t)
-                Vt_tar = calc_v_flux(pipe, zt_tar, tar_prompt_embeds, tar_pooled_prompt_embeds, tar_guidance, tar_text_ids, latent_tar_image_ids, t)
+                Vt_src = calc_v_flux(
+                    pipe, 
+                    zt_src, 
+                    src_prompt_embeds, 
+                    src_pooled_prompt_embeds, 
+                    src_guidance, 
+                    src_text_ids, 
+                    latent_src_image_ids, 
+                    t
+                )
+                Vt_tar = calc_v_flux(
+                    pipe, 
+                    zt_tar, 
+                    tar_prompt_embeds, 
+                    tar_pooled_prompt_embeds, 
+                    tar_guidance, 
+                    tar_text_ids, 
+                    latent_tar_image_ids, 
+                    t
+                )
                 
                 V_delta_avg += (1 / n_avg) * (Vt_tar - Vt_src)
             
@@ -146,7 +177,16 @@ def FlowEditFLUX(pipe: Any,
                 xt_src = scale_noise(scheduler, x_src_packed, t, noise=fwd_noise)
                 xt_tar = zt_edit + xt_src - x_src_packed
             
-            Vt_tar = calc_v_flux(pipe, xt_tar, tar_prompt_embeds, tar_pooled_prompt_embeds, tar_guidance, tar_text_ids, latent_tar_image_ids, t)
+            Vt_tar = calc_v_flux(
+                pipe, 
+                xt_tar, 
+                tar_prompt_embeds, 
+                tar_pooled_prompt_embeds, 
+                tar_guidance, 
+                tar_text_ids, 
+                latent_tar_image_ids, 
+                t
+            )
             xt_tar = xt_tar + (t_im1 - t_i) * Vt_tar
             
             # Nếu là bước cuối, unpack latent ra dạng ảnh 2D để trả về

@@ -6,7 +6,7 @@ import torch.nn.functional as F
 from torchvision import transforms
 from transformers import CLIPProcessor, CLIPModel
 
-class CLIPImageMetric:
+class CLIP_I:
     def __init__(self, device: torch.device) -> None:
         self.device = device
         self.model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(device)
@@ -25,7 +25,7 @@ class CLIPImageMetric:
         return (features[0] @ features[1]).item()
     
 
-class DINOMetric:
+class DINO:
     def __init__(self, device: torch.device) -> None:
         self.device = device
         # Load DINO v1 (ViT-S/16) từ Facebook Research
