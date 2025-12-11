@@ -7,6 +7,7 @@ from diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion import retri
 
 from .utils import scale_noise
 
+
 def calc_v_sd3(pipe: Any, 
                latents: torch.Tensor, 
                prompt_embeds: torch.Tensor, 

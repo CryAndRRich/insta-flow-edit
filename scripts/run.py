@@ -15,6 +15,7 @@ from flowedit.sd3 import FlowEditSD3
 from flowedit.flux import FlowEditFLUX
 from flowedit.instaflow import FlowEditInstaFlow
 
+
 def test_one(model_name: str,
              csv_path: str,
              yaml_path: str,
@@ -24,7 +25,7 @@ def test_one(model_name: str,
              tar_prompt_index: int = 0) -> None:
 
     # Lấy URL từ CSV
-    img_url = image_dir + image_name + ".png"
+    img_url = image_dir + "/" + image_name + ".png"
     if not img_url:
         img_url = f"Không tìm thấy URL cho ảnh '{image_name}'"
     
@@ -50,7 +51,7 @@ def test_one(model_name: str,
     print(f"Khởi tạo model {model_name} ({params['model_id']})...")
 
     try:
-        pipe = load_model(model_name)
+        pipe = load_model(model_name, configs)
     except Exception as e:
         print(f"Lỗi khi load model: {e}")
         return
@@ -213,7 +214,7 @@ def test_all(model_name: str,
     torch.cuda.empty_cache()
 
     try:
-        pipe = load_model(model_name)
+        pipe = load_model(model_name, configs)
     except Exception as e:
         print(f"Lỗi khi load model: {e}")
         return
@@ -227,7 +228,7 @@ def test_all(model_name: str,
     # Duyệt qua từng ảnh gốc trong dictionary prompt
     for image_name, codes_data in tqdm(all_prompts_map.items(), desc="Processing Images"):
         # Load và Tiền xử lý ảnh gốc
-        img_url = image_dir + image_name + ".png"
+        img_url = image_dir + "/" + image_name + ".png"
         init_image = load_image(img_url)
         if init_image is None:
             print(f"Bỏ qua '{image_name}': Load ảnh thất bại")
