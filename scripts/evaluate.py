@@ -1,4 +1,5 @@
 import os
+from typing import Dict, List
 from tqdm.auto import tqdm
 from PIL import Image
 
@@ -12,7 +13,9 @@ from dreamsim import dreamsim
 from utils.load_metrics import *
 
 
-def calculate_metrics(source_dir, target_dir, yaml_file):
+def calculate_metrics(source_dir: str, 
+                      target_dir: str, 
+                      yaml_path: str) -> Dict[str, List[float]]:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # CLIP-T (Text)
@@ -42,7 +45,7 @@ def calculate_metrics(source_dir, target_dir, yaml_file):
         transforms.ToTensor()
     ])
 
-    prompt_map = get_prompt_code(yaml_file)
+    prompt_map = get_prompt_code(yaml_path)
     if not os.path.exists(target_dir):
         print(f"Không tìm thấy thư mục {target_dir}")
         return

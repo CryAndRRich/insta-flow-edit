@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
+from configs.config import Config
+
 from utils.load_data import *
 from utils.load_models import load_model
 
@@ -17,14 +19,14 @@ from flowedit.instaflow import FlowEditInstaFlow
 
 
 def test_one(model_name: str,
-             csv_path: str,
-             yaml_path: str,
-             configs: Dict[str, Dict[str, str]],
              image_name: str,
-             image_dir: str,
-             tar_prompt_index: int = 0) -> None:
+             tar_prompt_index: int = 0,
+             csv_path: str = Config.CSV_PATH,
+             yaml_path: str = Config.YAML_PATH,
+             image_dir: str = Config.IMAGE_DIR,
+             params: Dict[str, Dict[str, str]] = Config.MODEL_PARAMS) -> None:
 
-    # Lấy URL từ CSV
+    # Lấy URL từ CSV hoặc IMAGE DIR
     img_url = image_dir + "/" + image_name + ".png"
     if not img_url:
         img_url = f"Không tìm thấy URL cho ảnh '{image_name}'"
@@ -45,13 +47,13 @@ def test_one(model_name: str,
     torch.cuda.empty_cache()
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    params = configs[model_name]
+    model_params = params[model_name]
     
     # Bước 2: Load Model Pipeline
-    print(f"Khởi tạo model {model_name} ({params['model_id']})...")
+    print(f"Khởi tạo model {model_name} ({model_params['model_id']})...")
 
     try:
-        pipe = load_model(model_name, configs)
+        pipe = load_model(model_name, params)
     except Exception as e:
         print(f"Lỗi khi load model: {e}")
         return
@@ -59,7 +61,7 @@ def test_one(model_name: str,
     scheduler = pipe.scheduler
     
     # Bước 3: Setup tham số ngẫu nhiên
-    seed = params["seed"]
+    seed = model_params["seed"]
     torch.manual_seed(seed)
     np.random.seed(seed)
     
@@ -110,46 +112,46 @@ def test_one(model_name: str,
     # Gọi hàm xử lý tương ứng
     if model_name == "SD3":
         latents_out = FlowEditSD3(
-            pipe, 
-            scheduler, 
-            latents_src, 
-            src_prompt, 
-            tgt_prompt, 
-            neg_prompt, 
-            params["T_steps"], 
-            params["n_avg"], 
-            params["src_guidance"],
-            params["tar_guidance"],
-            params["n_min"], 
-            params["n_max"]
+            pipe=pipe, 
+            scheduler=scheduler, 
+            x_src=latents_src, 
+            src_prompt=src_prompt, 
+            tar_prompt=tgt_prompt, 
+            neg_prompt=neg_prompt, 
+            T_steps=model_params["T_steps"], 
+            n_avg=model_params["n_avg"], 
+            src_guidance_scale=model_params["src_guidance"],
+            tar_guidance_scale=model_params["tar_guidance"],
+            n_min=model_params["n_min"], 
+            n_max=model_params["n_max"]
         )
     elif model_name == "FLUX":
         latents_out = FlowEditFLUX(
-            pipe, 
-            scheduler, 
-            latents_src, 
-            src_prompt, 
-            tgt_prompt, 
-            ["T_steps"], 
-            params["n_avg"], 
-            params["src_guidance"], 
-            params["tar_guidance"], 
-            params["n_min"], 
-            params["n_max"]
+            pipe=pipe, 
+            scheduler=scheduler, 
+            x_src=latents_src, 
+            src_prompt=src_prompt, 
+            tar_prompt=tgt_prompt, 
+            T_steps=["T_steps"], 
+            n_avg=model_params["n_avg"], 
+            src_guidance_scale=model_params["src_guidance"], 
+            tar_guidance_scale=model_params["tar_guidance"], 
+            n_min=model_params["n_min"], 
+            n_max=model_params["n_max"]
         )
     elif model_name == "INSTAFLOW":
         latents_out = FlowEditInstaFlow(
-            pipe, 
-            latents_src, 
-            src_prompt, 
-            tgt_prompt, 
-            neg_prompt, 
-            params["T_steps"], 
-            params["n_avg"], 
-            params["src_guidance"], 
-            params["tar_guidance"], 
-            params["n_min"], 
-            params["n_max"]
+            pipe=pipe, 
+            x_src=latents_src, 
+            src_prompt=src_prompt, 
+            tar_prompt=tgt_prompt, 
+            neg_prompt=neg_prompt, 
+            T_steps=model_params["T_steps"], 
+            n_avg=model_params["n_avg"], 
+            src_guidance_scale=model_params["src_guidance"], 
+            tar_guidance_scale=model_params["tar_guidance"], 
+            n_min=model_params["n_min"], 
+            n_max=model_params["n_max"]
         )
 
     # Bước 7: Decode VAE
@@ -178,7 +180,7 @@ def test_one(model_name: str,
         axs[0].set_title("Original")
         axs[0].axis("off")
         axs[1].imshow(result_pil)
-        axs[1].set_title(f"n_max = {params['n_max']}")
+        axs[1].set_title(f"n_max = {model_params['n_max']}")
         axs[1].axis("off")
         plt.show()
     except:
@@ -186,12 +188,12 @@ def test_one(model_name: str,
 
 
 def test_all(model_name: str,
-             csv_path: str,
-             yaml_path: str,
-             configs: Dict[str, Dict[str, str]],
-             image_dir: str,
-             output_src_dir: str,
-             output_tar_dir: str) -> None:
+             csv_path: str = Config.CSV_PATH,
+             yaml_path: str = Config.YAML_PATH,
+             image_dir: str = Config.IMAGE_DIR,
+             params: Dict[str, Dict[str, str]] = Config.MODEL_PARAMS,
+             output_src_dir: str = Config.OUTPUT_SRC_DIR,
+             output_tar_dir: str = Config.OUTPUT_TAR_DIR) -> None:
     # Lấy danh sách toàn bộ tên ảnh
     all_image_names = load_dataset_info(csv_path, take_all=True)
     if not all_image_names:
@@ -214,14 +216,14 @@ def test_all(model_name: str,
     torch.cuda.empty_cache()
 
     try:
-        pipe = load_model(model_name, configs)
+        pipe = load_model(model_name, params)
     except Exception as e:
         print(f"Lỗi khi load model: {e}")
         return
     
     scheduler = pipe.scheduler
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    params = configs[model_name]
+    model_params = params[model_name]
 
     print(f"Bắt đầu chạy trên {len(all_prompts_map)} ảnh gốc...")
     
@@ -246,7 +248,7 @@ def test_all(model_name: str,
         init_image = init_image.resize((w, h), resample=Image.LANCZOS)
 
         # Setup Seed cho ảnh
-        seed = params["seed"]
+        seed = model_params["seed"]
         torch.manual_seed(seed)
         np.random.seed(seed)
 
@@ -281,46 +283,46 @@ def test_all(model_name: str,
             # Chạy FlowEdit
             if model_name == "SD3":
                 latents_out = FlowEditSD3(
-                    pipe, 
-                    scheduler, 
-                    latents_src, 
-                    src_prompt, 
-                    tgt_prompt, 
-                    neg_prompt, 
-                    params["T_steps"], 
-                    params["n_avg"], 
-                    params["src_guidance"], 
-                    params["tar_guidance"], 
-                    params["n_min"], 
-                    params["n_max"]
+                    pipe=pipe, 
+                    scheduler=scheduler, 
+                    x_src=latents_src, 
+                    src_prompt=src_prompt, 
+                    tar_prompt=tgt_prompt, 
+                    neg_prompt=neg_prompt, 
+                    T_steps=model_params["T_steps"], 
+                    n_avg=model_params["n_avg"], 
+                    src_guidance_scale=model_params["src_guidance"], 
+                    tar_guidance_scale=model_params["tar_guidance"], 
+                    n_min=model_params["n_min"], 
+                    n_max=model_params["n_max"]
                 )
             elif model_name == "FLUX":
                 latents_out = FlowEditFLUX(
-                    pipe, 
-                    scheduler, 
-                    latents_src, 
-                    src_prompt, 
-                    tgt_prompt, 
-                    params["T_steps"], 
-                    params["n_avg"], 
-                    params["src_guidance"], 
-                    params["tar_guidance"], 
-                    params["n_min"], 
-                    params["n_max"]
+                    pipe=pipe, 
+                    scheduler=scheduler, 
+                    x_src=latents_src, 
+                    src_prompt=src_prompt, 
+                    tar_prompt=tgt_prompt, 
+                    T_steps=model_params["T_steps"], 
+                    n_avg=model_params["n_avg"], 
+                    src_guidance_scale=model_params["src_guidance"], 
+                    tar_guidance_scale=model_params["tar_guidance"], 
+                    n_min=model_params["n_min"], 
+                    n_max=model_params["n_max"]
                 )
             elif model_name == "INSTAFLOW":
                 latents_out = FlowEditInstaFlow(
-                    pipe, 
-                    latents_src, 
-                    src_prompt, 
-                    tgt_prompt, 
-                    neg_prompt, 
-                    params["T_steps"], 
-                    params["n_avg"], 
-                    params["src_guidance"], 
-                    params["tar_guidance"], 
-                    params["n_min"], 
-                    params["n_max"]
+                    pipe=pipe, 
+                    x_src=latents_src, 
+                    src_prompt=src_prompt, 
+                    tar_prompt=tgt_prompt, 
+                    neg_prompt=neg_prompt, 
+                    T_steps=model_params["T_steps"], 
+                    n_avg=model_params["n_avg"], 
+                    src_guidance_scale=model_params["src_guidance"], 
+                    tar_guidance_scale=model_params["tar_guidance"], 
+                    n_min=model_params["n_min"], 
+                    n_max=model_params["n_max"]
                 )
 
             # Decode và Lưu ảnh

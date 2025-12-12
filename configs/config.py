@@ -8,7 +8,7 @@ class Config:
     OUTPUT_SRC_DIR = "data/outputs/source"
     OUTPUT_TAR_DIR = "data/outputs/target"
 
-    MODEL = {
+    MODEL_PARAMS = {
         "SD3": {
             "model_id": "stabilityai/stable-diffusion-3-medium-diffusers",
             "T_steps": 50,
@@ -58,6 +58,14 @@ class Config:
         self.YAML_PATH = path
     
     @classmethod
+    def get_image_dir(self) -> str:
+        return self.IMAGE_DIR
+    
+    @classmethod
+    def set_image_dir(self, path: str) -> None:
+        self.IMAGE_DIR = path
+    
+    @classmethod
     def get_output_dirs(self) -> Tuple[str, str]:
         return self.OUTPUT_SRC_DIR, self.OUTPUT_TAR_DIR
     
@@ -71,15 +79,15 @@ class Config:
         """
         Lấy config dict của model. Trả về None nếu không tìm thấy
         """
-        return self.MODEL.get(model_name, None)
+        return self.MODEL_PARAMS.get(model_name, None)
 
     @classmethod
     def get_param(self, model_name: str, param_key: str) -> Any:
         """
         Lấy một tham số cụ thể
         """
-        if model_name in self.MODEL:
-            return self.MODEL[model_name].get(param_key, None)
+        if model_name in self.MODEL_PARAMS:
+            return self.MODEL_PARAMS[model_name].get(param_key, None)
         return None
 
     @classmethod
@@ -87,8 +95,8 @@ class Config:
         """
         Cập nhật tham số
         """
-        if model_name in self.MODEL:
-            self.MODEL[model_name][param_key] = value
+        if model_name in self.MODEL_PARAMS:
+            self.MODEL_PARAMS[model_name][param_key] = value
             print(f"Updated {model_name} [{param_key}] = {value}")
         else:
             print(f"Model {model_name} not found")

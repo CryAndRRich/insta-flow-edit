@@ -6,20 +6,20 @@ from diffusers import StableDiffusion3Pipeline, StableDiffusionPipeline, FluxTra
 
 
 def load_model(model_name: str,
-               configs: Dict[str, Dict[str, str]]) -> StableDiffusion3Pipeline | StableDiffusionPipeline | FluxPipeline:
+               params_list: Dict[str, Dict[str, str]]) -> StableDiffusion3Pipeline | StableDiffusionPipeline | FluxPipeline:
     """
     Hàm load pipeline dựa trên tên model (SD3, FLUX, INSTAFLOW)
     """
     # Kiểm tra model hợp lệ
-    if model_name not in configs:
-        raise ValueError(f"Model '{model_name}' không tồn tại trong configs. Chọn: {list(configs.keys())}")
+    if model_name not in params_list:
+        raise ValueError(f"Model '{model_name}' không tồn tại trong params_list. Chọn: {list(params_list.keys())}")
 
-    params = configs[model_name]
+    model_params = params_list[model_name]
     pipe = None
 
     if model_name == "SD3":
         pipe = StableDiffusion3Pipeline.from_pretrained(
-            params["model_id"], 
+            model_params["model_id"], 
             torch_dtype=torch.float16
         )
         print("- SD3: Kích hoạt Sequential CPU Offload...")
@@ -37,7 +37,7 @@ def load_model(model_name: str,
 
         # Load Transformer (4-bit)
         transformer = FluxTransformer2DModel.from_pretrained(
-            params["model_id"],
+            model_params["model_id"],
             subfolder="transformer",
             quantization_config=quant_config,
             torch_dtype=torch.float16
@@ -45,7 +45,7 @@ def load_model(model_name: str,
 
         # Load T5 Encoder (4-bit)
         text_encoder_2 = T5EncoderModel.from_pretrained(
-            params["model_id"],
+            model_params["model_id"],
             subfolder="text_encoder_2",
             quantization_config=quant_config,
             torch_dtype=torch.float16,
@@ -54,7 +54,7 @@ def load_model(model_name: str,
 
         # Tạo Pipeline
         pipe = FluxPipeline.from_pretrained(
-            params["model_id"],
+            model_params["model_id"],
             transformer=transformer,
             text_encoder_2=text_encoder_2,
             torch_dtype=torch.float16
@@ -65,7 +65,7 @@ def load_model(model_name: str,
 
     elif model_name == "INSTAFLOW":
         pipe = StableDiffusionPipeline.from_pretrained(
-            params["model_id"], 
+            model_params["model_id"], 
             torch_dtype=torch.float16
         )
         pipe.safety_checker = None 
