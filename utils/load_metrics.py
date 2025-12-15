@@ -5,6 +5,7 @@ import torch
 import torch.nn.functional as F
 from torchvision import transforms
 from transformers import CLIPProcessor, CLIPModel
+import timm
 
 class CLIP_I:
     def __init__(self, device: torch.device) -> None:
@@ -29,7 +30,7 @@ class DINO:
     def __init__(self, device: torch.device) -> None:
         self.device = device
         # Load DINO v1 (ViT-S/16) từ Facebook Research
-        self.model = torch.hub.load("facebookresearch/dino:main", "dino_vits16").to(device)
+        self.model = timm.create_model("vit_small_patch16_224.dino", pretrained=True).to(device)
         self.model.eval()
         self.transform = transforms.Compose([
             transforms.Resize((224, 224)),
