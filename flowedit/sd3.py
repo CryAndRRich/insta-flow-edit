@@ -104,7 +104,7 @@ def FlowEditSD3(pipe: Any,
         prompt=src_prompt, 
         prompt_2=None, 
         prompt_3=None, 
-        neg_prompt=neg_prompt, 
+        negative_prompt=neg_prompt, 
         do_classifier_free_guidance=True, 
         device=device
     )
@@ -116,7 +116,7 @@ def FlowEditSD3(pipe: Any,
         prompt=tar_prompt, 
         prompt_2=None, 
         prompt_3=None, 
-        neg_prompt=neg_prompt, 
+        negative_prompt=neg_prompt, 
         do_classifier_free_guidance=True, 
         device=device
     )
