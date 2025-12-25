@@ -1,12 +1,14 @@
 from typing import Dict, Any, Tuple, Optional
 
 class Config:
-    CSV_PATH = "data/flowedit_dataset.csv"
-    YAML_PATH = "data/flowedit_prompt.yaml"
-    IMAGE_DIR = "data/flowedit_images"
+    # Đường dẫn các thư mục và file tự điều chỉnh tùy theo môi trường sử dụng
+    CSV_PATH = "data"
+    YAML_PATH = "data"
+    IMAGE_DIR = "data"
+    MASK_DIR = "data"
 
-    OUTPUT_SRC_DIR = "data/outputs/source"
-    OUTPUT_TAR_DIR = "data/outputs/target"
+    OUTPUT_SRC_DIR = "data"
+    OUTPUT_TAR_DIR = "data"
 
     MODEL_PARAMS = {
         "SD3": {
@@ -64,6 +66,14 @@ class Config:
     @classmethod
     def set_image_dir(self, path: str) -> None:
         self.IMAGE_DIR = path
+    
+    @classmethod
+    def get_mask_dir(self) -> str:
+        return self.MASK_DIR
+    
+    @classmethod
+    def set_mask_dir(self, path: str) -> None:
+        self.MASK_DIR = path
     
     @classmethod
     def get_output_dirs(self) -> Tuple[str, str]:

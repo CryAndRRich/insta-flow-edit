@@ -1,8 +1,10 @@
 from typing import Tuple, Any
-import gc
+
 from tqdm.auto import tqdm
+from PIL import Image
 
 import torch
+import torchvision.transforms.functional as tf
 from diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion import retrieve_timesteps
 
 from .utils import scale_noise
@@ -31,7 +33,7 @@ def calc_v_sd3(pipe: Any,
         Tuple[torch.Tensor, torch.Tensor]: (Velocity nguồn, Velocity đích)
     """
     # Mở rộng timestep t để khớp với batch size của input (thường là 4)
-    timestep = t.expand(latents.shape[0])
+    timestep = t.expand(latents.shape[0]).to(latents.dtype)
 
     with torch.no_grad():
         # Chạy forward pass qua Transformer của SD3
@@ -45,14 +47,14 @@ def calc_v_sd3(pipe: Any,
         )[0]
 
         # Chia output thành 4 phần (FlowEdit chạy batch 4: Src_Uncond, Src_Text, Tar_Uncond, Tar_Text)
-        src_vel_pred_uncond, src_vel_pred_text, tar_vel_pred_uncond, tar_vel_pred_text = vel_pred_src_tar.chunk(4)
+        vel_src_uncond, vel_src_text, vel_tar_uncond, vel_tar_text = vel_pred_src_tar.chunk(4)
         
         # Áp dụng công thức CFG
         # v_pred = v_uncond + scale * (v_text - v_uncond)
-        noise_vel_src = src_vel_pred_uncond + src_guidance_scale * (src_vel_pred_text - src_vel_pred_uncond)
-        noise_vel_tar = tar_vel_pred_uncond + tar_guidance_scale * (tar_vel_pred_text - tar_vel_pred_uncond)
+        vel_pred_src = vel_src_uncond + src_guidance_scale * (vel_src_text - vel_src_uncond)
+        vel_pred_tar = vel_tar_uncond + tar_guidance_scale * (vel_tar_text - vel_tar_uncond)
 
-    return noise_vel_src, noise_vel_tar
+    return vel_pred_src, vel_pred_tar
 
 
 @torch.no_grad()
@@ -61,7 +63,7 @@ def FlowEditSD3(pipe: Any,
                 x_src: torch.Tensor,
                 src_prompt: str,
                 tar_prompt: str,
-                neg_prompt: str,
+                mask_image: Image.Image = None,
                 T_steps: int = 50,
                 n_avg: int = 1,
                 src_guidance_scale: float = 3.5,
@@ -89,14 +91,23 @@ def FlowEditSD3(pipe: Any,
         torch.Tensor: Latent của ảnh kết quả (Target Image)
     """
     device = x_src.device
+    dtype = x_src.dtype
     
+    mask_tensor = None
+    if mask_image is not None:
+        # Resize mask về kích thước latent (H/8, W/8)
+        h_lat, w_lat = x_src.shape[2], x_src.shape[3]
+        mask_resized = mask_image.resize((w_lat, h_lat), resample=Image.NEAREST)
+        
+        mask_tensor = tf.to_tensor(mask_resized).to(device)
+        mask_tensor = (mask_tensor > 0.5).float()
+        mask_tensor = mask_tensor.unsqueeze(0) # [1, 1, H, W]
+        
+        mask_tensor = mask_tensor.to(dtype=dtype)
+
     # Lấy danh sách timesteps từ scheduler (từ 1000 về 0)
     timesteps, T_steps = retrieve_timesteps(scheduler, T_steps, device, timesteps=None)
     pipe._num_timesteps = len(timesteps)
-    
-    # Dọn dẹp bộ nhớ trước khi encode (tránh OOM)
-    torch.cuda.empty_cache()
-    gc.collect()
 
     # Encode prompt nguồn (Source)
     # Ở đây do_classifier_free_guidance=True để lấy cả negative embeds cho CFG
@@ -104,7 +115,7 @@ def FlowEditSD3(pipe: Any,
         prompt=src_prompt, 
         prompt_2=None, 
         prompt_3=None, 
-        negative_prompt=neg_prompt, 
+        negative_prompt="", 
         do_classifier_free_guidance=True, 
         device=device
     )
@@ -116,7 +127,7 @@ def FlowEditSD3(pipe: Any,
         prompt=tar_prompt, 
         prompt_2=None, 
         prompt_3=None, 
-        negative_prompt=neg_prompt, 
+        negative_prompt="", 
         do_classifier_free_guidance=True, 
         device=device
     )
@@ -124,8 +135,8 @@ def FlowEditSD3(pipe: Any,
     torch.cuda.empty_cache() 
     
     # Ghép các embeddings lại để xử lý batch: [Neg_Src, Pos_Src, Neg_Tar, Pos_Tar]
-    prompt_embeds = torch.cat([src_negative_prompt_embeds, src_prompt_embeds, tar_negative_prompt_embeds, tar_prompt_embeds], dim=0)
-    pooled_prompt_embeds = torch.cat([src_negative_pooled_prompt_embeds, src_pooled_prompt_embeds, tar_negative_pooled_prompt_embeds, tar_pooled_prompt_embeds], dim=0)
+    prompt_embeds = torch.cat([src_negative_prompt_embeds, src_prompt_embeds, tar_negative_prompt_embeds, tar_prompt_embeds], dim=0).to(dtype=dtype)
+    pooled_prompt_embeds = torch.cat([src_negative_pooled_prompt_embeds, src_pooled_prompt_embeds, tar_negative_pooled_prompt_embeds, tar_pooled_prompt_embeds], dim=0).to(dtype=dtype)
     
     # Khởi tạo latent cần chỉnh sửa Z_edit (ban đầu là ảnh gốc X_src)
     zt_edit = x_src.clone()
@@ -143,16 +154,17 @@ def FlowEditSD3(pipe: Any,
         
         # Giai đoạn 1: Coupled Flow
         if T_steps - i > n_min:
-            V_delta_avg = torch.zeros_like(x_src)
+            v_delta_avg = torch.zeros_like(x_src)
             
             # Lặp n_avg lần để lấy trung bình nhiễu (giảm phương sai)
-            for k in range(n_avg):
+            for _ in range(n_avg):
                 # Tạo nhiễu Gaussian ngẫu nhiên N(0,1)
-                fwd_noise = torch.randn_like(x_src).to(x_src.device)
+                noise = torch.randn_like(x_src).to(device, dtype=dtype)
                 
                 # Tạo phiên bản nhiễu của ảnh gốc tại thời điểm t (Forward Process)
                 # Công thức: Z_t^src = (1 - t) * X + t * N
-                zt_src = (1 - t_i) * x_src + (t_i) * fwd_noise
+                zt_src = (1 - t_i) * x_src + (t_i) * noise
+                zt_src = zt_src.to(dtype=dtype)
 
                 # Tạo phiên bản nhiễu giả định của ảnh đích dựa trên zt_edit hiện tại (Coupling)
                 zt_tar = zt_edit + zt_src - x_src
@@ -161,7 +173,7 @@ def FlowEditSD3(pipe: Any,
                 latents = torch.cat([zt_src, zt_src, zt_tar, zt_tar]) 
 
                 # Tính vận tốc cho Source và Target từ model
-                Vt_src, Vt_tar = calc_v_sd3(
+                vt_src, vt_tar = calc_v_sd3(
                     pipe, 
                     latents, 
                     prompt_embeds, 
@@ -172,26 +184,32 @@ def FlowEditSD3(pipe: Any,
                 )
 
                 # Tính Delta Velocity: Hướng thay đổi từ Src -> Tar
-                V_delta_avg += (1 / n_avg) * (Vt_tar - Vt_src)
+                v_delta_avg += (1 / n_avg) * (vt_tar - vt_src)
+            
+            if mask_tensor is not None:
+                v_delta_avg = v_delta_avg * mask_tensor
 
             # Cập nhật Euler: Di chuyển Z_edit theo hướng Delta V
             zt_edit = zt_edit.to(torch.float32)
-            zt_edit = zt_edit + (t_im1 - t_i) * V_delta_avg
-            zt_edit = zt_edit.to(V_delta_avg.dtype)
+            zt_edit = zt_edit + (t_im1 - t_i) * v_delta_avg
+            zt_edit = zt_edit.to(dtype=dtype)
 
         # Giai đoạn 2: Refinement
         else:
             # Nếu vừa chuyển giao giai đoạn, cần tái tạo nhiễu chuẩn
             if i == T_steps - n_min:
-                fwd_noise = torch.randn_like(x_src).to(x_src.device)
-                xt_src = scale_noise(scheduler, x_src, t, noise=fwd_noise)
+                noise = torch.randn_like(x_src).to(device, dtype=dtype)
+
+                xt_src = scale_noise(scheduler, x_src, t, noise=noise)
+                xt_src = xt_src.to(dtype=dtype)
+                
                 xt_tar = zt_edit + xt_src - x_src
                 
             # Chỉ tập trung vào sinh ảnh Target
             latents = torch.cat([xt_tar, xt_tar, xt_tar, xt_tar])
 
             # Tính vận tốc Target
-            _, Vt_tar = calc_v_sd3(
+            vt_src, vt_tar = calc_v_sd3(
                 pipe, 
                 latents, 
                 prompt_embeds, 
@@ -201,10 +219,14 @@ def FlowEditSD3(pipe: Any,
                 t
             )
 
+            if mask_tensor is not None:
+                vt_effective = mask_tensor * vt_tar + (1 - mask_tensor) * vt_src
+            else:
+                vt_effective = vt_tar
+
             # Cập nhật Euler cho Target
             xt_tar = xt_tar.to(torch.float32)
-            prev_sample = xt_tar + (t_im1 - t_i) * (Vt_tar)
-            prev_sample = prev_sample.to(Vt_tar.dtype)
-            xt_tar = prev_sample
+            prev_sample = xt_tar + (t_im1 - t_i) * vt_effective
+            xt_tar = prev_sample.to(dtype=dtype)
         
     return zt_edit if n_min == 0 else xt_tar

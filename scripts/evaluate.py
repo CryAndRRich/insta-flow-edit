@@ -16,6 +16,7 @@ from utils.load_metrics import *
 def calculate_metrics(source_dir: str, 
                       target_dir: str, 
                       yaml_path: str) -> Dict[str, List[float]]:
+    
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # CLIP-T (Text)
@@ -88,11 +89,11 @@ def calculate_metrics(source_dir: str,
                 if os.path.exists(src_path_fallback):
                     src_path = src_path_fallback
                 else:
-                    print(f"Skip: Không tìm thấy ảnh gốc cho {filename}")
+                    print(f"Bỏ qua: Không tìm thấy ảnh gốc cho {filename}")
                     continue
             
             if target_code not in prompt_map:
-                print(f"Skip: Không tìm thấy prompt cho code '{target_code}'")
+                print(f"Bỏ qua: Không tìm thấy prompt cho code '{target_code}'")
                 continue
 
             # Load Images
@@ -100,7 +101,7 @@ def calculate_metrics(source_dir: str,
                 img_tgt = Image.open(tgt_path).convert("RGB")
                 img_src = Image.open(src_path).convert("RGB")
             except Exception as e:
-                print(f"Error loading images: {e}")
+                print(f"Lỗi load ảnh: {e}")
                 continue
                 
             target_prompt = prompt_map[target_code]

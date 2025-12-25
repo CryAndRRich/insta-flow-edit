@@ -7,13 +7,9 @@ import requests
 from PIL import Image
 
 
-def load_dataset_info(csv_path: str, 
-                      image_key: str | None = None, 
-                      take_all: bool = False) -> str | List[str] | None:
+def load_dataset_info(csv_path: str) -> List[str] | None:
     """
-    Đọc file CSV
-    - Nếu take_all=False: Trả về URL của ảnh dựa trên image_key
-    - Nếu take_all=True: Trả về danh sách toàn bộ tên ảnh (cột "name") trong CSV
+    Đọc file CSV và trả về danh sách toàn bộ tên ảnh (cột "name") trong CSV
     """
     if not os.path.exists(csv_path):
         print(f"Error: Không tìm thấy file {csv_path}")
@@ -30,23 +26,13 @@ def load_dataset_info(csv_path: str,
             reader = csv.DictReader(f, fieldnames=fieldnames)
             next(reader) # Bỏ qua header
             
-            if take_all: # Lấy tất cả ảnh
-                all_names = []
-                for row in reader:
-                    name = row.get("name", "").strip()
-                    if name:
-                        all_names.append(name)
-                print(f"Thu được danh sách tên của {len(all_names)} ảnh")
-                return all_names
-
-            # Lấy 1 ảnh
-            if image_key is None:
-                print("Error: image_key không được để trống khi take_all=False")
-                return None
-
+            all_names = []
             for row in reader:
-                if row["name"].strip() == image_key:
-                    return row["url"].strip()
+                name = row.get("name", "").strip()
+                if name:
+                    all_names.append(name)
+            print(f"Thu được danh sách tên của {len(all_names)} ảnh")
+            return all_names
 
     except Exception as e:
         print(f"Error parsing CSV: {e}")
@@ -56,19 +42,19 @@ def load_dataset_info(csv_path: str,
 def load_prompt_info(yaml_path: str, 
                      image_key: Union[str, List[str]], 
                      tar_prompt_index: int = 0,
-                     take_all: bool = False) -> Union[Tuple[str | None, str | None, str | None], Dict[str, Dict[str, Dict[str, str]]] | None]:
+                     take_all: bool = False) -> Union[Tuple[str | None, str | None], Dict[str, Dict[str, Dict[str, str]]] | None]:
     """
     Đọc file YAML
     - Nếu take_all=False: Trả về (src_prompt, tgt_prompt, neg_prompt) của 1 ảnh dựa trên image_key và tar_prompt_index
     - Nếu take_all=True: image_key là list tên ảnh. Trả về Dictionary cấu trúc:
-      {
-          "image_name": {
-              "target_code_1": {"source": src_prompt, "target": tgt_prompt_1},
-              "target_code_2": {"source": src_prompt, "target": tgt_prompt_2},
-              ...
-          },
-          ...
-      }
+        {
+            "image_name": {
+                "target_code_1": {"source": src_prompt, "target": tgt_prompt_1},
+                "target_code_2": {"source": src_prompt, "target": tgt_prompt_2},
+                ...
+            },
+            ...
+        }
     """
     if not os.path.exists(yaml_path):
         print(f"Error: Không tìm thấy file {yaml_path}")
@@ -91,7 +77,7 @@ def load_prompt_info(yaml_path: str,
                     continue
                 
                 init_img_path = entry.get("init_img", "")
-                base_name = os.path.splitext(os.path.basename(init_img_path))[0]
+                base_name = os.path.splitext(init_img_path)[0]
                 
                 # Chỉ xử lý nếu ảnh nằm trong danh sách yêu cầu
                 if base_name in target_keys:
@@ -120,14 +106,14 @@ def load_prompt_info(yaml_path: str,
         else: # Lấy 1 source prompt và 1 target prompt
             if not isinstance(image_key, str):
                 print("Error: image_key phải là string khi take_all=False")
-                return None, None, None
+                return None, None
 
             for entry in data:
                 if not entry: 
                     continue
                 
                 init_img_path = entry.get("init_img", "")
-                base_name = os.path.splitext(os.path.basename(init_img_path))[0]
+                base_name = os.path.splitext(init_img_path)[0]
                 
                 if base_name == image_key:
                     src_prompt = entry.get("source_prompt", "")
@@ -137,10 +123,9 @@ def load_prompt_info(yaml_path: str,
                         tgt_prompt = tgt_prompts[tar_prompt_index] if tgt_prompts else ""
                     except IndexError:
                         print(f"Error: Index {tar_prompt_index} vượt quá giới hạn cho ảnh '{image_key}'")
-                        return None, None, None
+                        return None, None
                     
-                    neg_prompt = entry.get("negative_prompt", "")
-                    return src_prompt, tgt_prompt, neg_prompt
+                    return src_prompt, tgt_prompt
 
     except Exception as e:
         print(f"Error parsing YAML: {e}")

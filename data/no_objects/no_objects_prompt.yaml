@@ -1,0 +1,161 @@
+-
+    init_img: bear_grass.png
+
+    source_prompt: A patch of vibrant green grass.
+
+    target_prompts:
+     - A bear cup lying down on the patch of green grass.
+     - A Golden Retriever dog lying down on the patch of green grass.
+     - A white cat lying down on the patch of green grass.
+     - A tiger cup lying down on the patch of green grass.
+ 
+    target_codes:
+     - 1_bear
+     - 2_dog
+     - 3_cat
+     - 4_tiger
+     
+-
+    init_img: clown_fish.png
+
+    source_prompt: A dark rocky seabed covered with green algae and moss.
+
+    target_prompts:
+     - A bright red starfish lying on the dark rocky seabed covered with green algae.
+     - A turtle lying on the dark rocky seabed covered with green algae.
+     - A small wooden treasure chest lying on the dark rocky seabed covered with green algae.
+ 
+    target_codes:
+     - 1_starfish
+     - 2_turtle
+     - 3_treasure
+     
+-
+    init_img: dogs2.png
+
+    source_prompt: A dry brownish grass and dirt ground.
+
+    target_prompts:
+     - A tiny black puppy sitting on the dry brownish grass looking to the right.
+     - A tiny black cat sitting on the dry brownish grass looking to the right.
+     - A tiny fox sitting on the dry brownish grass looking to the right.
+     - A tiny bear cup sitting on the dry brownish grass looking to the right.
+     - A bright red rubber ball on the dry brownish grass.
+     - A bright green tennis ball on the dry brownish grass.
+ 
+    target_codes:
+     - 1_puppy
+     - 2_cat
+     - 3_fox
+     - 4_bear
+     - 5_red_ball
+     - 6_tennis_ball
+     
+-
+    init_img: gas_station.png
+
+    source_prompt: A rocky dirt ground texture.
+
+    target_prompts:
+     - A camel standing on the rocky dirt ground.
+     - A touring motorcycle packed with luggage parked on the rocky dirt ground.
+     - A black car parked on the rocky dirt ground facing to the camera.
+ 
+    target_codes:
+     - 1_camel
+     - 2_motorcycle
+     - 3_car
+     
+-
+    init_img: geese.png
+
+    source_prompt: A white overcast sky background.
+
+    target_prompts:
+     - A Canada goose flying high in the white overcast sky, flapping wings.
+     - An large eagle flying high in the white overcast sky, flapping wings.
+     - An airplane flying high in the white overcast sky, flapping wings.
+ 
+    target_codes:
+     - 1_goose
+     - 2_eagle
+     - 3_airplane
+     
+-
+    init_img: imagenet_ball.png
+
+    source_prompt: A patch of green grass lawn.
+
+    target_prompts:
+     -  A small puppy sitting on the patch of green grass lawn.
+     -  A small cat sitting on the patch of green grass lawn.
+     -  A small red toy car on the patch of green grass lawn.
+     -  A green tennis ball on the patch of green grass lawn.
+ 
+    target_codes:
+     - 1_puppy
+     - 2_cat
+     - 3_car
+     - 4_tennis_ball
+     
+-
+    init_img: kid_running.png
+
+    source_prompt: A lush green grass, sunny orchard floor, soft lighting.
+
+    target_prompts:
+     -  A brown teddy bear sitting on lush green grass, sunny orchard floor, soft lighting, realistic texture.
+     -  A white dog running toward the camera on lush green grass, sunny orchard floor, soft lighting, realistic texture.
+     -  A white wolf running toward the camera on lush green grass, sunny orchard floor, soft lighting, realistic texture.
+     -  A red toy ball sitting on lush green grass, sunny orchard floor, soft lighting, realistic texture.
+ 
+    target_codes:
+     - 1_bear
+     - 2_dog
+     - 3_wolf
+     - 4_ball
+     
+-
+    init_img: objects365_car.png
+
+    source_prompt: An empty asphalt road surface, shadow on the road.
+
+    target_prompts:
+     - A red sedan driving on the asphalt road, realistic lighting, hard shadows
+     - A truck driving on the asphalt road, realistic lighting, hard shadows
+     - A bear walking on the asphalt road, realistic lighting, hard shadows
+
+    target_codes:
+     - 1_sedan
+     - 2_truck
+     - 3_bear
+     
+-
+    init_img: objects365_dog.png
+
+    source_prompt: A patchy grass ground.
+
+    target_prompts:
+     - A small Golden Retriever puppy sitting on the grass, realistic lighting.
+     - A small black puppy sitting on the grass, realistic lighting.
+     - A small white cat sitting on the grass, realistic lighting.
+
+    target_codes:
+     - 1_golden
+     - 2_puppy
+     - 3_cat
+     
+-
+    init_img: objects365_shoe.png
+
+    source_prompt: A green grass texture, sports field turf.
+
+    target_prompts:
+     - A black and yellow football cleat shoe lying on the grass, realistic leather texture, dirt and mud, bright sunlight, sharp shadow.
+     - An oval brown football lying on the grass, bright sunlight, sharp shadow.
+     - A small puppy lying on the grass, bright sunlight, sharp shadow.
+
+    target_codes:
+     - 1_shoe
+     - 2_ball
+     - 3_puppy

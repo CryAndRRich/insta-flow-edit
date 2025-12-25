@@ -1,0 +1,745 @@
+-
+    init_img: imagenet_ball.jpg
+
+    source_prompt: A green toy ball.
+
+    target_prompts:
+     - A blue toy ball.
+     - A red toy ball.
+     - A tennis ball.
+     - A ping pong ball.
+     - A steel ball.
+ 
+    target_codes:
+     - 1_blue_ball
+     - 2_red_ball
+     - 3_tennis_ball
+     - 4_pingpong_ball
+     - 5_steel_ball
+
+-
+
+    init_img: imagenet_bottlecap.jpg
+    source_prompt: A red bottlecap in the middle between black bottlecaps.
+
+    target_prompts:
+     - A black bottlecap in the middle between black bottlecaps.
+     - A white bottlecap in the middle between black bottlecaps.
+     - A blue bottlecap in the middle between black bottlecaps.
+     - A yellow bottlecap in the middle between black bottlecaps.
+
+    target_codes:
+     - 1_black_bottlecap
+     - 2_white_bottlecap
+     - 3_blue_bottlecap
+     - 4_yellow_bottlecap
+
+-
+
+    init_img: imagenet_chicken.jpg
+    source_prompt: A large, white, and brown rooster stands on a cement floor.
+
+    target_prompts:
+     - A large, black, and brown rooster stands on a cement floor.
+     - A large, white, and brown dog stands on a cement floor.
+     - A large, white, and brown cat stands on a cement floor.
+
+    target_codes:
+     - 1_black_chicken
+     - 2_dog
+     - 3_cat
+
+-
+
+    init_img: imagenet_dog.jpg
+    source_prompt: A small, white, and brown dog.
+
+    target_prompts:
+     - A small, black dog.
+     - A small, Golden Retriever dog.
+     - A small, Husky dog.
+     - A small, red fox.
+     - A small, white, and brown cat.
+
+    target_codes:
+     - 1_black_dog
+     - 2_golden_retriever
+     - 3_husky
+     - 4_fox
+     - 5_cat
+    
+- 
+
+    init_img: imagenet_dog2.jpg
+    source_prompt: A dog on a leash standing on the grass. The dog appears to be a large, grey, and black German Shepherd.
+
+    target_prompts:
+     - A dog on a leash standing on the grass. The dog appears to be a large, white dog.
+     - A dog on a leash standing on the grass. The dog appears to be a large Golden Retriever.
+     - A dog on a leash standing on the grass. The dog appears to be a large Husky.
+     - A dog on a leash standing on the grass. The dog appears to be a large Dalmatian.
+     - A dog on a leash standing on the grass. The dog appears to be a large cheetah.
+
+    target_codes:
+     - 1_white_dog
+     - 2_golden_retriever
+     - 3_husky
+     - 4_dalmatian
+     - 5_cheetah
+
+-
+
+    init_img: imagenet_fish.jpg
+    source_prompt: A large fish appears to be a brown and yellow color, with a long and slender body. 
+
+    target_prompts:
+     - A large fish appears to be a white color, with a long and slender body. 
+     - A large fish appears to be a orange color, with a long and slender body. 
+     
+    target_codes:
+     - 1_white_fish
+     - 2_orange_fish
+
+- 
+
+    init_img: imagenet_peanut.jpg
+    source_prompt: A small blue bird eating a peanut.
+
+    target_prompts:
+     - A small blue bird eating a cherry.
+     - A small blue bird eating a worm.
+     - A small blue bird eating a mantis.
+     - A small blue bird eating a ladybug.
+
+    target_codes:
+     - 1_cherry
+     - 2_worm
+     - 3_mantis
+     - 4_ladybug
+
+-
+    init_img: imagenet_rabbit.jpg
+    source_prompt: A large brown rabbit sitting in a cage.
+
+    target_prompts:
+    - A large black rabbit sitting in a cage.
+    - A large white rabbit sitting in a cage.
+    - A large brown puppy sitting in a cage.
+
+    target_codes:
+    - 1_black_rabbit
+    - 2_white_rabbit
+    - 3_puppy
+
+-
+
+    init_img: imagenet_redball.jpg
+    source_prompt: A red ball sitting directly next to a dark green ball.
+
+    target_prompts:
+     - A white ball sitting directly next to a dark green ball.
+     - A purple ball sitting directly next to a dark green ball.
+     - A brown ball sitting directly next to a dark green ball.
+
+    target_codes:
+     - 1_white_ball
+     - 2_purple_ball
+     - 3_brown_ball
+
+-
+
+    init_img: objects365_ball.jpg
+    source_prompt: A brown football is located towards the bottom right corner of the image.
+
+    target_prompts:
+     - A soccer ball is located towards the bottom right corner of the image.
+     - A bowling ball is located towards the bottom right corner of the image.
+     - A tennis ball is located towards the bottom right corner of the image.
+     - A basketball is located towards the bottom right corner of the image.
+     - A red toy ball is located towards the bottom right corner of the image.
+
+    target_codes:
+     - 1_soccer
+     - 2_bowling
+     - 3_tennis
+     - 4_basket
+     - 5_red_toy
+
+-
+
+    init_img: objects365_ball2.jpg
+    source_prompt: A soccer ball is located in the lower-middle part of the field, with a white and black color scheme.
+    target_prompts:
+     - A football is located in the lower-middle part of the field, with a brown color scheme.
+     - A tennis ball is located in the lower-middle part of the field, with a green color scheme.
+     - A bowling ball is located in the lower-middle part of the field, with a black color scheme.
+     - A basketball is located in the lower-middle part of the field, with a broen color scheme.
+    
+    target_codes:
+     - 1_football
+     - 2_tennis
+     - 3_bowling
+     - 4_basket
+
+-
+    init_img: objects365_ball3.jpg
+    source_prompt: Two female soccer players on the field with one player kicking the soccer ball.
+
+    target_prompts:
+     - Two female soccer players on the field with one player kicking the football.
+     - Two female soccer players on the field with one player kicking the tennis ball.
+     - Two female soccer players on the field with one player kicking the bowling ball.
+     - Two female soccer players on the field with one player kicking the basketball.
+     - Two female soccer players on the field with one player kicking the pink toy ball.
+    
+    target_codes:
+     - 1_football
+     - 2_tennis
+     - 3_bowling
+     - 4_basket
+     - 5_pink_toy
+
+-   
+
+    init_img: objects365_ball4.jpg
+    source_prompt: A standard basketball with a yellow and red color scheme.
+
+    target_prompts:
+     - A standard soccer ball with a black and white color scheme.
+     - A standard tennis ball with a green color scheme.
+     - A standard bowling ball with a black color scheme.
+
+    target_codes:
+     - 1_soccer
+     - 2_tennis
+     - 3_bowling
+
+-
+
+    init_img: objects365_ball5.jpg
+    source_prompt: A basketball high in the air near the top center of the frame and floating well above the rim.
+    
+    target_prompts:
+     - A tennis ball high in the air near the top center of the frame and floating well above the rim.
+     - A soccer ball high in the air near the top center of the frame and floating well above the rim.
+     - A bowling ball high in the air near the top center of the frame and floating well above the rim.
+
+    target_codes:
+     - 1_tennis
+     - 2_soccer
+     - 3_bowling
+
+-
+
+    init_img: objects365_blackpot.jpg
+    source_prompt: A black pot at the very top of a vertical stack of pots.
+
+    target_prompts:
+     - A red pot at the very top of a vertical stack of pots.
+     - A blue pot at the very top of a vertical stack of pots.
+     - A white pot at the very top of a vertical stack of pots.
+     - A orange pot at the very top of a vertical stack of pots.
+    
+
+    target_codes:
+     - 1_red
+     - 2_blue
+     - 3_white
+     - 4_orange
+
+-   
+
+    init_img: objects365_boat.jpg
+    source_prompt: A small yellow boat centrally in the open water.
+
+    target_prompts:
+     - A small red boat centrally in the open water.
+     - A small blue boat centrally in the open water.
+     - A small pink boat centrally in the open water.
+     - A small black boat centrally in the open water.
+
+    target_codes:
+     - 1_red
+     - 2_blue
+     - 3_pink
+     - 4_black
+
+-
+
+    init_img: objects365_bottle.jpg
+    source_prompt: A clear plastic water bottle on the grass.
+
+    target_prompts:
+     - A steel water bottle on the grass.
+     - A green water bottle on the grass.
+     - A red CocaCola can on the grass.
+     - A blue Pepsi can on the grass.
+
+    target_codes:
+     - 1_steel
+     - 2_green
+     - 3_cocacola
+     - 4_pepsi
+
+- 
+
+    init_img: objects365_butterfly.jpg
+    source_prompt: A large red butterfly decoration high on the white wall.
+
+    target_prompts:
+     - A large yellow butterfly decoration high on the white wall.
+     - A large pink butterfly decoration high on the white wall.
+     - A large red ladybug decoration high on the white wall.
+     - A large eagle decoration high on the white wall.
+
+    target_codes:
+     - 1_yellow
+     - 2_pink
+     - 3_ladybug
+     - 4_eagle
+
+-
+    init_img: objects365_car.jpg
+    source_prompt: A white car driving forward in the lane.
+
+    target_prompts:
+     - A black car driving forward in the lane.
+     - A blue car driving forward in the lane.
+     - A red Lamborghini driving forward in the lane.
+     - A truck driving forward in the lane.
+
+    target_codes:
+     - 1_black
+     - 2_blue
+     - 3_lamborghini
+     - 4_truck
+  
+-
+
+    init_img: objects365_cat.jpg
+    source_prompt: A long-haired grey cats are resting.
+
+    target_prompts:
+     - A long-haired black cats are resting.
+     - A long-haired white cats are resting.
+     - A long-haired black dogs are resting.
+     - A red fox are resting.
+
+    target_codes:
+     - 1_black
+     - 2_white
+     - 3_dog
+     - 4_fox
+
+-
+
+    init_img: objects365_coca.jpg
+    source_prompt: A large plastic CocaCola bottle is resting on top of a white unit.
+
+    target_prompts:
+     - A large steel CocaCola can is resting on top of a white unit.
+     - A large plastic water bottle is resting on top of a white unit.
+     - A large plastic Pepsi bottle is resting on top of a white unit.
+     - A large plastic Sprite bottle is resting on top of a white unit.
+
+    target_codes:
+     - 1_cocacola_can
+     - 2_water
+     - 3_pepsi
+     - 4_sprite
+
+-
+
+    init_img: objects365_coffee_machine.jpg
+    source_prompt: A silver coffee machine resting against the backsplash underneath the upper cabinets.
+
+    target_prompts:
+     - A silver flower vase resting against the backsplash underneath the upper cabinets.
+
+    target_codes:
+     - 1_flower_vase
+    
+- 
+
+    init_img: objects365_cushion.jpg
+    source_prompt: A large pink cushioned ottoman sitting.
+    
+    target_prompts:
+     - A large white cushioned ottoman sitting.
+     - A large red cushioned ottoman sitting.
+     - A large blue cushioned ottoman sitting.
+     - A large yellow cushioned ottoman sitting.
+    
+    target_codes:
+     - 1_white
+     - 2_red
+     - 3_blue
+     - 4_yellow
+
+-
+
+    init_img: objects365_dog.jpg
+    source_prompt: A black and white Border Collie leaping energetically in the foreground.
+
+    target_prompts:
+     - A black and white Husky leaping energetically in the foreground.
+     - A Golden Retriever leaping energetically in the foreground.
+     - A Dalmatian leaping energetically in the foreground.
+     - A large brown dog leaping energetically in the foreground.
+
+    target_codes:
+     - 1_husky
+     - 2_golden_retriever
+     - 3_dalmatian
+     - 4_brown_dog
+
+-
+    init_img: objects365_dog2.jpg
+    source_prompt: A dog appears to be a small white and black dog, sitting on the ground.
+
+
+    target_prompts:
+     - A dog appears to be a small golden retriever, sitting on the ground.
+     - A dog appears to be a small husky, sitting on the ground.
+     - A dog appears to be a small brown dog, sitting on the ground.
+     - A cat appears to be a small white and black cat, sitting on the ground.
+    
+    target_codes:
+     - 1_golden_retriever
+     - 2_husky
+     - 3_brown_dog
+     - 4_cat
+
+-   
+
+    init_img: objects365_dog3.jpg
+    source_prompt: A golden-colored dog stands near the table, a black Border Collie prominently in the foreground, walking across the patio tiles towards the right side.
+
+    target_prompts:
+     - A golden-colored dog stands near the table, a black and white Dalmatian prominently in the foreground, walking across the patio tiles towards the right side.
+     - A golden-colored dog stands near the table, a white wolf prominently in the foreground, walking across the patio tiles towards the right side.
+     - A golden-colored dog stands near the table, a large tiger prominently in the foreground, walking across the patio tiles towards the right side.
+     - A golden-colored dog stands near the table, a dog sculpture prominently in the foreground, walking across the patio tiles towards the right side.
+
+    target_codes:
+     - 1_dalmatian
+     - 2_wolf
+     - 3_tiger
+     - 4_sculpture
+    
+-
+
+    init_img : objects365_dog4.jpg
+    source_prompt: A black Rottweiler sleeping curled up on the grass.
+    
+    target_prompts:
+     - A black and white Dalmatian sleeping curled up on the grass.
+     - A Golden Retriever sleeping curled up on the grass.
+     - A brown Poodle sleeping curled up on the grass.
+     - A red fox sleeping curled up on the grass.
+     - A white wolf sleeping curled up on the grass.
+     - A large tiger sleeping curled up on the grass.
+
+    target_codes:
+     - 1_dalmatian
+     - 2_golden_retriever
+     - 3_poodle
+     - 4_fox
+     - 5_wolf
+     - 6_tiger
+
+-
+
+    init_img: objects365_dolphin.jpg
+    source_prompt: A grey Bottlenose dolphins are positioned centrally in the foreground.
+
+    target_prompts:
+     - A sharks are positioned centrally in the foreground.
+     - A whales are positioned centrally in the foreground.
+     - A salmons are positioned centrally in the foreground.
+
+    target_codes:
+     - 1_shark
+     - 2_whale
+     - 3_salmon
+
+-
+
+      init_img: objects365_elephant.jpg
+      source_prompt: A dark black elephant sculpture facing towards the left.
+  
+      target_prompts:
+       - A dark black tiger sculpture facing towards the left.
+       - A dark black wolf sculpture facing towards the left.
+       - A white polar bear sculpture facing towards the left.
+       - A dark black shark sculpture facing towards the left.
+
+      target_codes:
+       - 1_tiger
+       - 2_wolf
+       - 3_bear
+       - 4_shark
+
+-
+
+    init_img: objects365_flower.jpg
+    source_prompt: A bright purple orchid corsage pinned high on the chest and tied with a pink ribbon.
+
+    target_prompts:
+     - A bright red orchid corsage pinned high on the chest and tied with a pink ribbon.
+     - A bright white orchid corsage pinned high on the chest and tied with a pink ribbon.
+     - A bright yellow orchid corsage pinned high on the chest and tied with a pink ribbon.
+  
+    target_codes:
+     - 1_red
+     - 2_white
+     - 3_yellow
+
+-
+
+    init_img: objects365_flower2.jpg
+    source_prompt: A bouquet of white and cream-colored roses.
+
+    target_prompts:
+       - A bouquet of red and cream-colored roses.
+       - A bouquet of purple and cream-colored roses.
+       - A bouquet of yellow and cream-colored roses.
+
+
+    target_codes:
+     - 1_red
+     - 2_purple
+     - 3_yellow
+
+-
+
+    init_img: objects365_horse.jpg
+    source_prompt: A striking white horse.
+
+    target_prompts:
+     - A striking black horse.
+     - A striking pink horse.
+
+    target_codes:
+     - 1_black
+     - 2_pink
+
+-
+
+    init_img: objects365_horse2.jpg
+    source_prompt: A dark brownish-green grass horse sculpture standing in a bed of pine straw next to a row of hedges and the black metal railing.
+
+    target_prompts:
+     - A gold metal horse sculpture standing in a bed of pine straw next to a row of hedges and the black metal railing.
+     - A silver metal horse sculpture standing in a bed of pine straw next to a row of hedges and the black metal railing.
+     - A brown wood horse sculpture standing in a bed of pine straw next to a row of hedges and the black metal railing.
+
+    target_codes:
+     - 1_gold
+     - 2_silver
+     - 3_wood
+
+-
+    
+    init_img: objects365_lamp.jpg
+    source_prompt: A small white table lamp featuring a beige shade and dark base.
+
+    target_prompts:
+     - A small colorful table lamp featuring a beige shade and dark base.
+
+    target_codes:
+     - 1_colorful
+
+-
+    
+    init_img: objects365_mug.jpg
+    source_prompt: A bright red mug on top of the white microwave.
+
+    target_prompts:
+     - A bright pink mug on top of the white microwave.
+     - A bright red vase on top of the white microwave.
+     - A bright red steel ball on top of the white microwave.
+
+    target_codes:
+     - 1_pink
+     - 2_vase
+     - 3_steel_ball
+
+- 
+
+    init_img: objects365_orange.jpg
+    source_prompt: A glass of orange juice sits on the table.
+
+    target_prompts:
+     - A glass of water sits on the table.
+     - A glass of cocacola sits on the table.
+     - A glass of chocolate milk sits on the table.
+     - A glass of strawberry milk sits on the table.
+
+    target_codes:
+     - 1_water
+     - 2_cocacola
+     - 3_chocolate
+     - 4_strawberry
+
+-
+    
+    init_img: objects365_orangepillow.jpg
+    source_prompt: A bright orange patterned pillow on the striped sofa.
+    
+    target_prompts:
+     - A bright pink patterned pillow on the striped sofa.
+     - A bright red patterned pillow on the striped sofa.
+     - A bright blue patterned pillow on the striped sofa.
+     - A bright white patterned pillow on the striped sofa.
+
+    target_codes:
+     - 1_pink
+     - 2_red
+     - 3_blue
+     - 4_white
+   
+-
+
+    init_img: objects365_redhat.jpg
+    source_prompt: A bright red hard helmet on the loose rocks in the foreground.
+    
+    target_prompts:
+     - A bright orange hard helmet on the loose rocks in the foreground.
+     - A bright white hard helmet on the loose rocks in the foreground.
+     - A bright blue hard helmet on the loose rocks in the foreground.
+     - A bright red bag on the loose rocks in the foreground.
+    
+    target_codes:
+     - 1_orange
+     - 2_white
+     - 3_blue
+     - 4_bag
+
+-
+
+    init_img: objects365_redtowel.jpg
+    source_prompt: A bright red folded towel sitting prominently next to a stack of white items.
+    
+    target_prompts:
+     - A bright blue folded towel sitting prominently next to a stack of white items.
+     - A bright orange folded towel sitting prominently next to a stack of white items.
+
+    target_codes:
+     - 1_blue
+     - 2_orange
+ 
+-
+
+    init_img: objects365_remote.jpg
+
+    source_prompt: A black television remote prominently on the dark wooden oval coffee table.
+    
+    target_prompts:
+     - A white television remote prominently on the dark wooden oval coffee table.
+
+    target_codes:
+     - 1_white_remote
+
+-
+
+    init_img: objects365_shoe.jpg
+    source_prompt: A bright red shoe.
+
+    target_prompts:
+     - A bright white shoe.
+     - A dark green shoe.
+     - A pink shoe.
+     - A black shoe.
+    
+    target_codes:
+     - 1_white
+     - 2_green
+     - 3_pink
+     - 4_black
+
+- 
+
+    init_img: objects365_shoe2.jpg
+    source_prompt: A black shoe is planted firmly on the ground to support his stance.
+
+    target_prompts:
+     - A red shoe is planted firmly on the ground to support his stance.
+     - A white shoe is planted firmly on the ground to support his stance.
+     - A pink shoe is planted firmly on the ground to support his stance.
+
+    target_codes:
+     - 1_red_red
+     - 2_white_white
+     - 3_pink_pink
+
+- 
+
+    init_img: objects365_shoe3.jpg
+    source_prompt: A bright white basketball shoe on the foot of the player.
+    
+    target_prompts:
+     - A bright orange basketball shoe on the foot of the player.
+     - A bright purple basketball shoe on the foot of the player.
+     - A bright pink basketball shoe on the foot of the player.
+     - A dark green basketball shoe on the foot of the player.
+     - A black basketball shoe on the foot of the player.
+
+    target_codes:
+     - 1_orange
+     - 2_purple
+     - 3_pink
+     - 4_green
+     - 5_black
+
+- 
+
+    init_img: objects365_shoe4.jpg
+
+    source_prompt: A black shoe pivoted up on its toe to generate power.
+
+    target_prompts:
+     - A white shoe pivoted up on its toe to generate power.
+     - A blue shoe pivoted up on its toe to generate power.
+     - A green shoe pivoted up on its toe to generate power.
+     - A red shoe pivoted up on its toe to generate power.
+
+    target_codes:
+     - 1_white
+     - 2_blue
+     - 3_green
+     - 4_red
+
+- 
+
+    init_img: objects365_shoe5.jpg 
+    source_prompt: A bright neon green shoes.
+
+    target_prompts:
+     - A bright neon red shoes.
+     - A bright neon pink shoes.
+     - A bright neon purple shoes.
+
+    target_codes:
+     - 1_red
+     - 2_pink
+     - 3_purple
+
+-
+
+    init_img: objects365_tower.jpg
+    source_prompt: A tall, beige multi-tiered pagoda tower standing.
+
+    target_prompts:
+     - A tall Rapunzel's tower standing.
+     - A tall Big Ben clock tower standing.
+     - A tall lighthouse standing.
+     - A tall obelisk standing.
+     - A tall rocket standing.
+
+    target_codes:
+     - 1_rapunzel
+     - 2_big_ben
+     - 3_lighthouse
+     - 4_obelisk
+     - 5_rocket

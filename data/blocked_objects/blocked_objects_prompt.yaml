@@ -1,0 +1,133 @@
+-
+    init_img: blue_bottlecap.png
+
+    source_prompt: The bottle cap is round, blue, and appears to be made of plastic.
+
+    target_prompts:
+     - The bottle cap is round, red, and appears to be made of plastic
+     - The bottle cap is round, yellow, and appears to be made of plastic
+     - The bottle cap is round, black, and appears to be made of plastic
+ 
+    target_codes:
+     - 1_red
+     - 2_yellow
+     - 3_black
+
+-
+    init_img: yellow_bottlecap.png
+
+    source_prompt: The bottle cap is round, yellow, and appears to be made of plastic.
+
+    target_prompts:
+     - The bottle cap is round, red, and appears to be made of plastic
+     - The bottle cap is round, blue, and appears to be made of plastic
+     - The bottle cap is round, white, and appears to be made of plastic
+ 
+    target_codes:
+     - 1_red
+     - 2_blue
+     - 3_white
+
+-
+    init_img: white_bottlecap.png
+
+    source_prompt: The bottle cap is round, white, and appears to be made of plastic.
+
+    target_prompts:
+     - The bottle cap is round, red, and appears to be made of plastic
+     - The bottle cap is round, blue, and appears to be made of plastic
+ 
+    target_codes:
+     - 1_red
+     - 2_blue
+
+-
+    init_img: peach.png
+
+    source_prompt: The peach has a vibrant red hue with hints of orange, a smooth and slightly fuzzy texture, and a round shape.
+
+    target_prompts:
+     - The orange has a vibrant orange hue with hints of yellow, a smooth and slightly fuzzy texture, and a round shape.
+ 
+    target_codes:
+     - 1_orange
+
+-
+    init_img: red_bottlecap.png
+
+    source_prompt: The bottle cap is red, ribbed, and appears to be made of plastic.
+
+    target_prompts:
+     - The bottle cap is blue, ribbed, and appears to be made of plastic.
+     - The bottle cap is yellow, ribbed, and appears to be made of plastic.
+ 
+    target_codes:
+     - 1_blue
+     - 2_yellow
+
+-
+    init_img: dog.png
+
+    source_prompt: A black Border Collie walking towards the right side.
+
+    target_prompts:
+     - A Golden Retriever walking towards the right side.
+     - A Dalmatian walking towards the right side.
+     - A white dog walking towards the right side.
+ 
+    target_codes:
+     - 1_golden
+     - 2_dalmatian
+     - 3_white
+
+-
+    init_img: grape.png
+
+    source_prompt: The grape is round, yellow, and appears fresh.
+
+    target_prompts:
+     - The ball is round, red, and appears to be made of plastic.
+     - The ball is round, black, and appears to be made of plastic.
+ 
+    target_codes:
+     - 1_red
+     - 2_black
+
+-
+    init_img: camel.png
+
+    source_prompt: The camel is a large mammal with a hump on its back, long legs, and a beard. It is equipped with a saddle and appears to be in a desert environment.
+
+    target_prompts:
+     - The silver camel sculpture with a hump on its back, long legs, and a beard. It is equipped with a saddle and appears to be in a desert environment.
+     - The golden camel sculpture with a hump on its back, long legs, and a beard. It is equipped with a saddle and appears to be in a desert environment.
+ 
+    target_codes:
+     - 1_silver
+     - 2_golden
+
+-
+    init_img: horse.png
+
+    source_prompt: The horse has a brown coat, a white face, and a mane that appears to be slightly wavy.
+
+    target_prompts:
+     - The horse has a black coat, a white face, and a mane that appears to be slightly wavy.
+     - The horse has a white coat, a white face, and a mane that appears to be slightly wavy.
+ 
+    target_codes:
+     - 1_black
+     - 2_white
+
+-
+    init_img: yellow_chair.png
+
+    source_prompt: The bright yellow chair has a modern design, a molded seat and backrest.
+
+    target_prompts:
+     - The bright red chair has a modern design, a molded seat and backrest.
+     - The dark blue chair has a modern design, a molded seat and backrest.
+ 
+    target_codes:
+     - 1_red
+     - 2_blue

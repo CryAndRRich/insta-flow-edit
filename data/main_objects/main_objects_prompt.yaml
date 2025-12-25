@@ -1,5 +1,5 @@
 -
-    init_img:  flowedit_data/bear.png
+    init_img: bear.png
 
     source_prompt: A large brown bear walking through a stream of water.
         The stream appears to be shallow, as the bear is able to walk through it without any difficulty.
@@ -18,7 +18,7 @@
 
 -
 
-    init_img:  flowedit_data/bear_grass.png
+    init_img: bear_grass.png
     source_prompt: A large brown bear walking through a grassy field.
 
     target_prompts:
@@ -39,7 +39,7 @@
 
 -
 
-    init_img:  flowedit_data/beer_glass.png
+    init_img: beer_glass.png
     source_prompt: A wine glass filled with beer.
 
     target_prompts:
@@ -50,7 +50,7 @@
 
 -
 
-    init_img:  flowedit_data/bikes.png
+    init_img: bikes.png
     source_prompt: A bicycle parked on the sidewalk in front of a red brick building. 
       The bicycle is positioned close to the door of the building, making
       it easily accessible for the owner. The building has a red brick exterior, giving
@@ -92,7 +92,7 @@
     
 - 
 
-    init_img:  flowedit_data/boat_silhouette.png
+    init_img: boat_silhouette.png
     source_prompt: A serene scene of a lake with a silhouette of a sailboat floating on the water. 
       The silhouette of the boat is positioned in the middle of the lake, slightly to the left. The sun is setting in the background, casting a warm glow over the scene.
 
@@ -108,7 +108,7 @@
 
 -
 
-    init_img:  flowedit_data/brown_owl.png
+    init_img: brown_owl.png
     source_prompt: A small, brown owl standing on a patch of grass. 
 
     target_prompts:
@@ -125,7 +125,7 @@
 
 - 
 
-    init_img:  flowedit_data/bus.png
+    init_img: bus.png
     source_prompt: A yellow van parked in front of a house, outside a garage. The van is of a classic model. The house has a brown exterior, and there is a tree nearby. There is a spare tire hanged between the headlights of the van.
 
     target_prompts:
@@ -141,7 +141,7 @@
      - 4_military_jeep
 
 -
-    init_img: flowedit_data/butterflies.png
+    init_img: butterflies.png
     source_prompt: A vibrant orange flower with two black and white
       butterflies perched on it. The butterflies are positioned on opposite sides of the
       flower, with one butterfly on the left side and the other on the right side. The
@@ -149,18 +149,18 @@
       scene.
 
     target_prompts:
-    - A vibrant orange flower with two yellow
-        butterflies perched on it. The butterflies are positioned on opposite sides of the
-        flower, with one butterfly on the left side and the other on the right side. The
-        butterflies appear to be resting or possibly feeding on the flower, creating a captivating
-        scene.
+     - A vibrant orange flower with two yellow
+       butterflies perched on it. The butterflies are positioned on opposite sides of the
+       flower, with one butterfly on the left side and the other on the right side. The
+       butterflies appear to be resting or possibly feeding on the flower, creating a captivating
+       scene.
 
     target_codes:
-    - 1_yellow
+     - 1_yellow
 
 -
 
-    init_img:  flowedit_data/butterfly.png
+    init_img: butterfly.png
     source_prompt: A beautiful purple flower with a white and black butterfly perched on top of it. The butterfly is positioned towards the left side of the flower.
 
     target_prompts:
@@ -175,7 +175,7 @@
       
 -
 
-    init_img:  flowedit_data/cake.png
+    init_img: cake.png
     source_prompt: A three-layer cake with white frosting, placed on a wooden table. The cake is adorned with a variety of fruits. The cake is presented on a white plate.
 
     target_prompts:
@@ -192,7 +192,7 @@
 
 -
 
-    init_img:  flowedit_data/cake_red_blueberries.png
+    init_img: cake_red_blueberries.png
     source_prompt: A slice of red velvet cake with white frosting, topped with blueberries.
 
     target_prompts:
@@ -205,19 +205,19 @@
 
 -
 
-    init_img:  flowedit_data/castle.png
+    init_img: castle.png
     source_prompt: A majestic castle with a tall, pointed roof, situated on a hillside. The sky above the castle is filled with clouds, creating a dramatic atmosphere.
       There are several windows on the castle, with some located on the lower levels and others on the upper levels. 
 
     target_prompts:
      - A majestic castle made out of lego bricks with a tall, pointed roof, situated on a hillside. The sky above the lego castle is filled with clouds, creating a dramatic atmosphere.
-      There are several windows on the lego castle, with some located on the lower levels and others on the upper levels. 
+       There are several windows on the lego castle, with some located on the lower levels and others on the upper levels. 
     
     target_codes:
      - 1_lego_castle
 
 -
-    init_img: flowedit_data/cat_and_dog.png
+    init_img: cat_and_dog.png
     source_prompt: A dog and a cat sitting together on a sidewalk. The dog is positioned on the left side of the scene, while the cat is on the right side. Both animals appear to be relaxed and enjoying each other''s company.
 
     target_prompts:
@@ -230,23 +230,23 @@
 
 -   
 
-    init_img:  flowedit_data/cat_and_dog2.png
+    init_img: cat_and_dog2.png
     source_prompt: A gray cat and a brown dog on a floor, some distance between them. The dog is laying on the floor, while the cat is sitting. 
                     The cat is positioned on the left side of the scene, while the dog is on the right side. Both pets looking at the camera.
 
     target_prompts:
      - A tiger and a brown dog on a floor, some distance between them. The dog is laying on the floor, while the tiger is sitting. 
-        The tiger is positioned on the left side of the scene, while the dog is on the right side. Both animals looking at the camera.
+       The tiger is positioned on the left side of the scene, while the dog is on the right side. Both animals looking at the camera.
      - A raccoon and a brown dog on a floor, some distance between them. The dog is laying on the floor, while the raccoon is sitting. 
-        The raccoon is positioned on the left side of the scene, while the dog is on the right side. Both animals looking at the camera.
+       The raccoon is positioned on the left side of the scene, while the dog is on the right side. Both animals looking at the camera.
      - A koala and a brown dog on a floor, some distance between them. The dog is laying on the floor, while the koala is sitting. 
-        The koala is positioned on the left side of the scene, while the dog is on the right side. Both animals looking at the camera.
+       The koala is positioned on the left side of the scene, while the dog is on the right side. Both animals looking at the camera.
      - A red panda and a brown dog on a floor, some distance between them. The dog is laying on the floor, while the red panda is sitting. 
-        The red panda is positioned on the left side of the scene, while the dog is on the right side. Both animals looking at the camera.
+       The red panda is positioned on the left side of the scene, while the dog is on the right side. Both animals looking at the camera.
      - A tiger and a brown bear on a floor, some distance between them. The bear is laying on the floor, while the tiger is sitting. 
-        The tiger is positioned on the left side of the scene, while the bear is on the right side. Both animals looking at the camera.
+       The tiger is positioned on the left side of the scene, while the bear is on the right side. Both animals looking at the camera.
      - A lion and a brown bear on a floor, some distance between them. The bear is laying on the floor, while the lion is sitting. 
-        The lion is positioned on the left side of the scene, while the bear is on the right side. Both animals looking at the camera.
+       The lion is positioned on the left side of the scene, while the bear is on the right side. Both animals looking at the camera.
 
     target_codes:
      - 1_tiger_dog
@@ -258,7 +258,7 @@
 
 -
 
-    init_img:  flowedit_data/cat_crown.png
+    init_img: cat_crown.png
     source_prompt: A gray cat sitting on a black cloth, wearing a crown. The crown is placed on the cat''s head.
     
     target_prompts:
@@ -273,7 +273,7 @@
 
 -
 
-    init_img:  flowedit_data/cat.png
+    init_img: cat.png
     source_prompt: A small, fluffy kitten sitting in a grassy field. The kitten is positioned in the center of the scene, surrounded by a field.
       The kitten appears to be looking at something in the field.
 
@@ -305,7 +305,7 @@
 
 -   
 
-    init_img:  flowedit_data/cat_dog_car.png
+    init_img: cat_dog_car.png
     source_prompt: A blue-gray Audi car parked in a grassy area. A white dog sitting on the grass, next to the car. A cat laying on the hood of the car. 
 
     target_prompts:
@@ -333,7 +333,7 @@
 
 -
 
-    init_img:  flowedit_data/cat_ginger.png
+    init_img: cat_ginger.png
     source_prompt: An orange and white cat sitting.
 
     target_prompts:
@@ -346,7 +346,7 @@
 
 -
 
-    init_img:  flowedit_data/cat_stone.png
+    init_img: cat_stone.png
     source_prompt: A small gray kitten sitting on a stone ledge. The ledge is located near a wall, and there is a cement block nearby.
 
     target_prompts:
@@ -367,7 +367,7 @@
 
 - 
 
-    init_img:  flowedit_data/clown_fish.png
+    init_img: clown_fish.png
     source_prompt: A vibrant underwater scene with a clownfish swimming among various coral reefs. The clownfish is positioned towards the left side of the image, surrounded by a diverse array of coral and sea plants.
 
     target_prompts:
@@ -383,7 +383,7 @@
      - 4_seahorse
 
 -
-    init_img:  flowedit_data/coconut_out.png
+    init_img: coconut_out.png
     source_prompt: The image features a coconut shell filled with water, creating a unique and artistic scene. The water in the coconut shell is splashing, adding to the visual appeal. The coconut shell is placed on a table, next to an apple.
 
     target_prompts:
@@ -398,13 +398,13 @@
   
 -
 
-    init_img:  flowedit_data/corgi.png
+    init_img: corgi.png
     source_prompt: A brown and white dog sitting on a dirt ground near a body of water. The dog appears to be enjoying the outdoors, possibly in a park.
       The dog is wearing a red collar. In the background, there are a few trees, providing a natural setting for the dog''s outdoor adventure.
 
     target_prompts:
      - A brown and white dog made out of lego bricks sitting on a dirt ground near a body of water. The dog appears to be enjoying the outdoors, possibly in a park.
-      The dog is wearing a red collar. In the background, there are a few trees, providing a natural setting for the dog''s outdoor adventure.
+       The dog is wearing a red collar. In the background, there are a few trees, providing a natural setting for the dog''s outdoor adventure.
      - A wooden sculpture of a brown and white dog made sitting on a dirt ground near a body of water. The wooden sculpture of a dog appears to be enjoying the outdoors, possibly in a park.
        In the background, there are a few trees, providing a natural setting for the wooden sculpture''s outdoor adventure.
      - A red fox sitting on a dirt ground near a body of water. The fox appears to be enjoying the outdoors, possibly in a park. The fox is wearing a red collar. 
@@ -417,7 +417,7 @@
 
 - 
 
-    init_img:  flowedit_data/cupcake.png
+    init_img: cupcake.png
     source_prompt: A small chocolate cupcake with light brown whipped cream on top.
 
     target_prompts:
@@ -430,7 +430,7 @@
 
 -
 
-    init_img:  flowedit_data/dalmatian.png
+    init_img: dalmatian.png
     source_prompt: A Dalmatian dog sitting on a white background. The dog is wearing a bandana, which adds a touch of color to the scene. 
       The dog is looking up, possibly at something interesting or engaging, with its mouth open.
 
@@ -446,7 +446,7 @@
 
 -
 
-    init_img:  flowedit_data/deer_silhouette.png
+    init_img: deer_silhouette.png
     source_prompt: A silhouette of a deer standing on a grassy bank near a lake. The scene is set during sunset, with the sun casting a warm glow over it.
 
     target_prompts:
@@ -457,7 +457,7 @@
     
 - 
 
-    init_img:  flowedit_data/dog.png
+    init_img: dog.png
     source_prompt: A small black and brown dog sitting on a lush green field.
 
     target_prompts:
@@ -482,7 +482,7 @@
 
 -
 
-    init_img:  flowedit_data/dog_snow.png
+    init_img: dog_snow.png
     source_prompt: A German Shepherd dog standing in a snowy field.
 
     target_prompts:
@@ -504,7 +504,7 @@
      - 7_baby_deer
 
 -
-    init_img: flowedit_data/dogs.png
+    init_img: dogs.png
     source_prompt: Two dingo dogs standing close to each other in a wooded area. They appear to be sniffing each other, possibly engaging in a playful interaction.
 
 
@@ -520,7 +520,7 @@
 
 -   
 
-    init_img:  flowedit_data/dogs2.png
+    init_img: dogs2.png
     source_prompt: Two dogs standing on a grassy hillside. One dog positioned to the right of the other. This dog has light brown spots on his face, legs and tail.
 
     target_prompts:
@@ -531,7 +531,7 @@
     
 -
 
-    init_img : flowedit_data/drawing_horse.png
+    init_img : drawing_horse.png
     source_prompt: A black and white sketch of a horse, showcasing its grace and beauty. The horse is positioned in the center of the image, with its head slightly tilted to the left. 
     
     target_prompts:
@@ -542,19 +542,19 @@
 
 -
 
-    init_img:  flowedit_data/duck.png
+    init_img: duck.png
     source_prompt: A brown duck swimming in a lake. The duck is floating on the surface of the water, surrounded by a few ripples. The duck is preening its feathers. 
         The scene is set against a black background, which emphasizes the duck''s presence in the water.
 
     target_prompts:
      - A colorful duck swimming in a lake. The duck is floating on the surface of the water, surrounded by a few ripples. 
-      The scene is set against a black background, which emphasizes the duck''s presence in the water.
+       The scene is set against a black background, which emphasizes the duck''s presence in the water.
      - A black swan swimming in a lake. The black swan is floating on the surface of the water, surrounded by a few ripples. The black swan is preening its feathers. 
-        The scene is set against a black background, which emphasizes the black swan''s presence in the water.
+       The scene is set against a black background, which emphasizes the black swan''s presence in the water.
      - A white swan swimming in a lake. The white swan is floating on the surface of the water, surrounded by a few ripples.
        The scene is set against a black background, which emphasizes the white swan''s presence in the water.
      - A goose swimming in a lake. The goose is floating on the surface of the water, surrounded by a few ripples. The goose is preening its feathers. 
-        The scene is set against a black background, which emphasizes the goose''s presence in the water.
+       The scene is set against a black background, which emphasizes the goose''s presence in the water.
 
     target_codes:
      - 1_colorful_duck
@@ -564,21 +564,21 @@
 
 -
 
-      init_img:  flowedit_data/flowers_draw.png
-  
-      source_prompt: A painting of three red flowers, each with a long stem. The painting is done in watercolor, giving it a vibrant appearance
-  
-      target_prompts:
-       - A painting of three sunflowers, each with a long stem. The painting is done in watercolor, giving it a vibrant appearance
-       - A painting of three tulips, each with a long stem. The painting is done in watercolor, giving it a vibrant appearance
+    init_img: flowers_draw.png
 
-      target_codes:
-       - 1_sunflowers
-       - 2_tulips
+    source_prompt: A painting of three red flowers, each with a long stem. The painting is done in watercolor, giving it a vibrant appearance
+
+    target_prompts:
+     - A painting of three sunflowers, each with a long stem. The painting is done in watercolor, giving it a vibrant appearance
+     - A painting of three tulips, each with a long stem. The painting is done in watercolor, giving it a vibrant appearance
+
+    target_codes:
+     - 1_sunflowers
+     - 2_tulips
 
 -
 
-    init_img: flowedit_data/flowers.png
+    init_img: flowers.png
     source_prompt: A vase filled with a beautiful bouquet of pink, red and white flowers. 
 
     target_prompts:
@@ -591,12 +591,12 @@
 
 -
 
-    init_img:  flowedit_data/free_wifi.png
+    init_img: free_wifi.png
     source_prompt: A wooden table with a black board on it. The board displays the words "FREE WIFI" in white letters. The table is positioned in the center of the scene, and the board is placed on top of it.
 
     target_prompts:
-       - A wooden table with a black board on it. The board displays the words "FREE BEER" in white letters. The table is positioned in the center of the scene, and the board is placed on top of it.
-       - A wooden table with a black board on it. The board displays the words "FREE HUGS" in white letters. The table is positioned in the center of the scene, and the board is placed on top of it.
+     - A wooden table with a black board on it. The board displays the words "FREE BEER" in white letters. The table is positioned in the center of the scene, and the board is placed on top of it.
+     - A wooden table with a black board on it. The board displays the words "FREE HUGS" in white letters. The table is positioned in the center of the scene, and the board is placed on top of it.
 
 
     target_codes:
@@ -605,7 +605,7 @@
 
 -
 
-    init_img:  flowedit_data/gas_station.png
+    init_img: gas_station.png
     source_prompt: A gas station with a white and red sign that reads "CAFE" There are several cars parked in front of the gas station, including a white car and a van.
 
     target_prompts:
@@ -626,7 +626,7 @@
 
 -
 
-    init_img: flowedit_data/geese.png
+    init_img: geese.png
     source_prompt: A flock of geese flying together in the sky. There are several geese, spread across the scene, with some flying higher and others lower. The geese are flying in a cloudy sky.
 
     target_prompts:
@@ -641,7 +641,7 @@
 
 -
     
-    init_img:  flowedit_data/gray_bird.png
+    init_img: gray_bird.png
     source_prompt: A small blue and gray bird perched on a wooden fence or post. The bird is positioned towards the left side of the image
 
     target_prompts:
@@ -658,21 +658,21 @@
 
 -
     
-    init_img:  flowedit_data/groceries.png
+    init_img: groceries.png
     source_prompt: A grocery list writing on a piece of brown paper with a black marker, which includes BREAD, EGGS, and MILK. The grocery list is attached to a wall or refrigerator with a magnet. 
         The magnet is red and white, possibly in the shape of a phone booth in London.
 
     target_prompts:
      - A grocery list writing on a piece of brown paper with a black marker, which includes BACON, BREAD, EGGS, and MILK. The grocery list is attached to a wall or refrigerator with a magnet. 
-        The magnet is red and white, possibly in the shape of a phone booth in London.
+       The magnet is red and white, possibly in the shape of a phone booth in London.
      - A grocery list writing on a piece of brown paper with a black marker, which includes BREAD, COFFEE, and MILK. The grocery list is attached to a wall or refrigerator with a magnet. 
-        The magnet is red and white, possibly in the shape of a phone booth in London.
+       The magnet is red and white, possibly in the shape of a phone booth in London.
      - A grocery list writing on a piece of brown paper with a black marker, which includes CVPR, EGGS, and MILK. The grocery list is attached to a wall or refrigerator with a magnet. 
-        The magnet is red and white, possibly in the shape of a phone booth in London.
+       The magnet is red and white, possibly in the shape of a phone booth in London.
      - A grocery list writing on a piece of brown paper with a black marker, which includes ECCV, EGGS, and MILK. The grocery list is attached to a wall or refrigerator with a magnet. 
-        The magnet is red and white, possibly in the shape of a phone booth in London.
+       The magnet is red and white, possibly in the shape of a phone booth in London.
      - A grocery list writing on a piece of brown paper with a black marker, which includes ICCV, EGGS, and MILK. The grocery list is attached to a wall or refrigerator with a magnet. 
-        The magnet is red and white, possibly in the shape of a phone booth in London.
+       The magnet is red and white, possibly in the shape of a phone booth in London.
 
     target_codes:
      - 1_bacon
@@ -683,7 +683,7 @@
 
 - 
 
-    init_img:  flowedit_data/horse_silhouette.png
+    init_img: horse_silhouette.png
     source_prompt: A black silhouette of a horse, showcasing its elegant and powerful form. The horse is captured in motion, with its front legs raised and its head held high.
 
     target_prompts:
@@ -694,19 +694,19 @@
 
 -
     
-    init_img:  flowedit_data/horse.png
+    init_img: horse.png
     source_prompt: A white horse running through a grassy field. The horse appears to be galloping, creating a sense of motion and energy in the image.
         The field is surrounded by a forest, with trees visible in the background. The overall atmosphere of the scene is lively and dynamic, capturing the horse''s freedom and grace as it moves through the natural environment.
     
     target_prompts:
      - A white unicorn running through a grassy field. The unicorn appears to be galloping, creating a sense of motion and energy in the image. 
-        The field is surrounded by a forest, with trees visible in the background. The overall atmosphere of the scene is lively and dynamic, capturing the unicorn''s freedom and grace as it moves through the natural environment.
+       The field is surrounded by a forest, with trees visible in the background. The overall atmosphere of the scene is lively and dynamic, capturing the unicorn''s freedom and grace as it moves through the natural environment.
      - A pink toy horse running through a grassy field. The pink toy horse appears to be galloping, creating a sense of motion and energy in the image.
-        The field is surrounded by a forest, with trees visible in the background. The overall atmosphere of the scene is lively and dynamic, capturing the pink toy horse''s freedom and grace as it moves through the natural environment.
+       The field is surrounded by a forest, with trees visible in the background. The overall atmosphere of the scene is lively and dynamic, capturing the pink toy horse''s freedom and grace as it moves through the natural environment.
      - A sculpture bronze horse running through a grassy field. The horse appears to be galloping, creating a sense of motion and energy in the image.
-        The field is surrounded by a forest, with trees visible in the background. The overall atmosphere of the scene is lively and dynamic, capturing the horse''s freedom and grace as it moves through the natural environment.
+       The field is surrounded by a forest, with trees visible in the background. The overall atmosphere of the scene is lively and dynamic, capturing the horse''s freedom and grace as it moves through the natural environment.
      - A brown horse running through a grassy field. The horse appears to be galloping, creating a sense of motion and energy in the image.
-        The field is surrounded by a forest, with trees visible in the background. The overall atmosphere of the scene is lively and dynamic, capturing the horse''s freedom and grace as it moves through the natural environment.
+       The field is surrounded by a forest, with trees visible in the background. The overall atmosphere of the scene is lively and dynamic, capturing the horse''s freedom and grace as it moves through the natural environment.
 
     target_codes:
      - 1_unicorn
@@ -716,7 +716,7 @@
    
 -
    
-    init_img:  flowedit_data/iguana.png
+    init_img: iguana.png
     source_prompt: A large orange lizard sitting on a rock near the ocean. The lizard is positioned in the center of the scene, with the ocean waves visible in the background. The rock is located close to the water, providing a picturesque setting for the lizard''s resting spot.
 
     target_prompts:
@@ -735,7 +735,7 @@
 
 -
 
-    init_img:  flowedit_data/japanese_castle.png
+    init_img: japanese_castle.png
     source_prompt: A large, white, Japanese castle with a distinctive pagoda-style roof. The castle is surrounded by green trees. The castle is situated on a hill, giving it a majestic appearance.
     
     target_prompts:
@@ -746,7 +746,7 @@
 
 -
 
-    init_img:  flowedit_data/jump_kick.png
+    init_img: jump_kick.png
 
     source_prompt: A woman in a white uniform, kicking in the air. She appears to be in the middle of a karate kick, showcasing her skill and agility. The scene takes place outdoors, in a park.
 
@@ -764,7 +764,7 @@
  
 -
 
-    init_img:  flowedit_data/jump_yay.png
+    init_img: jump_yay.png
 
     source_prompt: A man wearing a white shirt and black shorts, jumping in the air with his left arm raised. He appears to be enjoying the moment and is smiling. The background consists of a cloudy sky, which adds to the overall atmosphere of the scene.
     
@@ -782,7 +782,7 @@
 
 -
 
-    init_img:  flowedit_data/kid_running.png
+    init_img: kid_running.png
     source_prompt: A young boy running through a grassy field. He appears to be enjoying his time outdoors. The field is surrounded by trees, providing a natural and serene environment. 
 
     target_prompts:
@@ -799,7 +799,7 @@
 
 - 
 
-    init_img:  flowedit_data/lighthouse.png
+    init_img: lighthouse.png
     source_prompt: The image features a tall white lighthouse standing prominently on a hill, with a beautiful blue sky in the background. The lighthouse is illuminated by a bright light, making it a prominent landmark in the scene.
 
     target_prompts:
@@ -818,7 +818,7 @@
 
 - 
 
-    init_img:  flowedit_data/luna.png
+    init_img: luna.png
     source_prompt: A neon sign for a restaurant called Luna, which is located on a street corner. The sign is illuminated with red and orange colors.
 
     target_prompts:
@@ -841,7 +841,7 @@
 
 - 
 
-    init_img:  flowedit_data/meditation.png
+    init_img: meditation.png
 
     source_prompt: A woman sitting on the floor in a room and meditating.
 
@@ -853,7 +853,7 @@
 
 - 
 
-    init_img:  flowedit_data/meditation1.png 
+    init_img: meditation1.png 
     source_prompt: A man sitting on the ground and appears to be in a relaxed position, meditating.
 
     target_prompts:
@@ -872,7 +872,7 @@
 
 -
 
-    init_img:  flowedit_data/milk.png
+    init_img: milk.png
     source_prompt: A glass of milk placed on a wooden table. The glass is filled with milk, and a straw is inserted into it. 
 
     target_prompts:
@@ -889,7 +889,7 @@
 
 -
 
-    init_img: flowedit_data/mountain_black.png
+    init_img: mountain_black.png
     source_prompt: A large, green, hill in the middle of a vast, black, and barren landscape.
 
     target_prompts:
@@ -908,7 +908,7 @@
 
 -
 
-    init_img:  flowedit_data/muffins.png
+    init_img: muffins.png
     source_prompt: A plate of white muffins, decorated with a few raspberries.
 
     target_prompts:
@@ -919,7 +919,7 @@
 
 -
 
-    init_img:  flowedit_data/parrot.png    
+    init_img: parrot.png    
     source_prompt: A colorful parrot perched on a tree branch. The parrot is predominantly blue, with a mix of red, green, and yellow colors. 
       It sitting comfortably on the branch. The tree itself is filled with green leaves, creating a lush and vibrant backdrop for the parrot.
 
@@ -941,7 +941,7 @@
 
 -
 
-    init_img:  flowedit_data/parrot2.png    
+    init_img: parrot2.png    
     source_prompt: A colorful parrot perched on top of a tall, brightly colored flower. 
         The parrot is positioned towards the center of the scene, with its vibrant colors contrasting beautifully with the flower''s hues.
 
@@ -954,7 +954,7 @@
 
 -
 
-    init_img: flowedit_data/parrots.png
+    init_img: parrots.png
     source_prompt: Two colorful parrots sitting on a wooden stump or log. They are positioned close to each other, with one parrot on the left side and the other on the right side of the stump. The parrot''s wings have blue feathers and their body is yellow.
 
     target_prompts:
@@ -969,7 +969,7 @@
 
 -
     
-    init_img: flowedit_data/parrots2.png
+    init_img: parrots2.png
     source_prompt: Two colorful parrots perched on a rocky surface. The parrots are positioned close to each other, with one parrot on the left side and the other on the right side of the rock. The parrot colors are predominantly red.
 
     target_prompts:
@@ -980,7 +980,7 @@
 
 -
     
-    init_img: flowedit_data/penguins.png
+    init_img: penguins.png
     source_prompt: Two penguins standing in a lake. They are positioned close to each other, with one penguin on the left side and the other on the right side of the picture.
     
     target_prompts:
@@ -993,7 +993,7 @@
 
 -
     
-    init_img:  flowedit_data/piece_of_cake.png
+    init_img: piece_of_cake.png
     source_prompt: A delicious chocolate cake with chocolate frosting, sitting on a dining table.
       
     target_prompts:
@@ -1008,7 +1008,7 @@
 
 -
 
-    init_img:  flowedit_data/pizza.png
+    init_img: pizza.png
     source_prompt: A large, cheesy pizza sitting on a wooden pizza board.
 
     target_prompts:
@@ -1019,7 +1019,7 @@
 
 -
 
-    init_img:  flowedit_data/pizza_board.png
+    init_img: pizza_board.png
     source_prompt: A large pizza with cheese and bits of meat.
 
     target_prompts:
@@ -1034,7 +1034,7 @@
 
 -
 
-    init_img:  flowedit_data/pizza_slice.png
+    init_img: pizza_slice.png
     source_prompt: A pizza with thick crust, topped with graded cheese and basil.
 
     target_prompts:
@@ -1047,7 +1047,7 @@
 
 -
 
-    init_img:  flowedit_data/pizza_tomato_olive.png
+    init_img: pizza_tomato_olive.png
     source_prompt: A large pizza, topped with cheese, black olive, sliced tomatoes.
 
     target_prompts:
@@ -1060,7 +1060,7 @@
 
 -
 
-    init_img: flowedit_data/puppies.png
+    init_img: puppies.png
 
     source_prompt: Two adorable golden retriever puppies sitting in a grassy field. They are positioned close to each other, with one dog on the left and the other on the right. Both dogs have their mouths open, possibly panting.
 
@@ -1078,7 +1078,7 @@
 
 -
 
-    init_img:  flowedit_data/rabbit.png
+    init_img: rabbit.png
     source_prompt: A small brown and white rabbit sitting in a grassy field. The rabbit is surrounded by a variety of white flowers.
 
     target_prompts:
@@ -1093,20 +1093,20 @@
 
 -
 
-    init_img:  flowedit_data/rocks.png
+    init_img: rocks.png
     source_prompt: A stack of gray rocks, laying on top of each other on a brown and gray beach. 
         The rocks are arranged in a pyramid shape, creating an impressive and natural display. The brown and gray beach setting provides a serene and picturesque backdrop for this unique rock formation. 
 
     target_prompts:
      - A stack of colorful macarons, laying on top of each other on a brown and gray beach.The colorful macarons are arranged in a pyramid shape, creating an impressive display. 
-      The brown and gray beach setting provides a serene and picturesque backdrop for this unique colorful macarons formation on a brown and gray beach. 
+       The brown and gray beach setting provides a serene and picturesque backdrop for this unique colorful macarons formation on a brown and gray beach. 
      - A stack of oreo cookies, laying on top of each other on a brown and gray beach.
-      The oreo cookies are arranged in a pyramid shape, creating an impressive display. The brown and gray beach setting provides a serene and picturesque backdrop for this unique oreo cookies formation on a brown and gray beach. 
+       The oreo cookies are arranged in a pyramid shape, creating an impressive display. The brown and gray beach setting provides a serene and picturesque backdrop for this unique oreo cookies formation on a brown and gray beach. 
      - A tower on a brown and gray beach. The brown and gray beach setting provides a serene and picturesque backdrop for this tower.
      - A bonsai tree on a brown and gray beach. The brown and gray beach setting provides a serene and picturesque backdrop for this bonsai tree.  
      - A jenga tower game on a brown and gray beach. The brown and gray beach setting provides a serene and picturesque backdrop for this jenga tower.
      - A stack of colorful wooden blocks, laying on top of each other on a brown and gray beach. The colorful wooden blocks are arranged in a pyramid shape, creating an impressive
-      and natural display. The brown and gray beach setting provides a serene and picturesque backdrop for this unique colorful wooden blocks formation. 
+       and natural display. The brown and gray beach setting provides a serene and picturesque backdrop for this unique colorful wooden blocks formation. 
     
     target_codes:
      - 1_macarons
@@ -1118,7 +1118,7 @@
 
 - 
     
-    init_img : flowedit_data/rooster.png
+    init_img : rooster.png
     source_prompt: A large, colorful rooster standing on a tree branch. 
 
     target_prompts:
@@ -1131,7 +1131,7 @@
 
 -
 
-    init_img:  flowedit_data/sign.png
+    init_img: sign.png
     source_prompt: A large white billboard with a bold message written in black letters. The message reads, "LOVE IS ALL YOU NEED." The billboard is prominently displayed in the scene, capturing the viewer''s attention.
 
     target_prompts:
@@ -1148,7 +1148,7 @@
 
 -
 
-    init_img:  flowedit_data/steak.png
+    init_img: steak.png
     source_prompt: A steak accompanied by a side of leaf salad.
 
     target_prompts:
@@ -1173,7 +1173,7 @@
     
 -
 
-    init_img:  flowedit_data/steak_dinner.png
+    init_img: steak_dinner.png
     source_prompt: A delicious meal consisting of sliced steak, vegetables, and sauce.
 
     target_prompts:
@@ -1184,7 +1184,7 @@
 
 -
 
-    init_img:  flowedit_data/stop.png
+    init_img: stop.png
     source_prompt: A stop sign prominently placed in a field of yellow flowers.
 
     target_prompts:
@@ -1199,7 +1199,7 @@
 
 -
 
-    init_img:  flowedit_data/stop_arrow.png
+    init_img: stop_arrow.png
     source_prompt: A stop sign above a blue sign with arrow pointing up.
 
     target_prompts:
@@ -1220,7 +1220,7 @@
 
 -
     
-    init_img:  flowedit_data/stop_sticker.png
+    init_img: stop_sticker.png
     source_prompt: A STOP! sticker with a red and yellow color scheme which is placed on a white background. 
         
     target_prompts:
@@ -1235,7 +1235,7 @@
 
 -
 
-    init_img:  flowedit_data/this_must_be_the_place.png
+    init_img: this_must_be_the_place.png
     source_prompt: A large, colorful wall with a neon sign that reads "this must be the place."
 
     target_prompts:
@@ -1252,7 +1252,7 @@
 
 -
 
-    init_img:  flowedit_data/tiger.png
+    init_img: tiger.png
     source_prompt: A large tiger standing in a swamp. The tiger is positioned towards the left side of the scene, with its legs submerged in the water. The water is covered with green algae.
 
     target_prompts:
@@ -1267,7 +1267,7 @@
 
 -
 
-      init_img:  flowedit_data/tree_reflect.png
+      init_img: tree_reflect.png
       source_prompt: A lone tree standing in a field at night. The tree reflection can be seen in the water below it. The tree is surrounded by a serene and peaceful atmosphere, with the night sky serving as a beautiful backdrop.
 
       target_prompts:
@@ -1282,7 +1282,7 @@
 
 - 
 
-    init_img :  flowedit_data/wolf_silhouette.png
+    init_img :  wolf_silhouette.png
     source_prompt : A silhouette of a wolf standing on a rocky cliff, looking up at the moon. The wolf appears to be howling at the moon, creating a captivating scene. 
 
     target_prompts:
@@ -1297,7 +1297,7 @@
 
 -
 
-    init_img:  flowedit_data/yellow_bulldog.png
+    init_img: yellow_bulldog.png
     source_prompt: A small, yellow, shiny dog figurine positioned in the center of the scene, and it appears to be a decorative piece.
 
     target_prompts:

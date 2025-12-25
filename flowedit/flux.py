@@ -1,8 +1,11 @@
 from typing import Optional, Any
-from tqdm.auto import tqdm
 
 import numpy as np
+from tqdm.auto import tqdm
+from PIL import Image
+
 import torch
+import torchvision.transforms.functional as tf
 from diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion import retrieve_timesteps
 
 from .utils import scale_noise, calculate_shift
@@ -31,7 +34,7 @@ def calc_v_flux(pipe: Any,
     Returns:
         torch.Tensor: Vận tốc dự đoán
     """
-    timestep = t.expand(latents.shape[0])
+    timestep = t.expand(latents.shape[0]).to(latents.dtype)
 
     with torch.no_grad():
         vel_pred = pipe.transformer(
@@ -45,6 +48,7 @@ def calc_v_flux(pipe: Any,
             joint_attention_kwargs=None,
             return_dict=False,
         )[0]
+
     return vel_pred
 
 
@@ -54,6 +58,7 @@ def FlowEditFLUX(pipe: Any,
                  x_src: torch.Tensor,
                  src_prompt: str,
                  tar_prompt: str,
+                 mask_image: Image.Image = None,
                  T_steps: int = 28,
                  n_avg: int = 1,
                  src_guidance_scale: float = 1.5,
@@ -65,6 +70,28 @@ def FlowEditFLUX(pipe: Any,
     Logic tương tự SD3 nhưng xử lý thêm phần Packed Latents (nén không gian thành chuỗi)
     """
     device = x_src.device
+    dtype = x_src.dtype
+    
+    mask_packed = None
+    if mask_image is not None:
+        # Resize mask về kích thước latent (H/8, W/8)
+        h_lat, w_lat = x_src.shape[2], x_src.shape[3]
+        mask_resized = mask_image.resize((w_lat, h_lat), resample=Image.NEAREST)
+        
+        mask_tensor = tf.to_tensor(mask_resized).to(device) # [1, H, W]
+        mask_tensor = (mask_tensor > 0.5).float()
+        mask_tensor = mask_tensor.unsqueeze(0) # [1, 1, H, W]
+        
+        mask_expanded = mask_tensor.repeat(x_src.shape[0], num_channels_latents, 1, 1) # [B, 16, H, W]
+        
+        # Pack Mask: Biến đổi [B, C, H, W] -> [B, (H/2)*(W/2), C*4]
+        mask_packed = pipe._pack_latents(
+            mask_expanded, 
+            x_src.shape[0], 
+            num_channels_latents, 
+            h_lat, w_lat
+        )
+        mask_packed = mask_packed.to(dtype=dtype)
     
     # Tính kích thước gốc của ảnh
     orig_height = x_src.shape[2] * pipe.vae_scale_factor
@@ -77,7 +104,7 @@ def FlowEditFLUX(pipe: Any,
         num_channels_latents=num_channels_latents, 
         height=orig_height, 
         width=orig_width, 
-        dtype=x_src.dtype, 
+        dtype=dtype, 
         device=device, 
         generator=None, 
         latents=x_src
@@ -133,16 +160,18 @@ def FlowEditFLUX(pipe: Any,
         
         # Giai đoạn 1: Coupled Flow
         if T_steps - i > n_min:
-            V_delta_avg = torch.zeros_like(x_src_packed)
-            for k in range(n_avg):
-                fwd_noise = torch.randn_like(x_src_packed).to(device)
+            v_delta_avg = torch.zeros_like(x_src_packed)
+            for _ in range(n_avg):
+                noise = torch.randn_like(x_src).to(device, dtype=dtype)
                 
                 # Forward process
-                zt_src = (1 - t_i) * x_src_packed + (t_i) * fwd_noise
+                zt_src = (1 - t_i) * x_src_packed + (t_i) * noise
+                zt_src = zt_src.to(dtype=dtype)
+
                 zt_tar = zt_edit + zt_src - x_src_packed
                 
                 # Tính vận tốc cho Source và Target riêng biệt (FLUX không gộp batch như SD3)
-                Vt_src = calc_v_flux(
+                vt_src = calc_v_flux(
                     pipe, 
                     zt_src, 
                     src_prompt_embeds, 
@@ -152,7 +181,8 @@ def FlowEditFLUX(pipe: Any,
                     latent_src_image_ids, 
                     t
                 )
-                Vt_tar = calc_v_flux(
+
+                vt_tar = calc_v_flux(
                     pipe, 
                     zt_tar, 
                     tar_prompt_embeds, 
@@ -163,21 +193,27 @@ def FlowEditFLUX(pipe: Any,
                     t
                 )
                 
-                V_delta_avg += (1 / n_avg) * (Vt_tar - Vt_src)
+                v_delta_avg += (1 / n_avg) * (vt_tar - vt_src)
             
+            if mask_packed is not None:
+                v_delta_avg = v_delta_avg * mask_packed
+
             # Cập nhật Euler
             zt_edit = zt_edit.to(torch.float32)
-            zt_edit = zt_edit + (t_im1 - t_i) * V_delta_avg
-            zt_edit = zt_edit.to(V_delta_avg.dtype)
+            zt_edit = zt_edit + (t_im1 - t_i) * v_delta_avg
+            zt_edit = zt_edit.to(dtype=dtype)
         
         # Giai đoạn 2: Refinement
         else:
             if i == T_steps - n_min:
-                fwd_noise = torch.randn_like(x_src_packed).to(device)
-                xt_src = scale_noise(scheduler, x_src_packed, t, noise=fwd_noise)
+                noise = torch.randn_like(x_src_packed).to(device, dtype=dtype)
+
+                xt_src = scale_noise(scheduler, x_src_packed, t, noise=noise)
+                xt_src = xt_src.to(dtype=dtype)
+
                 xt_tar = zt_edit + xt_src - x_src_packed
             
-            Vt_tar = calc_v_flux(
+            vt_tar = calc_v_flux(
                 pipe, 
                 xt_tar, 
                 tar_prompt_embeds, 
@@ -187,13 +223,25 @@ def FlowEditFLUX(pipe: Any,
                 latent_tar_image_ids, 
                 t
             )
-            xt_tar = xt_tar + (t_im1 - t_i) * Vt_tar
-            
-            # Nếu là bước cuối, unpack latent ra dạng ảnh 2D để trả về
-            if i == len(timesteps) - 1: 
-                unpacked_out = pipe._unpack_latents(xt_tar, orig_height, orig_width, pipe.vae_scale_factor)
-                return unpacked_out
 
+            if mask_packed is not None:
+                vt_src = calc_v_flux(
+                    pipe, 
+                    xt_src, 
+                    src_prompt_embeds, 
+                    src_pooled_prompt_embeds,
+                    src_guidance, 
+                    src_text_ids, 
+                    latent_src_image_ids, 
+                    t
+                )
+                
+                vt_effective = mask_packed * vt_tar + (1 - mask_packed) * vt_src
+            else:
+                vt_effective = vt_tar
+
+            xt_tar = xt_tar + (t_im1 - t_i) * vt_effective
+            
     # Unpack kết quả cuối cùng
     out = zt_edit if n_min == 0 else xt_tar
     unpacked_out = pipe._unpack_latents(out, orig_height, orig_width, pipe.vae_scale_factor)

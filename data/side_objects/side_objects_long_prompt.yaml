@@ -1,0 +1,517 @@
+-
+    init_img: imagenet_ball.jpg
+
+    source_prompt: A Greater Swiss Mountain dog walking across a grassy field with a green metal fence running along the background. The dog is stepping past a red open-webbed ball lying on the ground near its hind legs. In its mouth, the dog firmly holds a bright lime green toy ball, which features a distinct geodesic or honeycomb lattice design with large hexagonal holes that contrast sharply against the dog's dark muzzle.
+
+    target_prompts:
+     - A Greater Swiss Mountain dog walking across a grassy field with a green metal fence running along the background. The dog is stepping past a red open-webbed ball lying on the ground near its hind legs. In its mouth, the dog firmly holds a bright blue toy ball, which features a distinct geodesic or honeycomb lattice design with large hexagonal holes that contrast sharply against the dog's dark muzzle.
+     - A Greater Swiss Mountain dog walking across a grassy field with a green metal fence running along the background. The dog is stepping past a red open-webbed ball lying on the ground near its hind legs. In its mouth, the dog firmly holds a bright red toy ball, which features a distinct geodesic or honeycomb lattice design with large hexagonal holes that contrast sharply against the dog's dark muzzle.
+     - A Greater Swiss Mountain dog walking across a grassy field with a green metal fence running along the background. The dog is stepping past a red open-webbed ball lying on the ground near its hind legs. In its mouth, the dog firmly holds a bright green tennis ball.
+ 
+    target_codes:
+     - 1_blue_ball
+     - 2_red_ball
+     - 3_tennis_ball
+
+-
+
+    init_img: imagenet_bottlecap.jpg
+    source_prompt: A tightly arranged collection of bottle caps, likely embedded in a table surface or display case, featuring rows of popular beer brands. The majority of the caps are silver and white "Michelob Ultra" caps with blue script, mixed with several navy blue "Corona Extra" caps featuring white lettering and a crown logo, as well as a single "Pepsi" cap in the top left corner. A single bright red "Budweiser" bottle cap is positioned prominently in the center of the arrangement.
+
+    target_prompts:
+     - A tightly arranged collection of bottle caps, likely embedded in a table surface or display case, featuring rows of popular beer brands. The majority of the caps are silver and white "Michelob Ultra" caps with blue script, mixed with several navy blue "Corona Extra" caps featuring white lettering and a crown logo, as well as a single "Pepsi" cap in the top left corner. A single black "Budweiser" bottle cap is positioned prominently in the center of the arrangement.
+     - A tightly arranged collection of bottle caps, likely embedded in a table surface or display case, featuring rows of popular beer brands. The majority of the caps are silver and white "Michelob Ultra" caps with blue script, mixed with several navy blue "Corona Extra" caps featuring white lettering and a crown logo, as well as a single "Pepsi" cap in the top left corner. A single white "Budweiser" bottle cap is positioned prominently in the center of the arrangement.
+     - A tightly arranged collection of bottle caps, likely embedded in a table surface or display case, featuring rows of popular beer brands. The majority of the caps are silver and white "Michelob Ultra" caps with blue script, mixed with several navy blue "Corona Extra" caps featuring white lettering and a crown logo, as well as a single "Pepsi" cap in the top left corner. A single bright blue "Budweiser" bottle cap is positioned prominently in the center of the arrangement.
+     - A tightly arranged collection of bottle caps, likely embedded in a table surface or display case, featuring rows of popular beer brands. The majority of the caps are silver and white "Michelob Ultra" caps with blue script, mixed with several navy blue "Corona Extra" caps featuring white lettering and a crown logo, as well as a single "Pepsi" cap in the top left corner. A single bright yellow "Budweiser" bottle cap is positioned prominently in the center of the arrangement.
+
+    target_codes:
+     - 1_black_bottlecap
+     - 2_white_bottlecap
+     - 3_blue_bottlecap
+     - 4_yellow_bottlecap
+
+-
+
+    init_img: imagenet_chicken.jpg
+    source_prompt: A man with gray hair and wearing a dark blue patterned short-sleeved shirt and black trousers is bending forward at the waist, appearing to inspect or interact with something on the ground while holding a white cloth or paper in his hand. Standing directly in front of him on the gray metal plating that covers the ground is a white rooster.
+
+    target_prompts:
+     - A man with gray hair and wearing a dark blue patterned short-sleeved shirt and black trousers is bending forward at the waist, appearing to inspect or interact with something on the ground while holding a white cloth or paper in his hand. Standing directly in front of him on the gray metal plating that covers the ground is a black rooster.
+     - A man with gray hair and wearing a dark blue patterned short-sleeved shirt and black trousers is bending forward at the waist, appearing to inspect or interact with something on the ground while holding a white cloth or paper in his hand. Standing directly in front of him on the gray metal plating that covers the ground is a white dog.
+     - A man with gray hair and wearing a dark blue patterned short-sleeved shirt and black trousers is bending forward at the waist, appearing to inspect or interact with something on the ground while holding a white cloth or paper in his hand. Standing directly in front of him on the gray metal plating that covers the ground is a white cat.
+
+    target_codes:
+     - 1_black_chicken
+     - 2_dog
+     - 3_cat
+
+-
+
+    init_img: imagenet_dog.jpg
+    source_prompt: A casual street scene in a residential neighborhood where a man with short buzzed hair is walking on the sidewalk. He is dressed in a black t-shirt, camouflage cargo shorts, and black sandals. He is looking down towards his pets while holding a dual leash in his left hand. Two small Chihuahuas are positioned on the grass strip between the sidewalk and the street, one is a light tan dog standing to the left, sniffing the grass, while the other is a brown and white dog standing slightly to the right, looking down at the ground near the curb.
+
+    target_prompts:
+     - A casual street scene in a residential neighborhood where a man with short buzzed hair is walking on the sidewalk. He is dressed in a black t-shirt, camouflage cargo shorts, and black sandals. He is looking down towards his pets while holding a dual leash in his left hand. Two small black dogs are positioned on the grass strip between the sidewalk and the street, one is a black dog standing to the left, sniffing the grass, while the other is a black dog standing slightly to the right, looking down at the ground near the curb.
+     - A casual street scene in a residential neighborhood where a man with short buzzed hair is walking on the sidewalk. He is dressed in a black t-shirt, camouflage cargo shorts, and black sandals. He is looking down towards his pets while holding a dual leash in his left hand. Two small Golden Retrievers are positioned on the grass strip between the sidewalk and the street, one is a brown dog standing to the left, sniffing the grass, while the other is a brown dog standing slightly to the right, looking down at the ground near the curb.
+     - A casual street scene in a residential neighborhood where a man with short buzzed hair is walking on the sidewalk. He is dressed in a black t-shirt, camouflage cargo shorts, and black sandals. He is looking down towards his pets while holding a dual leash in his left hand. Two small Huskies are positioned on the grass strip between the sidewalk and the street, one is a black and white dog standing to the left, sniffing the grass, while the other is a black and white dog standing slightly to the right, looking down at the ground near the curb.
+     - A casual street scene in a residential neighborhood where a man with short buzzed hair is walking on the sidewalk. He is dressed in a black t-shirt, camouflage cargo shorts, and black sandals. He is looking down towards his pets while holding a dual leash in his left hand. Two small red foxes are positioned on the grass strip between the sidewalk and the street, one is a red fox standing to the left, sniffing the grass, while the other is a red fox standing slightly to the right, looking down at the ground near the curb.
+     - A casual street scene in a residential neighborhood where a man with short buzzed hair is walking on the sidewalk. He is dressed in a black t-shirt, camouflage cargo shorts, and black sandals. He is looking down towards his pets while holding a dual leash in his left hand. Two small cats are positioned on the grass strip between the sidewalk and the street, one is a black cat standing to the left, sniffing the grass, while the other is a white cat standing slightly to the right, looking down at the ground near the curb.
+
+    target_codes:
+     - 1_black_dog
+     - 2_golden_retriever
+     - 3_husky
+     - 4_fox
+     - 5_cat
+    
+- 
+
+    init_img: imagenet_dog2.jpg
+    source_prompt: A sunny day outdoors in a grassy park area shaded by large trees with thick, textured trunks in the background. Several people are enjoying the weather, including a woman in a bright blue shirt standing on the left and a woman in a brown tank top and sunglasses on the right who is waving playfully at the camera. A large, silver-grey Weimaraner dog is positioned centrally in the foreground, standing in profile and facing towards the left and is wearing a black collar attached to a long red leash held by the woman on the right.
+
+    target_prompts:
+     - A sunny day outdoors in a grassy park area shaded by large trees with thick, textured trunks in the background. Several people are enjoying the weather, including a woman in a bright blue shirt standing on the left and a woman in a brown tank top and sunglasses on the right who is waving playfully at the camera. A large, white dog is positioned centrally in the foreground, standing in profile and facing towards the left and is wearing a black collar attached to a long red leash held by the woman on the right.
+     - A sunny day outdoors in a grassy park area shaded by large trees with thick, textured trunks in the background. Several people are enjoying the weather, including a woman in a bright blue shirt standing on the left and a woman in a brown tank top and sunglasses on the right who is waving playfully at the camera. A large, Golden Retriever is positioned centrally in the foreground, standing in profile and facing towards the left and is wearing a black collar attached to a long red leash held by the woman on the right.
+     - A sunny day outdoors in a grassy park area shaded by large trees with thick, textured trunks in the background. Several people are enjoying the weather, including a woman in a bright blue shirt standing on the left and a woman in a brown tank top and sunglasses on the right who is waving playfully at the camera. A large, black and white Husky is positioned centrally in the foreground, standing in profile and facing towards the left and is wearing a black collar attached to a long red leash held by the woman on the right.
+     - A sunny day outdoors in a grassy park area shaded by large trees with thick, textured trunks in the background. Several people are enjoying the weather, including a woman in a bright blue shirt standing on the left and a woman in a brown tank top and sunglasses on the right who is waving playfully at the camera. A large, black and white Dalmatian is positioned centrally in the foreground, standing in profile and facing towards the left and is wearing a black collar attached to a long red leash held by the woman on the right.
+     - A sunny day outdoors in a grassy park area shaded by large trees with thick, textured trunks in the background. Several people are enjoying the weather, including a woman in a bright blue shirt standing on the left and a woman in a brown tank top and sunglasses on the right who is waving playfully at the camera. A large, yellow cheetah is positioned centrally in the foreground, standing in profile and facing towards the left and is wearing a black collar attached to a long red leash held by the woman on the right.
+
+    target_codes:
+     - 1_white_dog
+     - 2_golden_retriever
+     - 3_husky
+     - 4_dalmatian
+     - 5_cheetah
+
+-
+
+    init_img: imagenet_fish.jpg
+    source_prompt: A man standing in the foreground, dressed in a grey tank top and blue jeans, who is proudly displaying his catch with both hands. The fish he is holding is a large, thick-bodied freshwater specimen, characterized by its smooth, olive-green to golden-bronze scales that glisten in the light, along with rounded dark fins and a small, reddish eye, positioned horizontally across the man's torso. 
+
+    target_prompts:
+     - A man standing in the foreground, dressed in a grey tank top and blue jeans, who is proudly displaying his catch with both hands. The fish he is holding is a large, thick-bodied freshwater specimen, characterized by its smooth, gleaming, pearlescent white body that glisten in the light, along with rounded dark fins and a small, reddish eye, positioned horizontally across the man's torso. 
+     - A man standing in the foreground, dressed in a grey tank top and blue jeans, who is proudly displaying his catch with both hands. The fish he is holding is a large, thick-bodied freshwater specimen, characterized by its smooth, vibrant, tangerine-orange or deep golden-yellow scales that glisten in the light, along with rounded dark fins and a small, reddish eye, positioned horizontally across the man's torso. 
+     
+    target_codes:
+     - 1_white_fish
+     - 2_orange_fish
+
+- 
+
+    init_img: imagenet_peanut.jpg
+    source_prompt: A close-up, eye-level view of a vibrant Blue Jay perched on the rim of a decorative white bird feeder, set against a smooth, out-of-focus green background that suggests a lush grassy lawn or garden. The bird is showcasing its characteristic plumage, with a bright blue crest and wings, a black "necklace" marking, and a clean white underbelly, while it stands alertly on the edge of the bowl. Firmly clamped in its black beak is a whole, tan-colored peanut in its shell, which the bird holds horizontally.
+
+    target_prompts:
+     - A close-up, eye-level view of a vibrant Blue Jay perched on the rim of a decorative white bird feeder, set against a smooth, out-of-focus green background that suggests a lush grassy lawn or garden. The bird is showcasing its characteristic plumage, with a bright blue crest and wings, a black "necklace" marking, and a clean white underbelly, while it stands alertly on the edge of the bowl. Firmly clamped in its black beak is a whole, bright red cherry, which the bird holds horizontally.
+     - A close-up, eye-level view of a vibrant Blue Jay perched on the rim of a decorative white bird feeder, set against a smooth, out-of-focus green background that suggests a lush grassy lawn or garden. The bird is showcasing its characteristic plumage, with a bright blue crest and wings, a black "necklace" marking, and a clean white underbelly, while it stands alertly on the edge of the bowl. Firmly clamped in its black beak is a whole worm, which the bird holds horizontally.
+     - A close-up, eye-level view of a vibrant Blue Jay perched on the rim of a decorative white bird feeder, set against a smooth, out-of-focus green background that suggests a lush grassy lawn or garden. The bird is showcasing its characteristic plumage, with a bright blue crest and wings, a black "necklace" marking, and a clean white underbelly, while it stands alertly on the edge of the bowl. Firmly clamped in its black beak is a whole, green mantis, which the bird holds horizontally.
+     - A close-up, eye-level view of a vibrant Blue Jay perched on the rim of a decorative white bird feeder, set against a smooth, out-of-focus green background that suggests a lush grassy lawn or garden. The bird is showcasing its characteristic plumage, with a bright blue crest and wings, a black "necklace" marking, and a clean white underbelly, while it stands alertly on the edge of the bowl. Firmly clamped in its black beak is a whole, black and red ladybug, which the bird holds horizontally.
+
+    target_codes:
+     - 1_cherry
+     - 2_worm
+     - 3_mantis
+     - 4_ladybug
+
+-
+    init_img: imagenet_rabbit.jpg
+    source_prompt: A scene at an animal exhibition or fair, likely held inside a barn or pavilion characterized by wooden framing and railings in the background, where several spectators, including a man in a blue shirt and cap on the left and a woman in a light blue shirt in the center, are leaning in to observe the animals. A large, impressive brown rabbit is positioned on the left side of the table, resting comfortably within a wooden judging compartment.
+
+    target_prompts:
+    - A scene at an animal exhibition or fair, likely held inside a barn or pavilion characterized by wooden framing and railings in the background, where several spectators, including a man in a blue shirt and cap on the left and a woman in a light blue shirt in the center, are leaning in to observe the animals. A large, impressive black rabbit is positioned on the left side of the table, resting comfortably within a wooden judging compartment.
+    - A scene at an animal exhibition or fair, likely held inside a barn or pavilion characterized by wooden framing and railings in the background, where several spectators, including a man in a blue shirt and cap on the left and a woman in a light blue shirt in the center, are leaning in to observe the animals. A large, impressive white rabbit is positioned on the left side of the table, resting comfortably within a wooden judging compartment.
+    - A scene at an animal exhibition or fair, likely held inside a barn or pavilion characterized by wooden framing and railings in the background, where several spectators, including a man in a blue shirt and cap on the left and a woman in a light blue shirt in the center, are leaning in to observe the animals. A large, impressive brown puppy is positioned on the left side of the table, resting comfortably within a wooden judging compartment.
+
+    target_codes:
+    - 1_black_rabbit
+    - 2_white_rabbit
+    - 3_puppy
+
+-
+
+    init_img: imagenet_redcontainer.jpg
+    source_prompt: A close-up, straight-on view of stacked shipping containers on the deck of a large green cargo vessel. The containers are arranged in dense vertical columns, predominantly featuring light teal or seafoam green "China Shipping" containers with white lettering. A bright red container is positioned prominently in the middle stack, serving as the top container of that particular column; its vivid red color and white vertical locking rods create a stark contrast against the surrounding sea of teal containers.
+
+    target_prompts:
+     - A close-up, straight-on view of stacked shipping containers on the deck of a large green cargo vessel. The containers are arranged in dense vertical columns, predominantly featuring light teal or seafoam green "China Shipping" containers with white lettering. A black container is positioned prominently in the middle stack, serving as the top container of that particular column; its black color and white vertical locking rods create a stark contrast against the surrounding sea of teal containers.
+     - A close-up, straight-on view of stacked shipping containers on the deck of a large green cargo vessel. The containers are arranged in dense vertical columns, predominantly featuring light teal or seafoam green "China Shipping" containers with white lettering. A bright green container is positioned prominently in the middle stack, serving as the top container of that particular column; its vivid green color and white vertical locking rods create a stark contrast against the surrounding sea of teal containers.
+     - A close-up, straight-on view of stacked shipping containers on the deck of a large green cargo vessel. The containers are arranged in dense vertical columns, predominantly featuring light teal or seafoam green "China Shipping" containers with white lettering. A bright white container is positioned prominently in the middle stack, serving as the top container of that particular column; its vivid white color and vertical locking rods create a stark contrast against the surrounding sea of teal containers.
+     - A close-up, straight-on view of stacked shipping containers on the deck of a large green cargo vessel. The containers are arranged in dense vertical columns, predominantly featuring light teal or seafoam green "China Shipping" containers with white lettering. A bright pink container is positioned prominently in the middle stack, serving as the top container of that particular column; its vivid pink color and white vertical locking rods create a stark contrast against the surrounding sea of teal containers.
+    
+    target_codes:
+     - 1_black_container
+     - 2_green_container
+     - 3_white_container
+     - 4_pink_container
+
+-
+
+    init_img: objects365_ball.jpg
+    source_prompt: An action-packed moment during a youth American football game played on a green artificial turf field, with a background featuring black metal bleachers and some greenery. Several players are engaged in the play; those in maroon jerseys with white numbers are blocking or tackling opponents wearing grey and black uniforms. A brown, ellipse-shaped American football is positioned in the foreground, hovering slightly above the yellow yard line on the turf; it appears to be mid-air after a fumble or bounce.
+
+    target_prompts:
+     - An action-packed moment during a youth American football game played on a green artificial turf field, with a background featuring black metal bleachers and some greenery. Several players are engaged in the play; those in maroon jerseys with white numbers are blocking or tackling opponents wearing grey and black uniforms. A black and white, round-shaped soccer ball is positioned in the foreground, hovering slightly above the yellow yard line on the turf; it appears to be mid-air after a fumble or bounce.
+     - An action-packed moment during a youth American football game played on a green artificial turf field, with a background featuring black metal bleachers and some greenery. Several players are engaged in the play; those in maroon jerseys with white numbers are blocking or tackling opponents wearing grey and black uniforms. A black, round-shaped bowling ball is positioned in the foreground, hovering slightly above the yellow yard line on the turf; it appears to be mid-air after a fumble or bounce.
+     - An action-packed moment during a youth American football game played on a green artificial turf field, with a background featuring black metal bleachers and some greenery. Several players are engaged in the play; those in maroon jerseys with white numbers are blocking or tackling opponents wearing grey and black uniforms. A green, round-shaped tennis ball is positioned in the foreground, hovering slightly above the yellow yard line on the turf; it appears to be mid-air after a fumble or bounce.
+     - An action-packed moment during a youth American football game played on a green artificial turf field, with a background featuring black metal bleachers and some greenery. Several players are engaged in the play; those in maroon jerseys with white numbers are blocking or tackling opponents wearing grey and black uniforms. A brown, round-shaped basketball is positioned in the foreground, hovering slightly above the yellow yard line on the turf; it appears to be mid-air after a fumble or bounce.
+     - An action-packed moment during a youth American football game played on a green artificial turf field, with a background featuring black metal bleachers and some greenery. Several players are engaged in the play; those in maroon jerseys with white numbers are blocking or tackling opponents wearing grey and black uniforms. A red, round-shaped toy ball is positioned in the foreground, hovering slightly above the yellow yard line on the turf; it appears to be mid-air after a fumble or bounce.
+
+    target_codes:
+     - 1_soccer
+     - 2_bowling
+     - 3_tennis
+     - 4_basket
+     - 5_red_toy
+
+-
+
+    init_img: objects365_dog.jpg
+    source_prompt: A lively scene in a grassy, fenced backyard on a sunny day, with a light gray shed featuring a window with blue shutters visible on the right and a wooden deck and neighboring house in the background. While several other dogs, including Collies and a black dog, wander near the fence and shed, the action focuses on a young man in a grey hoodie on the left who has just tossed a ball. A black and white Border Collie is positioned mid-air on the right side of the frame, captured in a dynamic, vertical leap; the dog wears a blue collar, and has its mouth open in eager anticipation as it reaches up to intercept the large white soccer ball floating in the air between it and the boy.
+
+    target_prompts:
+     - A lively scene in a grassy, fenced backyard on a sunny day, with a light gray shed featuring a window with blue shutters visible on the right and a wooden deck and neighboring house in the background. While several other dogs, including Collies and a black dog, wander near the fence and shed, the action focuses on a young man in a grey hoodie on the left who has just tossed a ball. A black and white Husky is positioned mid-air on the right side of the frame, captured in a dynamic, vertical leap; the dog wears a blue collar, and has its mouth open in eager anticipation as it reaches up to intercept the large white soccer ball floating in the air between it and the boy.
+     - A lively scene in a grassy, fenced backyard on a sunny day, with a light gray shed featuring a window with blue shutters visible on the right and a wooden deck and neighboring house in the background. While several other dogs, including Collies and a black dog, wander near the fence and shed, the action focuses on a young man in a grey hoodie on the left who has just tossed a ball. A Golden Retriever is positioned mid-air on the right side of the frame, captured in a dynamic, vertical leap; the dog wears a blue collar, and has its mouth open in eager anticipation as it reaches up to intercept the large white soccer ball floating in the air between it and the boy.
+     - A lively scene in a grassy, fenced backyard on a sunny day, with a light gray shed featuring a window with blue shutters visible on the right and a wooden deck and neighboring house in the background. While several other dogs, including Collies and a black dog, wander near the fence and shed, the action focuses on a young man in a grey hoodie on the left who has just tossed a ball. A black and white Dalmatian is positioned mid-air on the right side of the frame, captured in a dynamic, vertical leap; the dog wears a blue collar, and has its mouth open in eager anticipation as it reaches up to intercept the large white soccer ball floating in the air between it and the boy.
+     - A lively scene in a grassy, fenced backyard on a sunny day, with a light gray shed featuring a window with blue shutters visible on the right and a wooden deck and neighboring house in the background. While several other dogs, including Collies and a black dog, wander near the fence and shed, the action focuses on a young man in a grey hoodie on the left who has just tossed a ball. A brown dog is positioned mid-air on the right side of the frame, captured in a dynamic, vertical leap; the dog wears a blue collar, and has its mouth open in eager anticipation as it reaches up to intercept the large white soccer ball floating in the air between it and the boy.
+
+    target_codes:
+     - 1_husky
+     - 2_golden_retriever
+     - 3_dalmatian
+     - 4_brown_dog
+
+-
+    init_img: objects365_dog2.jpg
+    source_prompt: A candid moment on the sidewalk patio of a restaurant, where a man in a khaki t-shirt and a woman in a purple long-sleeved top are seated at a small black table, laughing together against a backdrop featuring a large window with dark green trim and a white brick wall. A small dog with a black and white spotted coat is positioned standing on the concrete ground in the foreground near the woman's feet.
+
+
+    target_prompts:
+     - A candid moment on the sidewalk patio of a restaurant, where a man in a khaki t-shirt and a woman in a purple long-sleeved top are seated at a small black table, laughing together against a backdrop featuring a large window with dark green trim and a white brick wall. A small Golden Retriever is positioned standing on the concrete ground in the foreground near the woman's feet.
+     - A candid moment on the sidewalk patio of a restaurant, where a man in a khaki t-shirt and a woman in a purple long-sleeved top are seated at a small black table, laughing together against a backdrop featuring a large window with dark green trim and a white brick wall. A small Husky with a black and white spotted coat is positioned standing on the concrete ground in the foreground near the woman's feet.
+     - A candid moment on the sidewalk patio of a restaurant, where a man in a khaki t-shirt and a woman in a purple long-sleeved top are seated at a small black table, laughing together against a backdrop featuring a large window with dark green trim and a white brick wall. A small brown dog is positioned standing on the concrete ground in the foreground near the woman's feet.
+     - A candid moment on the sidewalk patio of a restaurant, where a man in a khaki t-shirt and a woman in a purple long-sleeved top are seated at a small black table, laughing together against a backdrop featuring a large window with dark green trim and a white brick wall. A small cat with a black and white spotted coat is positioned standing on the concrete ground in the foreground near the woman's feet.
+    
+    target_codes:
+     - 1_golden_retriever
+     - 2_husky
+     - 3_brown_dog
+     - 4_cat
+
+-
+
+    init_img: objects365_dolphin.jpg
+    source_prompt: A serene, deep blue underwater environment teeming with life, where a massive school of small, silver fish fills the background, swimming in a dense, chaotic formation that reflects the filtered sunlight from above. Two dolphins are positioned prominently in the center of the frame, swimming gracefully in parallel towards the right; the upper dolphin is slightly ahead and higher, while the lower dolphin mirrors its path below, both showcasing their sleek, grey bodies and curved dorsal fins against the backdrop of the swirling fish school.
+
+    target_prompts:
+     - A serene, deep blue underwater environment teeming with life, where a massive school of small, silver fish fills the background, swimming in a dense, chaotic formation that reflects the filtered sunlight from above. Two sharks are positioned prominently in the center of the frame, swimming gracefully in parallel towards the right; the upper shark is slightly ahead and higher, while the lower shark mirrors its path below, both showcasing their sleek, grey bodies and curved dorsal fins against the backdrop of the swirling fish school.
+     - A serene, deep blue underwater environment teeming with life, where a massive school of small, silver fish fills the background, swimming in a dense, chaotic formation that reflects the filtered sunlight from above. Two whales are positioned prominently in the center of the frame, swimming gracefully in parallel towards the right; the upper whale is slightly ahead and higher, while the lower whale mirrors its path below, both showcasing their sleek, grey bodies and curved dorsal fins against the backdrop of the swirling fish school.
+     - A serene, deep blue underwater environment teeming with life, where a massive school of small, silver fish fills the background, swimming in a dense, chaotic formation that reflects the filtered sunlight from above. Two salmons are positioned prominently in the center of the frame, swimming gracefully in parallel towards the right; the upper salmon is slightly ahead and higher, while the lower salmon mirrors its path below, both showcasing their sleek, grey bodies and curved dorsal fins against the backdrop of the swirling fish school.
+
+    target_codes:
+     - 1_shark
+     - 2_whale
+     - 3_salmon
+
+-
+
+      init_img: objects365_elephant.jpg
+      source_prompt: An upper portion of a wooden bookcase filled with books, illuminated by a modern track lighting system attached to the white ceiling. A dark black elephant sculpture is positioned on the far right edge, standing prominently at the end of the row and facing towards the left.
+  
+      target_prompts:
+       - An upper portion of a wooden bookcase filled with books, illuminated by a modern track lighting system attached to the white ceiling. A dark black tiger sculpture is positioned on the far right edge, standing prominently at the end of the row and facing towards the left.
+       - An upper portion of a wooden bookcase filled with books, illuminated by a modern track lighting system attached to the white ceiling. A dark black wolf sculpture is positioned on the far right edge, standing prominently at the end of the row and facing towards the left.
+       - An upper portion of a wooden bookcase filled with books, illuminated by a modern track lighting system attached to the white ceiling. A dark black bear sculpture is positioned on the far right edge, standing prominently at the end of the row and facing towards the left.
+       - An upper portion of a wooden bookcase filled with books, illuminated by a modern track lighting system attached to the white ceiling. A dark black shark sculpture is positioned on the far right edge, standing prominently at the end of the row and facing towards the left.
+
+      target_codes:
+       - 1_tiger
+       - 2_wolf
+       - 3_bear
+       - 4_shark
+
+-
+
+    init_img: objects365_flower.jpg
+    source_prompt: Two men standing side-by-side, with the man on the left wearing a military camouflage uniform and the man on the right dressed in a dark suit with a red tie. A bright purple orchid corsage is positioned prominently on the left lapel of the man in the suit, pinned high on his chest and tied with a pink ribbon.
+
+    target_prompts:
+     - Two men standing side-by-side, with the man on the left wearing a military camouflage uniform and the man on the right dressed in a dark suit with a red tie. A bright red orchid corsage is positioned prominently on the left lapel of the man in the suit, pinned high on his chest and tied with a pink ribbon.
+     - Two men standing side-by-side, with the man on the left wearing a military camouflage uniform and the man on the right dressed in a dark suit with a red tie. A bright white orchid corsage is positioned prominently on the left lapel of the man in the suit, pinned high on his chest and tied with a pink ribbon.
+     - Two men standing side-by-side, with the man on the left wearing a military camouflage uniform and the man on the right dressed in a dark suit with a red tie. A bright yellow orchid corsage is positioned prominently on the left lapel of the man in the suit, pinned high on his chest and tied with a pink ribbon.
+  
+    target_codes:
+     - 1_red
+     - 2_white
+     - 3_yellow
+
+-
+
+    init_img: objects365_flower2.jpg
+    source_prompt: A young couple standing together inside a dimly lit concrete parking structure. A bouquet of white and cream-colored roses is positioned in the woman's left hand, held loosely at her side so that the flowers hang down near her leg.
+
+    target_prompts:
+       - A young couple standing together inside a dimly lit concrete parking structure. A bouquet of red and cream-colored roses is positioned in the woman's left hand, held loosely at her side so that the flowers hang down near her leg.
+       - A young couple standing together inside a dimly lit concrete parking structure. A bouquet of purple and cream-colored roses is positioned in the woman's left hand, held loosely at her side so that the flowers hang down near her leg.
+       - A young couple standing together inside a dimly lit concrete parking structure. A bouquet of yellow and cream-colored roses is positioned in the woman's left hand, held loosely at her side so that the flowers hang down near her leg.
+
+
+    target_codes:
+     - 1_red
+     - 2_purple
+     - 3_yellow
+
+-
+
+    init_img: objects365_horse.jpg
+    source_prompt: A horse race on a grassy track, with several jockeys urging their mounts forward towards the finish line. A striking white horse is positioned on the far left side of the pack.
+
+    target_prompts:
+     - A horse race on a grassy track, with several jockeys urging their mounts forward towards the finish line. A striking black horse is positioned on the far left side of the pack.
+
+    target_codes:
+     - 1_black
+
+-
+
+    init_img: objects365_horse2.jpg
+    source_prompt: An elevated viewing area overlooking a sandy equestrian arena, furnished with bright red ornate chairs and potted plants. A dark brownish-green grass horse sculpture is positioned on the right side of the foreground, standing in a bed of pine straw next to a row of hedges and the black metal railing.
+
+    target_prompts:
+     - An elevated viewing area overlooking a sandy equestrian arena, furnished with bright red ornate chairs and potted plants. A gold metal horse sculpture is positioned on the right side of the foreground, standing in a bed of pine straw next to a row of hedges and the black metal railing.
+     - An elevated viewing area overlooking a sandy equestrian arena, furnished with bright red ornate chairs and potted plants. A silver metal horse sculpture is positioned on the right side of the foreground, standing in a bed of pine straw next to a row of hedges and the black metal railing.
+     - An elevated viewing area overlooking a sandy equestrian arena, furnished with bright red ornate chairs and potted plants. A brown wood horse sculpture is positioned on the right side of the foreground, standing in a bed of pine straw next to a row of hedges and the black metal railing.
+
+    target_codes:
+     - 1_gold
+     - 2_silver
+     - 3_wood
+
+-
+    
+    init_img: objects365_lamp.jpg
+    source_prompt: A simple bedroom with white walls containing two single beds dressed in matching rustic, bear-themed quilts. A small white table lamp featuring a beige shade and dark base is positioned on the wooden nightstand, sitting centrally between the two beds against the back wall.
+
+    target_prompts:
+     - A simple bedroom with white walls containing two single beds dressed in matching rustic, bear-themed quilts. A small colorful table lamp featuring a beige shade and dark base is positioned on the wooden nightstand, sitting centrally between the two beds against the back wall.
+
+    target_codes:
+     - 1_colorful
+
+-
+    
+    init_img: objects365_mug.jpg
+    source_prompt: A small kitchen counter area featuring wooden cabinets, a stainless steel sink, and basic appliances. A bright red mug is positioned on top of the white microwave on the far left side of the counter, sitting next to a plastic utensil tray and standing out against the neutral beige wall.
+
+    target_prompts:
+     - A small kitchen counter area featuring wooden cabinets, a stainless steel sink, and basic appliances. A bright pink mug is positioned on top of the white microwave on the far left side of the counter, sitting next to a plastic utensil tray and standing out against the neutral beige wall.
+     - A small kitchen counter area featuring wooden cabinets, a stainless steel sink, and basic appliances. A bright red vase is positioned on top of the white microwave on the far left side of the counter, sitting next to a plastic utensil tray and standing out against the neutral beige wall.
+     - A small kitchen counter area featuring wooden cabinets, a stainless steel sink, and basic appliances. A bright red steel ball is positioned on top of the white microwave on the far left side of the counter, sitting next to a plastic utensil tray and standing out against the neutral beige wall.
+
+    target_codes:
+     - 1_pink
+     - 2_vase
+     - 3_steel_ball
+
+- 
+
+    init_img: objects365_orange.jpg
+    source_prompt: A candid moment of a woman with pinkish-red hair sitting at a round wooden table, eating eggs and toast with a glass of orange juice sits on the table.
+
+    target_prompts:
+     - A candid moment of a woman with pinkish-red hair sitting at a round wooden table, eating eggs and toast with a glass of water sits on the table.
+     - A candid moment of a woman with pinkish-red hair sitting at a round wooden table, eating eggs and toast with a glass of cocacola sits on the table.
+     - A candid moment of a woman with pinkish-red hair sitting at a round wooden table, eating eggs and toast with a glass of chocolate milk sits on the table.
+     - A candid moment of a woman with pinkish-red hair sitting at a round wooden table, eating eggs and toast with a glass of strawberry milk sits on the table.
+
+    target_codes:
+     - 1_water
+     - 2_cocacola
+     - 3_chocolate
+     - 4_strawberry
+
+-
+    
+    init_img: objects365_orangepillow.jpg
+    source_prompt: A relaxed domestic scene featuring a man working on a laptop on a black leather chaise lounge while a child plays beside him. A bright orange patterned pillow is positioned on the striped sofa to the right.
+    
+    target_prompts:
+     - A relaxed domestic scene featuring a man working on a laptop on a black leather chaise lounge while a child plays beside him. A bright pink patterned pillow is positioned on the striped sofa to the right.
+     - A relaxed domestic scene featuring a man working on a laptop on a black leather chaise lounge while a child plays beside him. A bright red patterned pillow is positioned on the striped sofa to the right.
+     - A relaxed domestic scene featuring a man working on a laptop on a black leather chaise lounge while a child plays beside him. A bright blue patterned pillow is positioned on the striped sofa to the right.
+     - A relaxed domestic scene featuring a man working on a laptop on a black leather chaise lounge while a child plays beside him. A bright white patterned pillow is positioned on the striped sofa to the right.
+
+    target_codes:
+     - 1_pink
+     - 2_red
+     - 3_blue
+     - 4_white
+   
+-
+   
+    init_img: objects365_purple_bottle.jpg
+    source_prompt: A white shelving unit organized with various materials, including large rolls of plastic film on the left and rows of aerosol cans on the right. The spray paint bottle with the purple cap is positioned on the middle shelf of the right-hand section, sitting second from the left in a row of color-coded cans, sandwiched between a beige can and a pink can.
+
+    target_prompts:
+     - A white shelving unit organized with various materials, including large rolls of plastic film on the left and rows of aerosol cans on the right. The spray paint bottle with the red cap is positioned on the middle shelf of the right-hand section, sitting second from the left in a row of color-coded cans, sandwiched between a beige can and a pink can.
+     - A white shelving unit organized with various materials, including large rolls of plastic film on the left and rows of aerosol cans on the right. The spray paint bottle with the gray cap is positioned on the middle shelf of the right-hand section, sitting second from the left in a row of color-coded cans, sandwiched between a beige can and a pink can.
+     - A white shelving unit organized with various materials, including large rolls of plastic film on the left and rows of aerosol cans on the right. The spray paint bottle with the black cap is positioned on the middle shelf of the right-hand section, sitting second from the left in a row of color-coded cans, sandwiched between a beige can and a pink can.
+
+    target_codes:
+     - 1_red
+     - 2_gray
+     - 3_black
+
+-
+
+    init_img: objects365_redhat.jpg
+    source_prompt: A breathtaking scenic view from a rocky mountain peak where hikers are taking a break overlooking a turquoise lake. The bright red hard helmet is positioned on the loose rocks in the foreground, resting directly next to an unfolded white map and near the head of the hiker lying closest to the camera.
+    
+    target_prompts:
+     - A breathtaking scenic view from a rocky mountain peak where hikers are taking a break overlooking a turquoise lake. The bright orange hard helmet is positioned on the loose rocks in the foreground, resting directly next to an unfolded white map and near the head of the hiker lying closest to the camera.
+     - A breathtaking scenic view from a rocky mountain peak where hikers are taking a break overlooking a turquoise lake. The bright white hard helmet is positioned on the loose rocks in the foreground, resting directly next to an unfolded white map and near the head of the hiker lying closest to the camera.
+     - A breathtaking scenic view from a rocky mountain peak where hikers are taking a break overlooking a turquoise lake. The bright blue hard helmet is positioned on the loose rocks in the foreground, resting directly next to an unfolded white map and near the head of the hiker lying closest to the camera.
+     - A breathtaking scenic view from a rocky mountain peak where hikers are taking a break overlooking a turquoise lake. The bright red bag is positioned on the loose rocks in the foreground, resting directly next to an unfolded white map and near the head of the hiker lying closest to the camera.
+    
+    target_codes:
+     - 1_orange
+     - 2_white
+     - 3_blue
+     - 4_bag
+
+-
+
+    init_img: objects365_redtowel.jpg
+    source_prompt: A well-organized closet with white bi-fold doors, featuring shelves stacked with linens and clothes above a set of drawers. The bright red folded towel is positioned on the second shelf from the top in the left-hand section, sitting prominently next to a stack of white items.
+    
+    target_prompts:
+     - A well-organized closet with white bi-fold doors, featuring shelves stacked with linens and clothes above a set of drawers. The bright blue folded towel is positioned on the second shelf from the top in the left-hand section, sitting prominently next to a stack of white items.
+     - A well-organized closet with white bi-fold doors, featuring shelves stacked with linens and clothes above a set of drawers. The bright orange folded towel is positioned on the second shelf from the top in the left-hand section, sitting prominently next to a stack of white items.
+
+    target_codes:
+     - 1_blue
+     - 2_orange
+ 
+-
+
+    init_img: objects365_remote.jpg
+
+    source_prompt: A neatly arranged living area with beige upholstered furniture and a view into a kitchen with light wood cabinets. The black television remote is positioned prominently on the dark wooden oval coffee table in the foreground, resting on a beige placemat to the left of a glass vase filled with bright yellow flowers.
+    
+    target_prompts:
+     - A neatly arranged living area with beige upholstered furniture and a view into a kitchen with light wood cabinets. The white television remote is positioned prominently on the dark wooden oval coffee table in the foreground, resting on a beige placemat to the left of a glass vase filled with bright yellow flowers.
+     - A neatly arranged living area with beige upholstered furniture and a view into a kitchen with light wood cabinets. The black television remote is positioned prominently on the dark wooden oval coffee table in the foreground, resting on a beige placemat to the left of a glass vase filled with bright red flowers.
+
+    target_codes:
+     - 1_white_remote
+     - 2_red_flower
+
+-
+
+    init_img: objects365_shoe.jpg
+    source_prompt: A group of American football players in black and yellow uniforms lining up on a green field. The bright red shoe are positioned on the feet of the quarterback standing independently on the right side of the frame.
+
+    target_prompts:
+     - A group of American football players in black and yellow uniforms lining up on a green field. The bright white shoe are positioned on the feet of the quarterback standing independently on the right side of the frame.
+     - A group of American football players in black and yellow uniforms lining up on a green field. The dark green shoe are positioned on the feet of the quarterback standing independently on the right side of the frame.
+     - A group of American football players in black and yellow uniforms lining up on a green field. The pink shoe are positioned on the feet of the quarterback standing independently on the right side of the frame.
+     - A group of American football players in black and yellow uniforms lining up on a green field. The black shoe are positioned on the feet of the quarterback standing independently on the right side of the frame.
+    
+    target_codes:
+     - 1_white
+     - 2_green
+     - 3_pink
+     - 4_black
+
+- 
+
+    init_img: objects365_shoe2.jpg
+    source_prompt: A baseball batter in a maroon jersey and white pants in the middle of a powerful swing. The black shoe is positioned on his rear left foot, which is pivoted up on its toe against the dirt, while the matching black shoe on his right foot is planted firmly on the ground to support his stance.
+
+    target_prompts:
+     - A baseball batter in a maroon jersey and white pants in the middle of a powerful swing. The red shoe is positioned on his rear left foot, which is pivoted up on its toe against the dirt, while the matching red shoe on his right foot is planted firmly on the ground to support his stance.
+     - A baseball batter in a maroon jersey and white pants in the middle of a powerful swing. The white shoe is positioned on his rear left foot, which is pivoted up on its toe against the dirt, while the matching white shoe on his right foot is planted firmly on the ground to support his stance.
+     - A baseball batter in a maroon jersey and white pants in the middle of a powerful swing. The pink shoe is positioned on his rear left foot, which is pivoted up on its toe against the dirt, while the matching pink shoe on his right foot is planted firmly on the ground to support his stance.
+     - A baseball batter in a maroon jersey and white pants in the middle of a powerful swing. The white shoe is positioned on his rear left foot, which is pivoted up on its toe against the dirt, while the black shoe on his right foot is planted firmly on the ground to support his stance.
+     - A baseball batter in a maroon jersey and white pants in the middle of a powerful swing. The red shoe is positioned on his rear left foot, which is pivoted up on its toe against the dirt, while the black shoe on his right foot is planted firmly on the ground to support his stance.
+     - A baseball batter in a maroon jersey and white pants in the middle of a powerful swing. The black shoe is positioned on his rear left foot, which is pivoted up on its toe against the dirt, while the pink shoe on his right foot is planted firmly on the ground to support his stance.
+     - A baseball batter in a maroon jersey and white pants in the middle of a powerful swing. The red shoe is positioned on his rear left foot, which is pivoted up on its toe against the dirt, while the white shoe on his right foot is planted firmly on the ground to support his stance.
+
+    target_codes:
+     - 1_red_red
+     - 2_white_white
+     - 3_pink_pink
+     - 4_white_black
+     - 5_red_black
+     - 6_black_pink
+     - 7_red_white
+
+- 
+
+    init_img: objects365_shoe3.jpg
+    source_prompt: An intense action shot of two female basketball players on a hardwood court. While the defender wears red and white footwear, the bright white basketball shoe is positioned on the foot of the player in the light blue jersey on the left.
+    
+    target_prompts:
+     - An intense action shot of two female basketball players on a hardwood court. While the defender wears red and white footwear, the bright orange basketball shoe is positioned on the foot of the player in the light blue jersey on the left.
+     - An intense action shot of two female basketball players on a hardwood court. While the defender wears red and white footwear, the bright purple basketball shoe is positioned on the foot of the player in the light blue jersey on the left.
+     - An intense action shot of two female basketball players on a hardwood court. While the defender wears red and white footwear, the bright pink basketball shoe is positioned on the foot of the player in the light blue jersey on the left.
+     - An intense action shot of two female basketball players on a hardwood court. While the defender wears red and white footwear, the dark green basketball shoe is positioned on the foot of the player in the light blue jersey on the left.
+     - An intense action shot of two female basketball players on a hardwood court. While the defender wears red and white footwear, the black basketball shoe is positioned on the foot of the player in the light blue jersey on the left.
+
+    target_codes:
+     - 1_orange
+     - 2_purple
+     - 3_pink
+     - 4_green
+     - 5_black
+
+- 
+
+    init_img: objects365_shoe4.jpg
+
+    source_prompt: A baseball batter in a blue Duke jersey and white pants executing a swing. The black shoe is positioned on his rear left foot, which is pivoted up on its toe to generate power.
+
+    target_prompts:
+     - A baseball batter in a blue Duke jersey and white pants executing a swing. The white shoe is positioned on his rear left foot, which is pivoted up on its toe to generate power.
+     - A baseball batter in a blue Duke jersey and white pants executing a swing. The blue shoe is positioned on his rear left foot, which is pivoted up on its toe to generate power.
+     - A baseball batter in a blue Duke jersey and white pants executing a swing. The green shoe is positioned on his rear left foot, which is pivoted up on its toe to generate power.
+     - A baseball batter in a blue Duke jersey and white pants executing a swing. The red shoe is positioned on his rear left foot, which is pivoted up on its toe to generate power.
+
+    target_codes:
+     - 1_white
+     - 2_blue
+     - 3_green
+     - 4_red
+
+- 
+
+    init_img: objects365_shoe5.jpg 
+    source_prompt: Two male soccer players competing for the ball on a grassy field. While the player in white wears blue footwear, the bright neon green shoes are positioned on the feet of the player in the maroon jersey.
+
+    target_prompts:
+     - Two male soccer players competing for the ball on a grassy field. While the player in white wears blue footwear, the bright neon red shoes are positioned on the feet of the player in the maroon jersey.
+     - Two male soccer players competing for the ball on a grassy field. While the player in white wears blue footwear, the bright neon pink shoes are positioned on the feet of the player in the maroon jersey.
+     - Two male soccer players competing for the ball on a grassy field. While the player in white wears blue footwear, the bright neon purple shoes are positioned on the feet of the player in the maroon jersey.
+
+    target_codes:
+     - 1_red
+     - 2_pink
+     - 3_purple
+
+-
+
+    init_img: objects365_tower.jpg
+    source_prompt: A wide stone plaza filled with pedestrians walking between rows of green pine trees. A tall, beige multi-tiered pagoda tower is positioned centrally in the background, standing at the far end of the pathway and rising majestically above the surrounding trees and buildings.
+
+    target_prompts:
+     - A wide stone plaza filled with pedestrians walking between rows of green pine trees. A tall Rapunzel's tower is positioned centrally in the background, standing at the far end of the pathway and rising majestically above the surrounding trees and buildings.
+     - A wide stone plaza filled with pedestrians walking between rows of green pine trees. A tall Big Ben clock tower is positioned centrally in the background, standing at the far end of the pathway and rising majestically above the surrounding trees and buildings.
+     - A wide stone plaza filled with pedestrians walking between rows of green pine trees. A tall lighthouse is positioned centrally in the background, standing at the far end of the pathway and rising majestically above the surrounding trees and buildings.
+     - A wide stone plaza filled with pedestrians walking between rows of green pine trees. A tall obelisk is positioned centrally in the background, standing at the far end of the pathway and rising majestically above the surrounding trees and buildings.
+     - A wide stone plaza filled with pedestrians walking between rows of green pine trees. A tall rocket is positioned centrally in the background, standing at the far end of the pathway and rising majestically above the surrounding trees and buildings.
+
+    target_codes:
+     - 1_rapunzel
+     - 2_big_ben
+     - 3_lighthouse
+     - 4_obelisk
+     - 5_rocket
