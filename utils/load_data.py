@@ -1,152 +1,87 @@
-from typing import List, Union, Dict, Tuple
 import os
 import csv
-import yaml
-from io import BytesIO
-import requests
+from typing import Tuple, Optional
 from PIL import Image
+import torch
+import torchvision.transforms as T
 
+def load_data(image_dir: str, 
+              csv_path: str, 
+              image_name: str,
+              device: str = "cuda",
+              dtype: torch.dtype = torch.float16,
+              resize_size: int = 1024) -> Tuple[Optional[torch.Tensor], Optional[str], Optional[str]]:
+    """
+    Loads an image from a directory and retrieves its corresponding prompts from a CSV file
 
-def load_dataset_info(csv_path: str) -> List[str] | None:
-    """
-    Đọc file CSV và trả về danh sách toàn bộ tên ảnh (cột "name") trong CSV
-    """
-    if not os.path.exists(csv_path):
-        print(f"Error: Không tìm thấy file {csv_path}")
-        return None
+    Parameters:
+        image_dir: Path to the folder containing the images.
+        csv_path: Path to the CSV file. Expected columns: "name", "source_prompt", "target_prompts".
+        image_name: The filename of the image to load (including extension)
+        device: Device to put the tensor on ("cuda" or "cpu").
+        dtype: Data type of the tensor (float16 or float32).
+        resize_size: Size to resize image (default 1024 for SD3/Flux, use 512 for InstaFlow)
     
+    Returns:
+        Tuple[Image, str, str]: (image_object, source_prompt, target_prompt)
+    """
+    # Load Image
+    image_path = os.path.join(image_dir, image_name)
+    image_tensor = None
+    
+    if os.path.exists(image_path):
+        try:
+            pil_image = Image.open(image_path).convert("RGB")
+            
+            transforms = T.Compose([
+                T.Resize(resize_size, interpolation=T.InterpolationMode.LANCZOS),
+                T.CenterCrop(resize_size), 
+                T.ToTensor(),             
+                T.Normalize([0.5], [0.5])  
+            ])
+            
+            image_tensor = transforms(pil_image).unsqueeze(0)
+            image_tensor = image_tensor.to(device=device, dtype=dtype)
+            
+        except Exception as e:
+            print(f"Error loading/processing image file: {e}")
+            return None, None, None
+    else:
+        print(f"Error: Image not found at {image_path}")
+        return None, None, None
+
+    # Load Prompts from CSV
+    source_prompt = None
+    target_prompt = None
+    
+    if not os.path.exists(csv_path):
+        print(f"Error: CSV file not found at {csv_path}")
+        return image_tensor, None, None
+
     try:
         with open(csv_path, mode="r", encoding="utf-8") as f:
             reader = csv.DictReader(f)
-            # Chuẩn hóa tên cột
-            fieldnames = [name.strip() for name in reader.fieldnames]
+            reader.fieldnames = [name.strip() for name in reader.fieldnames]
             
-            # Đọc lại file với fieldnames đã chuẩn hóa
-            f.seek(0)
-            reader = csv.DictReader(f, fieldnames=fieldnames)
-            next(reader) # Bỏ qua header
-            
-            all_names = []
+            required_columns = {"name", "source_prompt", "target_prompts"}
+            if not required_columns.issubset(set(reader.fieldnames)):
+                print(f"Error: CSV missing columns. Found: {reader.fieldnames}")
+                return image_tensor, None, None
+
+            image_base_name = os.path.splitext(image_name)[0]
+            found = False
             for row in reader:
-                name = row.get("name", "").strip()
-                if name:
-                    all_names.append(name)
-            print(f"Thu được danh sách tên của {len(all_names)} ảnh")
-            return all_names
+                if row["name"].strip() == image_base_name:
+                    source_prompt = row["source_prompt"]
+                    target_prompt = row["target_prompts"]
+                    found = True
+                    break
+            
+            if not found:
+                print(f"Warning: Image base name '{image_base_name}' not found in CSV")
 
     except Exception as e:
         print(f"Error parsing CSV: {e}")
-    
-    return None
+        return image_tensor, None, None
 
-def load_prompt_info(yaml_path: str, 
-                     image_key: Union[str, List[str]], 
-                     tar_prompt_index: int = 0,
-                     take_all: bool = False) -> Union[Tuple[str | None, str | None], Dict[str, Dict[str, Dict[str, str]]] | None]:
-    """
-    Đọc file YAML
-    - Nếu take_all=False: Trả về (src_prompt, tgt_prompt, neg_prompt) của 1 ảnh dựa trên image_key và tar_prompt_index
-    - Nếu take_all=True: image_key là list tên ảnh. Trả về Dictionary cấu trúc:
-        {
-            "image_name": {
-                "target_code_1": {"source": src_prompt, "target": tgt_prompt_1},
-                "target_code_2": {"source": src_prompt, "target": tgt_prompt_2},
-                ...
-            },
-            ...
-        }
-    """
-    if not os.path.exists(yaml_path):
-        print(f"Error: Không tìm thấy file {yaml_path}")
-        return None
-
-    try:
-        with open(yaml_path, "r", encoding="utf-8") as f:
-            data = yaml.safe_load(f)
-            
-        if take_all: # Lấy tất cả thông tin
-            if isinstance(image_key, str):
-                target_keys = {image_key}
-            else:
-                target_keys = set(image_key) # Chuyển list thành set để tìm kiếm nhanh hơn
-            
-            result_dict = {}
-
-            for entry in data:
-                if not entry: 
-                    continue
-                
-                init_img_path = entry.get("init_img", "")
-                base_name = os.path.splitext(init_img_path)[0]
-                
-                # Chỉ xử lý nếu ảnh nằm trong danh sách yêu cầu
-                if base_name in target_keys:
-                    src_prompt = entry.get("source_prompt", "")
-                    tgt_prompts = entry.get("target_prompts", [])
-                    tgt_codes = entry.get("target_codes", [])
-
-                    # Kiểm tra dữ liệu khớp nhau
-                    if len(tgt_prompts) != len(tgt_codes):
-                        print(f"Warning: Số lượng target_prompts và target_codes không khớp cho ảnh '{base_name}'")
-                        tgt_prompts = tgt_prompts[:len(tgt_codes)]
-
-                    # Tạo dictionary mapping: Code -> {Source, Target}
-                    img_map = {}
-                    for code, tgt_p in zip(tgt_codes, tgt_prompts):
-                        img_map[code] = {
-                            "source": src_prompt,
-                            "target": tgt_p
-                        }
-                    
-                    result_dict[base_name] = img_map
-
-            print(f"Thu được source và target prompt cho {len(result_dict)} ảnh")
-            return result_dict
-
-        else: # Lấy 1 source prompt và 1 target prompt
-            if not isinstance(image_key, str):
-                print("Error: image_key phải là string khi take_all=False")
-                return None, None
-
-            for entry in data:
-                if not entry: 
-                    continue
-                
-                init_img_path = entry.get("init_img", "")
-                base_name = os.path.splitext(init_img_path)[0]
-                
-                if base_name == image_key:
-                    src_prompt = entry.get("source_prompt", "")
-                    tgt_prompts = entry.get("target_prompts", [])
-                    
-                    try:
-                        tgt_prompt = tgt_prompts[tar_prompt_index] if tgt_prompts else ""
-                    except IndexError:
-                        print(f"Error: Index {tar_prompt_index} vượt quá giới hạn cho ảnh '{image_key}'")
-                        return None, None
-                    
-                    return src_prompt, tgt_prompt
-
-    except Exception as e:
-        print(f"Error parsing YAML: {e}")
-
-    return None if take_all else (None, None, None)
-
-def load_image(path_or_url: str) -> Image.Image | None:
-    """
-    Hàm load ảnh từ đường dẫn hoặc URL
-    """
-    try:
-        if os.path.exists(path_or_url):
-            img = Image.open(path_or_url).convert("RGB")
-        else:
-            print(f"Downloading image from {path_or_url}...")
-            # Giả lập User-Agent để tránh bị chặn bởi một số server ảnh
-            headers = {"User-Agent": "Mozilla/5.0"} 
-            response = requests.get(path_or_url, headers=headers, stream=True)
-            response.raise_for_status()
-            img = Image.open(BytesIO(response.content)).convert("RGB")
-        return img
-    except Exception as e:
-        print(f"Error loading image: {e}")
-        return None
+    return image_tensor, source_prompt, target_prompt
