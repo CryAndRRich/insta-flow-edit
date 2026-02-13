@@ -2,7 +2,7 @@ from typing import Tuple, Optional
 import torch
 from tqdm.auto import tqdm
 from diffusers import StableDiffusionPipeline
-
+from .helper import lr_hump_tail_beta
 
 __SAMPLER__ = {}
 
@@ -320,4 +320,121 @@ class InstaFlowAlign(InstaFlowBase):
 
         with torch.no_grad():
             img = self.decode(x_t)
+        return img
+    
+
+@register_sampler(name="dvrf")
+class InstaDeltaVelFlow(InstaFlowBase):
+    def sample(self, 
+               src_img: torch.Tensor, 
+               src_prompt: str, 
+               tgt_prompt: str, 
+               neg_prompt: str = "",
+               steps: int = 50, 
+               eta: float = 1.0,
+               lr_max: float = 0.04,
+               tar_cfg_scale: float = 16.5,
+               src_cfg_scale: float = 6.0,
+               src_prompt_emb: Optional[torch.Tensor] = None, 
+               tgt_prompt_emb: Optional[torch.Tensor] = None,
+               neg_prompt_emb: Optional[torch.Tensor] = None) -> torch.Tensor:
+        """
+        Implementation of Delta Velocity Rectified Flow (DVRF) for InstaFlow
+        
+        Parameters:
+            src_img: Input source image tensor [1, 3, H, W]
+            src_prompt: Source prompt string
+            tgt_prompt: Target prompt string
+            neg_prompt: Negative prompt string
+            steps: Number of optimization steps
+            eta: Shift coefficient strength
+            lr_max: Maximum learning rate
+            tar_cfg_scale: Guidance for target
+            src_cfg_scale: Guidance for source
+            src_prompt_emb: Optional precomputed source prompt embeddings
+            tgt_prompt_emb: Optional precomputed target prompt embeddings
+        
+        Returns:
+            img: Edited output image tensor [1, 3, H, W]
+        """
+        # Prepare Embeddings
+        with torch.no_grad():
+            src_emb, src_neg = self.prepare_embed(src_prompt, neg_prompt, src_prompt_emb, neg_prompt_emb) 
+            tgt_emb, tgt_neg = self.prepare_embed(tgt_prompt, neg_prompt, tgt_prompt_emb, neg_prompt_emb)
+            
+            # Combine for efficient batch prediction: [Neg_Src, Pos_Src, Neg_Tar, Pos_Tar]
+            combined_embeds = torch.cat([src_neg, src_emb, tgt_neg, tgt_emb], dim=0)
+
+        # Encode Source Image
+        with torch.no_grad():
+            z_src = self.encode(src_img)
+
+        z_tgt = z_src.clone().detach().requires_grad_(True)
+
+        # Initialize Optimizer
+        optimizer = torch.optim.SGD([z_tgt], lr=lr_max)
+
+        # Setup Timesteps
+        timesteps = torch.linspace(1.0, 0.0, steps + 1)[:-1].to(self.device)
+        
+        # Dynamic LR parameters based on linear schedule
+        alpha_T_steps = (1.0 / steps) / 1.6 
+        alpha_max_dynamic = alpha_T_steps / 1.6 if alpha_T_steps > 0 else lr_max
+        beta_tail = alpha_T_steps / 4 if alpha_T_steps > 0 else lr_max / 4
+
+        pbar = tqdm(enumerate(timesteps), total=steps, desc="InstaFlow DVRF Optimization")
+        
+        for i, t in pbar:
+            t_curr = t 
+            
+            # Update Learning Rate
+            current_lr = 2.2 * lr_hump_tail_beta(i+1, steps + 28, alpha_max_dynamic, beta_tail, a=10, b=8)
+            optimizer.param_groups[0]["lr"] = current_lr
+            
+            # Shift coefficient (eta_i)
+            eta_i = eta * i / steps
+            
+            eps = torch.randn_like(z_src)
+            
+            # Forward Process (Construct noisy latents)
+            # Source Branch: qt = (1 - t) * z_src + t * eps
+            qt = (1 - t_curr) * z_src + t_curr * eps
+            
+            # Target Branch (with Shift): pt = (1 - t) * z_tgt + t * eps + eta_i * t * (z_tgt - z_src)
+            z_tgt_detached = z_tgt.detach()
+            shift_term = eta_i * t_curr * (z_tgt_detached - z_src)
+            pt = (1 - t_curr) * z_tgt_detached + t_curr * eps + shift_term
+
+            # Predict Velocities
+            with torch.inference_mode():
+                # Prepare batch: [qt, qt, pt, pt] corresponding to [Neg_Src, Pos_Src, Neg_Tar, Pos_Tar]
+                latent_input = torch.cat([qt, qt, pt, pt])
+                
+                # Run U-Net once
+                v_all = self.predict_vector(latent_input, t_curr, combined_embeds)
+                
+                # Split outputs
+                v_src_neg, v_src_cond, v_tar_neg, v_tar_cond = v_all.chunk(4)
+                
+                v_src = v_src_neg + src_cfg_scale * (v_src_cond - v_src_neg)
+                v_tar = v_tar_neg + tar_cfg_scale * (v_tar_cond - v_tar_neg)
+
+            # Calculate Gradient Approximation
+            # grad = (v_tar - v_src) + (1 - eta_i) * (z_tgt - z_src)
+            delta_v = v_tar - v_src
+            geometric_term = (1 - eta_i) * (z_tgt_detached - z_src)
+            grad = delta_v + geometric_term
+
+            # Manual Backward Pass
+            loss = (z_tgt * grad.detach()).sum()
+            
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            
+            pbar.set_postfix({"lr": f"{current_lr:.5f}", "eta": f"{eta_i:.2f}"})
+
+        with torch.no_grad():
+            img = self.decode(z_tgt.detach())
+            
         return img

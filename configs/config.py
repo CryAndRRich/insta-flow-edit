@@ -53,6 +53,32 @@ class Config:
                 "cfg_scale": 16.5,
                 "zeta": 0.01,
             }
+        },
+        "dvrf": {
+            "SD3": {
+                "model_key": "stabilityai/stable-diffusion-3-medium-diffusers",
+                "steps": 50,      
+                "eta": 1.0,          
+                "lr_max": 0.04,    
+                "tar_cfg_scale": 16.5,
+                "src_cfg_scale": 6.0,
+            },
+            "FLUX": {
+                "model_key": "black-forest-labs/FLUX.1-dev",
+                "steps": 50,
+                "eta": 1.0,
+                "lr_max": 0.04,
+                "tar_cfg_scale": 5.5,
+                "src_cfg_scale": 1.5,
+            },
+            "INSTAFLOW": {
+                "model_key": "XCLiu/2_rectified_flow_from_sd_1_5",
+                "steps": 50,
+                "eta": 1.0,
+                "lr_max": 0.04,
+                "tar_cfg_scale": 16.5,
+                "src_cfg_scale": 1.5,
+            }
         }
     }
 
