@@ -316,7 +316,6 @@ class FluxFlowEdit(FluxBase):
             sigmas=sigmas, 
             mu=mu
         )
-        self.scheduler.set_timesteps(NFE, device=self.device)
         
         device = self.device if not self.offload else "cuda"
         src_guidance = torch.tensor([src_cfg_scale], device=device).expand(z_src.shape[0])
@@ -403,7 +402,12 @@ class FluxFlowAlign(FluxBase):
             self.scheduler.config.max_shift
         )
         timesteps, _ = retrieve_timesteps(
-            self.scheduler, NFE, self.device, timesteps=None, sigmas=sigmas, mu=mu
+            self.scheduler, 
+            NFE, 
+            self.device, 
+            timesteps=None, 
+            sigmas=sigmas, 
+            mu=mu
         )
         
         device = self.device if not self.offload else "cuda"
@@ -500,7 +504,12 @@ class FluxDeltaVelFlow(FluxBase):
             self.scheduler.config.max_shift
         )
         timesteps, _ = retrieve_timesteps(
-            self.scheduler, steps, self.device, timesteps=None, sigmas=sigmas, mu=mu
+            self.scheduler, 
+            steps, 
+            self.device, 
+            timesteps=None, 
+            sigmas=sigmas, 
+            mu=mu
         )
         
         # Prepare Guidance Tensors

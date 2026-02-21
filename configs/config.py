@@ -35,21 +35,21 @@ class Config:
             "sd3": {
                 "model_key": "stabilityai/stable-diffusion-3-medium-diffusers",
                 "NFE": 50,
-                "n_start": 0,
+                "n_start": 17,
                 "cfg_scale": 7.0,
                 "zeta": 0.01,
             },
             "flux": {
                 "model_key": "black-forest-labs/FLUX.1-dev",
                 "NFE": 28,
-                "n_start": 0,
+                "n_start": 4,
                 "cfg_scale": 3.5,
                 "zeta": 0.01,
             },
             "instaflow": {
                 "model_key": "XCLiu/2_rectified_flow_from_sd_1_5",
                 "NFE": 25,
-                "n_start": 0,
+                "n_start": 4,
                 "cfg_scale": 16.5,
                 "zeta": 0.01,
             }
