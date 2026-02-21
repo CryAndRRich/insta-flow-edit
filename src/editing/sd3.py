@@ -45,7 +45,7 @@ class StableDiffusion3Base:
                 pass
 
         if self.offload:
-            pipe.enable_cpu_offload()
+            pipe.enable_model_cpu_offload()
 
         self.scheduler = pipe.scheduler
         
