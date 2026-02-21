@@ -34,7 +34,7 @@ class StableDiffusion3Base:
         self.offload = offload
 
         print(f"Loading SD3 Base from {model_key} (Offload: {offload})...")
-        pipe = StableDiffusion3Pipeline.from_pretrained(model_key, dtype=self.dtype)
+        pipe = StableDiffusion3Pipeline.from_pretrained(model_key, torch_dtype=self.dtype)
 
         if hasattr(pipe, "enable_vae_slicing"):
             pipe.enable_vae_slicing()
@@ -45,21 +45,27 @@ class StableDiffusion3Base:
                 pass
 
         if self.offload:
-            pipe.enable_sequential_cpu_offload()
+            pipe.enable_cpu_offload()
 
         self.scheduler = pipe.scheduler
         
-        # Tokenizers
         self.tokenizer_1 = pipe.tokenizer
         self.tokenizer_2 = pipe.tokenizer_2
         self.tokenizer_3 = pipe.tokenizer_3
         
-        # Models
         self.text_enc_1 = pipe.text_encoder
+        self.text_enc_1.eval()
+        self.text_enc_1.requires_grad_(False)
         self.text_enc_2 = pipe.text_encoder_2
+        self.text_enc_2.eval()
+        self.text_enc_2.requires_grad_(False)
         self.text_enc_3 = pipe.text_encoder_3
+        self.text_enc_3.eval()
+        self.text_enc_3.requires_grad_(False)
 
         self.vae = pipe.vae
+        self.vae.eval()
+        self.vae.requires_grad_(False)
         self.transformer = pipe.transformer
         self.transformer.eval()
         self.transformer.requires_grad_(False)

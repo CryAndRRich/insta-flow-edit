@@ -35,25 +35,27 @@ class InstaFlowBase:
 
         print(f"Loading InstaFlow Base from {model_key} (Offload: {offload})...")
         
-        pipe = StableDiffusionPipeline.from_pretrained(model_key, dtype=self.dtype)
+        pipe = StableDiffusionPipeline.from_pretrained(model_key, torch_dtype=self.dtype)
         pipe.safety_checker = None
 
         if self.offload:
             pipe.enable_model_cpu_offload()
         
-        self.vae = pipe.vae
-        self.tokenizer = pipe.tokenizer
-        self.text_encoder = pipe.text_encoder
-        self.unet = pipe.unet
         self.scheduler = pipe.scheduler
-        
-        self.unet.eval()
-        self.unet.requires_grad_(False)
+
+        self.vae = pipe.vae
         self.vae.eval()
         self.vae.requires_grad_(False)
+        
+        self.tokenizer = pipe.tokenizer
+        self.text_encoder = pipe.text_encoder
         self.text_encoder.eval()
         self.text_encoder.requires_grad_(False)
-
+        
+        self.unet = pipe.unet
+        self.unet.eval()
+        self.unet.requires_grad_(False)
+        
         if not self.offload:
             self.vae.to(device)
             self.text_encoder.to(device)

@@ -46,12 +46,15 @@ class FluxBase:
                 bnb_4bit_compute_dtype=dtype
             )
             
+            transformer_device_map = "auto" if not offload else None
+            
             # Load Transformer (4-bit)
             transformer = FluxTransformer2DModel.from_pretrained(
                 model_key,
                 subfolder="transformer",
                 quantization_config=quant_config,
-                dtype=dtype
+                torch_dtype=dtype,
+                device_map=transformer_device_map 
             )
             
             # Load T5 Encoder (4-bit)
@@ -59,8 +62,8 @@ class FluxBase:
                 model_key,
                 subfolder="text_encoder_2",
                 quantization_config=quant_config,
-                dtype=dtype,
-                device_map=None # Let accelerate handle it or move manually later
+                torch_dtype=dtype,
+                device_map=transformer_device_map
             )
             
             # Initialize Pipeline
@@ -68,19 +71,25 @@ class FluxBase:
                 model_key,
                 transformer=transformer,
                 text_encoder_2=text_encoder_2,
-                dtype=dtype
+                torch_dtype=dtype
             )
         else:
             # Standard Load
-            pipe = FluxPipeline.from_pretrained(model_key, dtype=dtype)
+            pipe = FluxPipeline.from_pretrained(model_key, torch_dtype=dtype)
 
         # Enable VAE Slicing
         if hasattr(pipe, "enable_vae_slicing"):
             pipe.enable_vae_slicing()
 
-        # CPU Offload
+        # Device Management
         if self.offload:
-            pipe.enable_sequential_cpu_offload()
+            pipe.enable_model_cpu_offload() 
+        else:
+            if not quantize_4bit:
+                pipe.to(device)
+            else:
+                pipe.text_encoder.to(device)
+                pipe.vae.to(device)
 
         self.scheduler = pipe.scheduler
 
@@ -88,23 +97,19 @@ class FluxBase:
         self.tokenizer_2 = pipe.tokenizer_2
 
         self.text_encoder = pipe.text_encoder
+        self.text_encoder.eval()
+        self.text_encoder.requires_grad_(False)
         self.text_encoder_2 = pipe.text_encoder_2
-
+        self.text_encoder_2.eval()
+        self.text_encoder_2.requires_grad_(False)
+        
         self.vae = pipe.vae
+        self.vae.eval()
+        self.vae.requires_grad_(False)
         self.transformer = pipe.transformer
         self.transformer.eval()
         self.transformer.requires_grad_(False)
-        
-        if not self.offload and not quantize_4bit:
-            self.transformer.to(device)
-            self.text_encoder.to(device)
-            self.text_encoder_2.to(device)
-            self.vae.to(device)
-        elif not self.offload and quantize_4bit:
-            self.text_encoder.to(device)
-            self.vae.to(device) 
 
-        
         self.vae_scale_factor = pipe.vae_scale_factor
         
         del pipe
