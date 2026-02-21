@@ -107,12 +107,14 @@ class Config:
         self.OUTPUT_DIR = path
 
     @classmethod
-    def get_params(self, algorithm: str, model_name: str) -> Optional[Dict[str, Any]]:
+    def get_params(self, 
+                   algorithm: str, 
+                   model_name: str) -> Optional[Dict[str, Any]]:
         """
         Retrieves the full dictionary of parameters for a specific algorithm and model
         """
         algo_key = algorithm.lower()
-        model_key = model_name.upper()
+        model_key = model_name.lower()
         
         algo_params = self.MODEL_PARAMS.get(algo_key)
         if algo_params:
@@ -139,7 +141,7 @@ class Config:
             bool: True if updated successfully, False if model/algo not found
         """
         algo_key = algorithm.lower()
-        model_key = model_name.upper()
+        model_key = model_name.lower()
 
         if algo_key in self.MODEL_PARAMS and model_key in self.MODEL_PARAMS[algo_key]:
             self.MODEL_PARAMS[algo_key][model_key][param_key] = value
@@ -155,7 +157,7 @@ class Config:
         Gets a single value of a specific parameter
         """
         algo_key = algorithm.lower()
-        model_key = model_name.upper()
+        model_key = model_name.lower()
         
         if algo_key in self.MODEL_PARAMS and model_key in self.MODEL_PARAMS[algo_key]:
             return self.MODEL_PARAMS[algo_key][model_key].get(param_key)
