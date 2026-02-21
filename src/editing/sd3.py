@@ -34,7 +34,7 @@ class StableDiffusion3Base:
         self.offload = offload
 
         print(f"Loading SD3 Base from {model_key} (Offload: {offload})...")
-        pipe = StableDiffusion3Pipeline.from_pretrained(model_key, torch_dtype=self.dtype)
+        pipe = StableDiffusion3Pipeline.from_pretrained(model_key, dtype=self.dtype)
 
         if hasattr(pipe, "enable_vae_slicing"):
             pipe.enable_vae_slicing()

@@ -35,7 +35,7 @@ class InstaFlowBase:
 
         print(f"Loading InstaFlow Base from {model_key} (Offload: {offload})...")
         
-        pipe = StableDiffusionPipeline.from_pretrained(model_key, torch_dtype=self.dtype)
+        pipe = StableDiffusionPipeline.from_pretrained(model_key, dtype=self.dtype)
         pipe.safety_checker = None
 
         if self.offload:

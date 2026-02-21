@@ -9,44 +9,44 @@ class Config:
 
     MODEL_PARAMS: Dict[str, Dict[str, Dict[str, Any]]] = {
         "flowedit": {
-            "SD3": {
+            "sd3": {
                 "model_key": "stabilityai/stable-diffusion-3-medium-diffusers",
                 "NFE": 50,
-                "n_start": 0,
+                "n_start": 17,
                 "tar_cfg_scale": 13.5,
                 "src_cfg_scale": 3.5,
             },
-            "FLUX": {
+            "flux": {
                 "model_key": "black-forest-labs/FLUX.1-dev",
                 "NFE": 28,
-                "n_start": 0,
+                "n_start": 4,
                 "tar_cfg_scale": 5.5,
                 "src_cfg_scale": 1.5,
             },
-            "INSTAFLOW": {
+            "instaflow": {
                 "model_key": "XCLiu/2_rectified_flow_from_sd_1_5",
                 "NFE": 25,
-                "n_start": 0,
+                "n_start": 4,
                 "tar_cfg_scale": 16.5,
                 "src_cfg_scale": 1.5,
             }
         },
         "flowalign": {
-            "SD3": {
+            "sd3": {
                 "model_key": "stabilityai/stable-diffusion-3-medium-diffusers",
                 "NFE": 50,
                 "n_start": 0,
                 "cfg_scale": 7.0,
                 "zeta": 0.01,
             },
-            "FLUX": {
+            "flux": {
                 "model_key": "black-forest-labs/FLUX.1-dev",
                 "NFE": 28,
                 "n_start": 0,
                 "cfg_scale": 3.5,
                 "zeta": 0.01,
             },
-            "INSTAFLOW": {
+            "instaflow": {
                 "model_key": "XCLiu/2_rectified_flow_from_sd_1_5",
                 "NFE": 25,
                 "n_start": 0,
@@ -55,7 +55,7 @@ class Config:
             }
         },
         "dvrf": {
-            "SD3": {
+            "sd3": {
                 "model_key": "stabilityai/stable-diffusion-3-medium-diffusers",
                 "steps": 50,      
                 "eta": 1.0,          
@@ -63,7 +63,7 @@ class Config:
                 "tar_cfg_scale": 16.5,
                 "src_cfg_scale": 6.0,
             },
-            "FLUX": {
+            "flux": {
                 "model_key": "black-forest-labs/FLUX.1-dev",
                 "steps": 50,
                 "eta": 1.0,
@@ -71,7 +71,7 @@ class Config:
                 "tar_cfg_scale": 5.5,
                 "src_cfg_scale": 1.5,
             },
-            "INSTAFLOW": {
+            "instaflow": {
                 "model_key": "XCLiu/2_rectified_flow_from_sd_1_5",
                 "steps": 50,
                 "eta": 1.0,
@@ -131,7 +131,7 @@ class Config:
         
         Parameters:
             algorithm: "flowedit" or "flowalign"
-            model_name: "SD3", "FLUX", or "INSTAFLOW"
+            model_name: "sd3", "flux", or "instaflow"
             param_key: The specific parameter to change (e.g., "NFE", "cfg_scale")
             value: The new value
             
