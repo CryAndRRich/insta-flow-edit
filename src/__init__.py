@@ -3,7 +3,7 @@ from .base.sd3 import get_sd3_sampler
 from .base.instaflow import get_instaflow_sampler
 
 # Import all method packages to trigger @register_sampler decorators
-from . import flowedit, flowalign, dvrf, fireflow, uniedit, flowchef
+from . import flowedit, flowalign, dvrf, fireflow, uniedit, flowchef, veloedit, flowslider, tweezeedit, chordedit, cvc
 
 
 def get_sampler(sampler_name: str,

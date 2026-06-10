@@ -9,11 +9,6 @@ from ..base.helper import calculate_shift
 
 @register_sampler(name="fireflow")
 class FluxFireFlow(FluxBase):
-    """
-    FireFlow for FLUX (arXiv:2412.07517): fast image editing via modified midpoint
-    ODE solver with self-attention Value-feature injection.
-    """
-
     _INJ_START = 20
     _INJ_END   = 37
 
@@ -109,13 +104,12 @@ class FluxFireFlow(FluxBase):
 
         x_noise = x
 
-        # Phase 2: Denoising
+        # Phase 2: Denoising -- inject stored src V-features at every step
         x = x_noise
         hat_v = None
 
-        pbar = tqdm(enumerate(zip(ts_den[:-1], ts_den[1:])), total=N_steps, desc="FLUX FireFlow Denoising")
-        for i, (s_c, s_n) in pbar:
-            is_first = (i == 0)
+        pbar = tqdm(zip(ts_den[:-1], ts_den[1:]), total=N_steps, desc="FLUX FireFlow Denoising")
+        for s_c, s_n in pbar:
             dt = s_n - s_c
             s_m = s_c + dt / 2
             t_c = s_c.view(1)
@@ -123,14 +117,14 @@ class FluxFireFlow(FluxBase):
 
             if hat_v is None:
                 v = self._predict(x, t_c, tgt_emb, tgt_pool, tgt_txt, img_ids, g_tgt,
-                                  store=v_store if (is_first and v_store) else None,
+                                  store=v_store or None,
                                   mode='inject', is_midpoint=False)
             else:
                 v = hat_v
 
             x_mid = x + (dt / 2) * v
             v_mid = self._predict(x_mid, t_m, tgt_emb, tgt_pool, tgt_txt, img_ids, g_tgt,
-                                  store=v_store if (is_first and v_store) else None,
+                                  store=v_store or None,
                                   mode='inject', is_midpoint=True)
             hat_v = v_mid
             x = x + dt * v_mid

@@ -6,11 +6,6 @@ from ..base.sd3 import StableDiffusion3Base, register_sampler
 
 @register_sampler(name="fireflow")
 class SD3FireFlow(StableDiffusion3Base):
-    """
-    FireFlow for SD3 (arXiv:2412.07517): modified midpoint ODE inversion + editing
-    with self-attention Value-feature injection into the last 12 transformer blocks.
-    """
-
     _INJ_START = 12
     _INJ_END   = 23
 
@@ -102,22 +97,20 @@ class SD3FireFlow(StableDiffusion3Base):
 
         x_noise = x
 
-        # Phase 2: Denoising
+        # Phase 2: Denoising -- inject stored src V-features at every step
         x = x_noise
         hat_v = None
 
-        pbar = tqdm(enumerate(zip(ts_den[:-1], ts_den[1:])), total=N_steps, desc="SD3 FireFlow Denoising")
-        for i, (s_c, s_n) in pbar:
-            is_first = (i == 0)
+        pbar = tqdm(zip(ts_den[:-1], ts_den[1:]), total=N_steps, desc="SD3 FireFlow Denoising")
+        for s_c, s_n in pbar:
             dt = s_n - s_c
             s_m = s_c + dt / 2
             t_c = to_t(s_c)
             t_m = to_t(s_m)
 
             if hat_v is None:
-                use_store = v_store if (is_first and v_store) else None
                 v_cond = self._predict(x, t_c, tgt_emb, tgt_pool,
-                                       store=use_store, mode='inject', is_midpoint=False)
+                                       store=v_store or None, mode='inject', is_midpoint=False)
                 v_neg = self._predict(x, t_c, neg_emb, neg_pool)
                 v = v_neg + cfg_scale * (v_cond - v_neg)
             else:
@@ -125,9 +118,8 @@ class SD3FireFlow(StableDiffusion3Base):
 
             x_mid = x + (dt / 2) * v
 
-            use_store = v_store if (is_first and v_store) else None
             v_mid_cond = self._predict(x_mid, t_m, tgt_emb, tgt_pool,
-                                       store=use_store, mode='inject', is_midpoint=True)
+                                       store=v_store or None, mode='inject', is_midpoint=True)
             v_mid_neg = self._predict(x_mid, t_m, neg_emb, neg_pool)
             v_mid = v_mid_neg + cfg_scale * (v_mid_cond - v_mid_neg)
             hat_v = v_mid

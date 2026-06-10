@@ -41,6 +41,9 @@ class FluxFlowAlign(FluxBase):
         )
 
         device = self.device if not self.offload else "cuda"
+        # FLUX uses guidance distillation: pass cfg_scale directly to the transformer
+        # rather than computing an external CFG combination, matching the FlowEdit
+        # convention for FLUX in this codebase.
         tar_guidance = torch.tensor([cfg_scale], device=device).expand(z_src.shape[0])
         src_guidance = torch.tensor([1.0], device=device).expand(z_src.shape[0])
 
@@ -59,6 +62,10 @@ class FluxFlowAlign(FluxBase):
             pt = x_t + qt - z_src
 
             with torch.no_grad():
+                # For FLUX, guidance distillation is handled by the transformer
+                # internally via the guidance parameter. v_tar uses tar_guidance
+                # (cfg_scale) and v_src uses src_guidance (1.0), consistent with
+                # how FlowEdit is adapted for FLUX in this codebase.
                 v_tar = self.predict_vector(pt, t_tensor, tgt_emb, tgt_pool, tgt_txt_ids, img_ids, guidance=tar_guidance)
                 v_src = self.predict_vector(qt, t_tensor, src_emb, src_pool, src_txt_ids, img_ids, guidance=src_guidance)
 

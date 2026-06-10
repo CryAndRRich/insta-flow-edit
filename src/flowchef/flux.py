@@ -18,11 +18,6 @@ class FluxFlowChef(FluxBase):
                cfg_scale: float = 5.5,
                src_prompt_emb: Optional[Tuple] = None,
                tgt_prompt_emb: Optional[Tuple] = None) -> torch.Tensor:
-        """
-        FlowChef for FLUX (arXiv:2412.00100): steering rectified flow via
-        loss-based gradient guidance with gradient skipping.
-        Starts from pure noise — no inversion. CFG via FLUX guidance distillation.
-        """
         with torch.no_grad():
             tgt_emb, tgt_pool, tgt_txt_ids = self.prepare_embed(tgt_prompt, tgt_prompt_emb)
             z_src, img_ids, h_lat, w_lat = self.prepare_latents(src_img)

@@ -6,11 +6,6 @@ from ..base.instaflow import InstaFlowBase, register_sampler
 
 @register_sampler(name="fireflow")
 class InstaFlowFireFlow(InstaFlowBase):
-    """
-    FireFlow for InstaFlow (arXiv:2412.07517): modified midpoint ODE solver.
-    No V-feature injection (UNet architecture; injection validated on transformers only).
-    """
-
     def sample(self,
                src_img: torch.Tensor,
                src_prompt: str,
@@ -35,8 +30,8 @@ class InstaFlowFireFlow(InstaFlowBase):
         x = z_src.clone()
         hat_v = None
 
-        pbar = tqdm(enumerate(zip(ts_inv[:-1], ts_inv[1:])), total=N_steps, desc="InstaFlow FireFlow Inversion")
-        for i, (s_c, s_n) in pbar:
+        pbar = tqdm(zip(ts_inv[:-1], ts_inv[1:]), total=N_steps, desc="InstaFlow FireFlow Inversion")
+        for s_c, s_n in pbar:
             dt = s_n - s_c
             s_m = s_c + dt / 2
 
@@ -57,8 +52,8 @@ class InstaFlowFireFlow(InstaFlowBase):
         x = x_noise
         hat_v = None
 
-        pbar = tqdm(enumerate(zip(ts_den[:-1], ts_den[1:])), total=N_steps, desc="InstaFlow FireFlow Denoising")
-        for i, (s_c, s_n) in pbar:
+        pbar = tqdm(zip(ts_den[:-1], ts_den[1:]), total=N_steps, desc="InstaFlow FireFlow Denoising")
+        for s_c, s_n in pbar:
             dt = s_n - s_c
             s_m = s_c + dt / 2
 

@@ -1,4 +1,4 @@
-from typing import Tuple, Optional
+from typing import Optional
 import torch
 from tqdm.auto import tqdm
 from ..base.instaflow import InstaFlowBase, register_sampler

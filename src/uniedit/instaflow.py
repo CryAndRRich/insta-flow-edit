@@ -6,16 +6,10 @@ from ..base.instaflow import InstaFlowBase, register_sampler
 
 @register_sampler(name="uniedit")
 class InstaFlowUniEdit(InstaFlowBase):
-    """
-    UniEdit-Flow for InstaFlow (arXiv:2504.13109): Uni-Inv predictor-corrector
-    inversion + Uni-Edit region-adaptive velocity fusion.
-    Total NFE = 3·α·N + 1  (e.g. N=15, α=0.6 → 28 NFE).
-    """
-
     @staticmethod
     def _mask(v_diff: torch.Tensor) -> torch.Tensor:
-        """MinMaxNorm(ChannelMean(|v_diff|)) → spatial mask in [0,1], shape (B,1,H,W)."""
-        x = v_diff.abs().mean(dim=1, keepdim=True)
+        """MinMaxNorm(ChannelMean(v_diff)) -> spatial mask in [0,1], shape (B,1,H,W)."""
+        x = v_diff.mean(dim=1, keepdim=True)
         min_v = x.amin(dim=(-2, -1), keepdim=True)
         max_v = x.amax(dim=(-2, -1), keepdim=True)
         return (x - min_v) / (max_v - min_v + 1e-8)

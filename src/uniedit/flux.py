@@ -9,16 +9,10 @@ from ..base.helper import calculate_shift
 
 @register_sampler(name="uniedit")
 class FluxUniEditFlow(FluxBase):
-    """
-    UniEdit-Flow for FLUX (arXiv:2504.13109): Uni-Inv predictor-corrector inversion
-    + Uni-Edit region-adaptive velocity fusion.
-    Total NFE = 3·α·N + 1  (e.g. N=15, α=0.6 → 28 NFE).
-    """
-
     @staticmethod
     def _mask(v_diff: torch.Tensor) -> torch.Tensor:
-        """MinMaxNorm(ChannelMean(|v_diff|)) → sequence mask in [0,1], shape (B,L,1)."""
-        x = v_diff.abs().mean(dim=-1, keepdim=True)   # (B, L, 1)
+        """MinMaxNorm(ChannelMean(v_diff)) -> sequence mask in [0,1], shape (B,L,1)."""
+        x = v_diff.mean(dim=-1, keepdim=True)          # (B, L, 1)
         min_v = x.amin(dim=1, keepdim=True)            # (B, 1, 1)
         max_v = x.amax(dim=1, keepdim=True)
         return (x - min_v) / (max_v - min_v + 1e-8)

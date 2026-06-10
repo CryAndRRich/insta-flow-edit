@@ -1,4 +1,4 @@
-from typing import Tuple, Optional
+from typing import Optional
 import torch
 from tqdm.auto import tqdm
 from ..base.instaflow import InstaFlowBase, register_sampler
@@ -17,11 +17,6 @@ class InstaFlowChef(InstaFlowBase):
                src_prompt_emb: Optional[torch.Tensor] = None,
                tgt_prompt_emb: Optional[torch.Tensor] = None,
                neg_prompt_emb: Optional[torch.Tensor] = None) -> torch.Tensor:
-        """
-        FlowChef for InstaFlow (arXiv:2412.00100): steering rectified flow via
-        loss-based gradient guidance with gradient skipping.
-        Starts from pure noise — no inversion.
-        """
         with torch.no_grad():
             tgt_emb, tgt_neg = self.prepare_embed(tgt_prompt, neg_prompt, tgt_prompt_emb, neg_prompt_emb)
             combined_embeds = torch.cat([tgt_neg, tgt_emb], dim=0)

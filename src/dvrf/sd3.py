@@ -32,9 +32,7 @@ class SD3DeltaVelFlow(StableDiffusion3Base):
         self.scheduler.set_timesteps(steps, device=self.device)
         timesteps = self.scheduler.timesteps
 
-        t_start = timesteps[0].item() / 1000.0
-        t_end = timesteps[-1].item() / 1000.0
-        alpha_T_steps = (t_start - t_end) / steps / 1.6
+        alpha_T_steps = (timesteps[-2].item() / 1000.0 - timesteps[-1].item() / 1000.0) / 1.6
         alpha_max_dynamic = alpha_T_steps / 1.6 if alpha_T_steps > 0 else lr_max
         beta_tail = alpha_T_steps / 4 if alpha_T_steps > 0 else lr_max / 4
 
